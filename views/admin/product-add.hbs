@@ -1,0 +1,624 @@
+<!DOCTYPE HTML>
+<html lang="en">
+
+
+<!-- Mirrored from wp.alithemes.com/html/evara/evara-backend/page-form-product-1.html by HTTrack Website Copier/3.x [XR&CO'2014], Sun, 01 Aug 2021 15:33:31 GMT -->
+<head>
+    <meta charset="utf-8">
+    <title>Evara Dashboard</title>
+    <meta http-equiv="x-ua-compatible" content="ie=edge">
+    <meta name="description" content="">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta property="og:title" content="">
+    <meta property="og:type" content="">
+    <meta property="og:url" content="">
+    <meta property="og:image" content="">
+    <!-- Favicon -->
+    <link rel="shortcut icon" type="image/x-icon" href="assets/imgs/theme/favicon.svg">
+    <!-- Template CSS -->
+    <link href="assets/css/main.css" rel="stylesheet" type="text/css" />
+
+    <style>
+
+        #colors, #sizes {
+            border: 1px solid #ccc;
+            padding: 10px;
+            margin-bottom: 15px;
+            border-radius: 5px;
+        }
+        .color-circle {
+            width: 25px;
+            height: 25px;
+            border-radius: 50%;
+            display: inline-block;
+            margin: 5px;
+            cursor: pointer;
+            position: relative;
+        }
+
+        .dot {
+            position: absolute;
+            width: 10px;
+            height: 10px;
+            border-radius: 50%;
+            background-color: #efe6e6; 
+            top: 0;
+            right: 0;
+            display: none;
+        }
+
+        .selected .dot {
+            display: block;
+        }
+        
+        .size-checkbox {
+            display: inline-block;
+            margin: 5px;
+        }
+
+        .size-checkbox input[type="checkbox"] {
+            display: none;
+        }
+
+        .size-checkbox label {
+            display: inline-block;
+            width: 25px;
+            height: 25px;
+            border: 2px solid black;
+            border-radius: 5px; 
+            text-align: center;
+            line-height: 26px;
+            cursor: pointer;
+        }
+
+        .size-checkbox input[type="checkbox"]:checked + label {
+            background-color: black;
+            color:#ccc
+        }
+
+    </style>
+</head>
+
+<body>
+    <div class="screen-overlay"></div>
+    {{!-- Menu left --}}
+    <aside class="navbar-aside" id="offcanvas_aside">
+        <div class="aside-top">
+            <a href="index.html" class="brand-wrap">
+                <img src="assets/imgs/theme/logo.svg" class="logo" alt="Evara Dashboard">
+            </a>
+            <div>
+                <button class="btn btn-icon btn-aside-minimize"> <i class="text-muted material-icons md-menu_open"></i> </button>
+            </div>
+        </div>
+        <nav>
+            <ul class="menu-aside">
+                <li class="menu-item">
+                    <a class="menu-link" href="../admin/home"> <i class="icon material-icons md-home"></i>
+                        <span class="text">Dashboard</span>
+                    </a>
+                </li>
+                <li class="menu-item">
+                    <a class="menu-link" href="../admin/users"> <i class="icon material-icons md-person"></i>
+                        <span class="text">users</span>
+                    </a>
+                </li>
+                <li class="menu-item">
+                    <a class="menu-link" href="../admin/categories"> <i class="icon material-icons md-store"></i>
+                        <span class="text">Categories</span>
+                    </a>
+                </li>
+                <li class="menu-item">
+                    <a class="menu-link" href="../admin/products"> <i class="icon material-icons md-shopping_bag"></i>
+                        <span class="text">Products</span>
+                    </a>
+                </li>
+                <li class="menu-item active">
+                    <a class="menu-link" href="../admin/addProduct"> <i class="icon material-icons md-add_box"></i>
+                        <span class="text">Add product</span>
+                    </a>
+                </li>
+                <li class="menu-item">
+                    <a class="menu-link" href="../admin/orders"> <i class="icon material-icons md-shopping_cart"></i>
+                        <span class="text">Orders</span>
+                    </a>
+                </li>
+                <li class="menu-item">
+                    <a class="menu-link" href="../admin/transactions"> <i class="icon material-icons md-monetization_on"></i>
+                        <span class="text">Transactions</span>
+                    </a>
+                </li>
+                <li class="menu-item">
+                    <a class="menu-link" href="../admin/reviews"> <i class="icon material-icons md-comment"></i>
+                        <span class="text">Reviews</span>
+                    </a>
+                </li>
+                <li class="menu-item">
+                    <a class="menu-link" href="../admin/brands"> <i class="icon material-icons md-stars"></i>
+                        <span class="text">Brands</span> </a>
+                </li>
+                <li class="menu-item">
+                    <a class="menu-link" disabled href="../admin/statistics"> <i class="icon material-icons md-pie_chart"></i>
+                        <span class="text">Statistics</span>
+                    </a>
+                </li>
+            </ul>
+            <hr>
+            <ul class="menu-aside">
+                <li class="menu-item">
+                    <a class="menu-link" href="../admin/settings"> <i class="icon material-icons md-settings"></i>
+                        <span class="text">Settings</span>
+                    </a>
+                </li>
+                <li class="menu-item">
+                    <a class="menu-link" href="#"> <i class="icon material-icons md-local_offer"></i>
+                        <span class="text"> Starter page </span>
+                    </a>
+                </li>
+            </ul>
+            <br>
+            <br>
+        </nav>
+    </aside>
+    {{!-- Header right --}}
+    <main class="main-wrap">
+        <header class="main-header navbar">
+            <div class="col-search">
+                <form class="searchform">
+                    <div class="input-group">
+                        <input list="search_terms" type="text" class="form-control" placeholder="Search term">
+                        <button class="btn btn-light bg" type="button"> <i class="material-icons md-search"></i></button>
+                    </div>
+                    <datalist id="search_terms">
+                        <option value="Products">
+                        <option value="New orders">
+                        <option value="Apple iphone">
+                        <option value="Ahmed Hassan">
+                    </datalist>
+                </form>
+            </div>
+            <div class="col-nav">
+                <button class="btn btn-icon btn-mobile me-auto" data-trigger="#offcanvas_aside"> <i class="material-icons md-apps"></i> </button>
+                <ul class="nav">
+                    <li class="nav-item">
+                        <a class="nav-link btn-icon" href="#">
+                            <i class="material-icons md-notifications animation-shake"></i>
+                            <span class="badge rounded-pill">3</span>
+                        </a>
+                    </li>
+                    <li class="dropdown nav-item">
+                        <a class="dropdown-toggle" data-bs-toggle="dropdown" href="#" id="dropdownAccount" aria-expanded="false"> <img class="img-xs rounded-circle" src="assets/imgs/people/avatar2.jpg" alt="User"></a>
+                        <div class="dropdown-menu dropdown-menu-end" aria-labelledby="dropdownAccount">
+                            <a class="dropdown-item" href="#"><i class="material-icons md-perm_identity"></i>Edit Profile</a>
+                            <a class="dropdown-item" href="#"><i class="material-icons md-settings"></i>Account Settings</a>
+                            <a class="dropdown-item" href="#"><i class="material-icons md-account_balance_wallet"></i>Wallet</a>
+                            <a class="dropdown-item" href="#"><i class="material-icons md-receipt"></i>Billing</a>
+                            <a class="dropdown-item" href="#"><i class="material-icons md-help_outline"></i>Help center</a>
+                            <div class="dropdown-divider"></div>
+                            <a class="dropdown-item text-danger" href="#"><i class="material-icons md-exit_to_app"></i>Logout</a>
+                        </div>
+                    </li>
+                </ul>
+            </div>
+        </header>
+
+        {{!-- body right --}}
+        <section class="content-main">
+            <form  id="productForm" action="../admin/addProductSubmit" method="post" enctype="multipart/form-data">
+                <div class="col-9">
+                    <div class="content-header">
+                        <h2 class="content-title">Add New Product</h2>
+                        <div>
+                            <button class="btn btn-md rounded font-sm hover-up">Publish</button>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col-lg-5">
+                        <div class="card mb-4">
+                            <div class="card-header">
+                                <h4>Basic Information</h4>
+                            </div>
+                            <div class="card-body">
+                                <div class="mb-4">
+                                    <label for="product_name" class="form-label">Product title</label>
+                                    <input type="text" placeholder="Type here" class="form-control" id="product_name" name="product_name">
+                                </div>
+                                <div class="mb-4">
+                                    <label class="form-label">Full description</label>
+                                    <textarea placeholder="Type here" class="form-control" rows="4" name="product_description"></textarea>
+                                </div>
+                                <br>
+                                <div class="row">
+                                    <div class="col-lg-6">
+                                        <div class="mb-6">
+                                            <label class="form-label">Regular price</label>
+                                            <div class="row gx-2">
+                                                <input placeholder="$" type="text" class="form-control" name="regular_price">
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-lg-6">
+                                        <div class="mb-6">
+                                            <label class="form-label">Promotional price</label>
+                                            <input placeholder="$" type="text" class="form-control" name="promotional_price">
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="mb-4">
+                                    <label class="form-label">Stock</label>
+                                    <input type="text" placeholder="000" class="form-control" id="stock" name="product_stock">
+                                </div>
+                                <br>
+                                <div class="row">
+                                    <div class="col-sm-6 mb-3">
+                                        <label class="form-label" for="returnPeriod">Return Policy Period:</label>
+                                        <input class="form-control" type="number" id="returnPeriod" name="returnPeriod" min="0">
+                                        <select class="form-select" id="returnPeriodUnit" name="returnPeriodUnit">
+                                            <option value="days">Days</option>
+                                            <option value="weeks">Weeks</option>
+                                            <option value="months">Months</option>
+                                        </select>
+                                        <input type="hidden" id="returnPeriodValue" name="returnPeriodValue">
+                                    </div>
+                                        <br>
+                                    <div class="col-sm-6 mb-3">
+                                        <label class="form-label" for="warrantyPeriod">Warranty Period:</label>
+                                        <input class="form-control" type="number" id="warrantyPeriod" name="warrantyPeriod" min="0">
+                                        <select class="form-select" id="warrantyPeriodUnit" name="warrantyPeriodUnit">
+                                            <option value="days">Days</option>
+                                            <option value="weeks">Weeks</option>
+                                            <option value="months">Months</option>
+                                            <option value="years">Years</option>
+                                        </select>
+                                        <input type="hidden" id="warrantyPeriodValue" name="warrantyPeriodValue">
+                                    </div>
+                                    <br>
+                                </div>
+                                <div class="col-sm-6 mb-3">
+                                    <label class="form-label" for="paymentMethods">Payment methods</label>
+                                    <div id="paymentMethodsSelection">
+                                        <div class="paymentMethods-checkbox">
+                                            <input type="checkbox" id="cashOnDelivery" name="paymentMethods" value="cashOnDelivery" onchange="updateSelectedPaymentMethods()">
+                                            <label class="form-label" for="cashOnDelivery">Case On Delivery</label>
+                                        </div>
+                                        <div class="paymentMethods-checkbox">
+                                            <input type="checkbox" id="razorPay" name="paymentMethods" value="razorPay" onchange="updateSelectedPaymentMethods()">
+                                            <label class="form-label" for="razorPay">Razor Pay</label>
+                                        </div>
+                                        <input type="hidden" name="selected_paymentMethods" id="selected_paymentMethods" value="">
+                                    </div>
+                                    <br>
+                                </div>
+                            </div>
+                        </div> 
+                    </div>  <!-- card end// -->
+
+                    <div  class="col-lg-4">
+                        <div class="card mb-4">
+                            <div class="card-header">
+                                <h4>Media</h4>
+                            </div>
+                            <div class="card-body">
+                                <div class="input-upload">
+                                        <div id="image-previews" class="image-previews">
+                                            <img src="assets/imgs/theme/upload.svg" alt="">
+                                        </div>
+                                    <input class="form-control" type="file" id="file-input" name="productimage" id="productimage" multiple>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="card mb-4 ">
+                            <div class="card-header">
+                                <h4>Organization</h4>
+                            </div>
+                            <div class="card-body">
+                                <div class="col-sm-6 mb-3 col-lg-6">
+                                    <label class="form-label">Category</label>
+                                    <select class="form-select" id="categorySelect" onchange="updateCategoryArray()">
+                                        {{#each parentCategories}}
+                                            <option value="{{_id}}">{{name}}</option>
+                                        {{/each}}
+                                    </select>
+                                </div>
+                                <div class="col-sm-6 mb-3 col-lg-6">
+                                    <label class="form-label">Sub-category</label>
+                                    <select class="form-select" id="subCategorySelect" onchange="updateCategoryArray()">
+                                        {{#each defaultSubCategories}}
+                                            <option value="{{_id}}">{{name}}</option>
+                                        {{/each}}
+                                    </select>
+                                </div>
+                                <input type="hidden" id="selectedCategories" name="selectedCategories" value="">
+                                <div class="mb-4">
+                                    <label for="product_name" class="form-label">Tags</label>
+                                    <input type="text" class="form-control" name="tags">
+                                </div>
+                            </div>
+                        </div> 
+                    </div>
+                </div> 
+
+                <div class="col-lg-9">
+                    <div class="card mb-4 ">
+                        <div class="card-header">
+                            <h4>Specifications</h4>
+                        </div>
+                        <div class="card-body">
+                            <h5>Colors:</h5>
+                            <div id="colors">
+                                <div id="colorSelection">
+                                    <div class="color-circle" style="background-color: red;" data-color="red">
+                                        <div class="dot"></div>
+                                    </div>
+                                    <div class="color-circle" style="background-color: green;" data-color="green">
+                                        <div class="dot"></div>
+                                    </div>
+                                    <div class="color-circle" style="background-color: blue;" data-color="blue">
+                                        <div class="dot"></div>
+                                    </div>
+                                    <div class="color-circle" style="background-color: yellow;" data-color="yellow">
+                                        <div class="dot"></div>
+                                    </div>
+                                    <div class="color-circle" style="background-color: violet;" data-color="violet">
+                                        <div class="dot"></div>
+                                    </div>
+                                    <div class="color-circle" style="background-color: brown;" data-color="brown">
+                                        <div class="dot"></div>
+                                    </div>
+                                    <div class="color-circle" style="background-color: black;" data-color="black">
+                                        <div class="dot"></div>
+                                    </div>
+                                    <div class="color-circle" style="background-color: cyan;" data-color="cyan">
+                                        <div class="dot"></div>
+                                    </div>
+                                    <div class="color-circle" style="background-color: white; border:0.2px solid black;" data-color="white">
+                                        <div class="dot"></div>
+                                    </div>
+                                    <input type="hidden" name="selected_colors" id="selected_colors" value="">
+                                </div>
+                            </div>
+                            
+                            <h5>Sizes:</h5>
+                            <div id="sizes">
+                                <div id="sizeSelection">
+                                    <div class="size-checkbox">
+                                        <input type="checkbox" id="xs" name="size" value="XS">
+                                        <label for="xs">XS</label>
+                                    </div>
+                                    <div class="size-checkbox">
+                                        <input type="checkbox" id="s" name="size" value="S">
+                                        <label for="s">S</label>
+                                    </div>
+                                    <div class="size-checkbox">
+                                        <input type="checkbox" id="m" name="size" value="M">
+                                        <label for="m">M</label>
+                                    </div>
+                                    <div class="size-checkbox">
+                                        <input type="checkbox" id="l" name="size" value="L">
+                                        <label for="l">L</label>
+                                    </div>
+                                    <div class="size-checkbox">
+                                        <input type="checkbox" id="xl" name="size" value="XL">
+                                        <label for="xl">XL</label>
+                                    </div>
+                                    <input type="hidden" name="selected_sizes" id="selected_sizes" value="">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div> <!-- card end// -->
+
+            </form>
+        </section> 
+        <footer class="main-footer font-xs">
+            <div class="row pb-30 pt-15">
+                <div class="col-sm-6">
+                    <script>
+                    document.write(new Date().getFullYear())
+                    </script> © Konisagg , a app by O Sreerag
+                </div>
+                <div class="col-sm-6">
+                    <div class="text-sm-end">
+                        All rights reserved
+                    </div>
+                </div>
+            </div>
+        </footer>
+    </main>
+
+
+    <script>
+        
+    function updateSelectedCurrency() {
+        const currencySelect = document.getElementById("currencySelect");
+        const hiddenCurrency = document.getElementById("hiddenCurrency");
+
+        // Update the hidden input field's value with the selected option
+        hiddenCurrency.value = currencySelect.value;
+    }
+
+    const colorSelection = document.getElementById('colorSelection');
+    colorSelection.addEventListener('click', (event) => {
+        if (event.target.classList.contains('color-circle')) {
+            event.target.classList.toggle('selected');
+            updateSelectedColors();
+        }
+    });
+
+    function updateSelectedColors() {
+        const selectedColors = Array.from(colorSelection.getElementsByClassName('color-circle'))
+            .filter(circle => circle.classList.contains('selected'))
+            .map(circle => circle.getAttribute('data-color'));
+        document.getElementById('selected_colors').value = selectedColors.join(',');
+    }
+
+
+    // Get references to the input and image preview elements
+    const fileInput = document.getElementById("file-input");
+    const imagePreviews = document.getElementById("image-previews");
+
+    // Add an event listener to the file input
+    fileInput.addEventListener("change", function () {
+        // Clear existing image previews
+        imagePreviews.innerHTML = '';
+
+        // Check if files were selected
+        if (fileInput.files && fileInput.files.length > 0) {
+            for (let i = 0; i < fileInput.files.length; i++) {
+                const reader = new FileReader();
+                const imagePreview = document.createElement("img");
+                // Set up a function to run when the file is loaded
+                reader.onload = function (e) {
+                    // Set the source of the image preview
+                    imagePreview.src = e.target.result;
+
+                    // Append the image preview to the container
+                    imagePreviews.appendChild(imagePreview);
+                };
+
+                // Read the selected file as a data URL
+                reader.readAsDataURL(fileInput.files[i]);
+            }
+        }
+    });
+
+    
+    const checkboxes = document.querySelectorAll('input[name="size"]');
+    checkboxes.forEach(checkbox => {
+        checkbox.addEventListener('change', updateSelectedSizes);
+    });
+    function updateSelectedSizes() {
+        const selectedSizes = Array.from(checkboxes)
+            .filter(checkbox => checkbox.checked)
+            .map(checkbox => checkbox.value);
+
+        document.getElementById('selected_sizes').value = selectedSizes.join(',');
+    }
+
+
+    const returnPeriodInput = document.getElementById('returnPeriod');
+    const returnPeriodUnitSelect = document.getElementById('returnPeriodUnit');
+    const returnPeriodValueInput = document.getElementById('returnPeriodValue');
+
+    const warrantyPeriodInput = document.getElementById('warrantyPeriod');
+    const warrantyPeriodUnitSelect = document.getElementById('warrantyPeriodUnit');
+    const warrantyPeriodValueInput = document.getElementById('warrantyPeriodValue');
+
+    returnPeriodUnitSelect.addEventListener('change', function() {
+        setMaxValue(returnPeriodInput, returnPeriodUnitSelect.value);
+    });
+
+    warrantyPeriodUnitSelect.addEventListener('change', function() {
+        setMaxValue(warrantyPeriodInput, warrantyPeriodUnitSelect.value);
+    });
+
+    function setMaxValue(input, selectedUnit) {
+        if (selectedUnit === 'days') {
+            input.max = 100;
+        } else if (selectedUnit === 'weeks') {
+            input.max = 20;
+        } else if (selectedUnit === 'months') {
+            input.max = 20;
+        } else if (selectedUnit === 'years') {
+            input.max = 10;
+        }
+    }
+
+    returnPeriodInput.addEventListener('change', function() {
+        updateHiddenPeriodInput(returnPeriodInput, returnPeriodUnitSelect, returnPeriodValueInput);
+    });
+
+    warrantyPeriodInput.addEventListener('change', function() {
+        updateHiddenPeriodInput(warrantyPeriodInput, warrantyPeriodUnitSelect, warrantyPeriodValueInput);
+    });
+
+    function updateHiddenPeriodInput(input, selectedUnit, hiddenInput) {
+        const selectedUnitValue = selectedUnit.value;
+        const selectedPeriodValue = input.value;
+
+        // Create an object with the selected_unit and selected_period keys
+        const valueObject = {
+            selected_unit: selectedUnitValue,
+            selected_period: selectedPeriodValue
+        };
+
+        // Update the hidden input field's value with the JSON representation of the object
+        hiddenInput.value = JSON.stringify(valueObject);
+    }
+
+    function updateSelectedPaymentMethods() {
+        const checkboxes = document.querySelectorAll('input[name="paymentMethods"]:checked');
+        const selectedMethods = Array.from(checkboxes).map(checkbox => checkbox.value);
+        const selectedPaymentMethodsInput = document.getElementById('selected_paymentMethods');
+        selectedPaymentMethodsInput.value = JSON.stringify(selectedMethods);
+    }
+
+    function updateCategoryArray() {
+        const categorySelect = document.getElementById("categorySelect");
+        const subCategorySelect = document.getElementById("subCategorySelect");
+        const selectedCategoriesInput = document.getElementById("selectedCategories");
+
+        // Create an array of the selected categories
+        const selectedCategories = [
+            categorySelect.value,
+            subCategorySelect.value,
+        ];
+
+        // Update the hidden input field's value with the JSON representation of the array
+        selectedCategoriesInput.value = JSON.stringify(selectedCategories);
+    }
+
+
+    // category dynamic population
+    const categorySelect = document.getElementById('categorySelect');
+    const subCategorySelect = document.getElementById('subCategorySelect');
+
+    function updateCategoryArray() {
+        const selectedCategoryId = categorySelect.value; // Get the selected parent category ID
+
+        // Make an AJAX request to retrieve subcategories for the selected parent category
+        // Replace 'api/getSubcategories' with your actual backend route to fetch subcategories
+        fetch(`/admin/getSubcategories?parentId=${selectedCategoryId}`)
+            .then(response => response.json())
+            .then(data => {
+                // Clear existing subcategory options
+                subCategorySelect.innerHTML = '';
+
+                // Add 'Nill' option as the default option
+                if (data.subcategories.length === 0) {
+                    //subCategorySelect.innerHTML = '';
+
+                    const nilOption = document.createElement('option');
+                    nilOption.textContent = 'Nill';
+                    subCategorySelect.appendChild(nilOption);
+                }
+
+                // Populate subcategory options based on the retrieved data
+                data.subcategories.forEach(subcategory => {
+                    //subCategorySelect.innerHTML = '';
+                    
+                    const option = document.createElement('option');
+                    option.textContent = subcategory.name;
+                    option.value = subcategory._id; 
+                    subCategorySelect.appendChild(option);
+                });
+            })
+            .catch(error => {
+                console.error('Error fetching subcategories:', error);
+            });
+    }
+
+    </script>
+    <script src="assets/js/vendors/jquery-3.6.0.min.js"></script>
+    <script src="assets/js/vendors/bootstrap.bundle.min.js"></script>
+    <script src="assets/js/vendors/select2.min.js"></script>
+    <script src="assets/js/vendors/perfect-scrollbar.js"></script>
+    <script src="assets/js/vendors/jquery.fullscreen.min.js"></script>
+    <!-- Main Script -->
+    <script src="assets/js/main.js" type="text/javascript"></script>
+</body>
+
+</html>

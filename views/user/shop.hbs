@@ -1,0 +1,595 @@
+﻿<!DOCTYPE html>
+<html class="no-js" lang="en">
+
+
+<!-- Mirrored from wp.alithemes.com/html/evara/evara-frontend/shop-grid-left.html by HTTrack Website Copier/3.x [XR&CO'2014], Sun, 01 Aug 2021 15:26:43 GMT -->
+<head>
+    <meta charset="utf-8">
+    <title>Evara - eCommerce HTML Template</title>
+    <meta http-equiv="x-ua-compatible" content="ie=edge">
+    <meta name="description" content="">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta property="og:title" content="">
+    <meta property="og:type" content="">
+    <meta property="og:url" content="">
+    <meta property="og:image" content="">
+    <!-- Favicon -->
+    <link rel="shortcut icon" type="image/x-icon" href="/user/assets/imgs/theme/favicon.svg">
+    <!-- Template CSS -->
+    <link rel="stylesheet" href="/user/assets/css/main.css">
+    <style>
+        .menuMIL {
+            list-style: none;
+            padding: 0;
+        }
+        .menu-itemMIL {
+            position: relative;
+            margin-bottom: 10px;
+        }
+        .submenuMIL {
+            display: none;
+            position: absolute;
+            top: 0;
+            left: 100%;
+            padding: 10px;
+            background-color: #f5f5f5;
+        }
+    </style>
+</head>
+
+<body>
+
+<!-- Header -->
+    <header class="header-area header-style-1 header-height-2">
+<!-- Nav-top -->
+        <div class="header-middle header-middle-ptb-1 d-none d-lg-block">
+            <div class="container">
+                <div class="header-wrap">
+                    <div class="logo logo-width-1">
+                        <a href="index.html"><img src="user/assets/imgs/theme/logo.svg" alt="logo"></a>
+                    </div>
+                    <div class="header-right">
+                        <div class="search-style-2">
+                            <form action="#">
+                                <select class="select-active">
+                                    <option>All Categories</option>
+                                    <option>Women's</option>
+                                    <option>Men's</option>
+                                    <option>Cellphones</option>
+                                    <option>Computer</option>
+                                    <option>Electronics</option>
+                                    <option> Accessories</option>
+                                    <option>Home & Garden</option>
+                                    <option>Luggage</option>
+                                    <option>Shoes</option>
+                                    <option>Mother & Kids</option>
+                                </select>
+                                <input type="text" placeholder="Search for items...">
+                            </form>
+                        </div>
+                        <div class="header-action-right">
+                            <div class="header-action-2">
+                                <div class="header-action-icon-2">
+                                    <a href="/wishlist/view">
+                                        <img class="svgInject" alt="Evara" src="user/assets/imgs/theme/icons/icon-heart.svg">
+                                        <span class="pro-count blue">4</span>
+                                    </a>
+                                </div>
+                                <div class="header-action-icon-2">
+                                    <a class="mini-cart-icon" href="/cart/view">
+                                        <img alt="Evara" src="user/assets/imgs/theme/icons/icon-cart.svg">
+                                        <span class="pro-count blue">2</span>
+                                    </a>
+                                </div>
+                                {{#if loginStatus}}
+                                <div class="header-action-icon-2 dropdown nav-item">
+                                    <a href="user-profile.html" data-bs-toggle="dropdown" id="dropdownAccount" aria-expanded="false">
+                                        <img class="svgInject" alt="Evara" src="../images/user-icon-2.png">
+                                        {{!-- <span class="pro-count blue">4</span> --}}
+                                    </a>
+                                    <div class="dropdown-menu dropdown-menu-end" aria-labelledby="dropdownAccount">
+                                        <a class="dropdown-item" href="/account/view~profile"><i class="material-icons md-settings"></i>Account Settings</a>
+                                        <a class="dropdown-item" href="#"><i class="material-icons md-account_balance_wallet"></i>Wallet</a>
+                                        <a class="dropdown-item" href="#"><i class="material-icons md-receipt"></i>Billing</a>
+                                        <a class="dropdown-item" href="#"><i class="material-icons md-help_outline"></i>Help center</a>
+                                        <div class="dropdown-divider"></div>
+                                        <a class="dropdown-item text-danger" href="/logout"><i class="material-icons md-exit_to_app"></i>Logout</a>
+                                    </div>
+                                </div>
+                                {{/if}}
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+<!-- end of Nav-middle -->
+
+<!-- Nav-bottom -->
+        <div class="header-bottom header-bottom-bg-color sticky-bar">
+            <div class="container">
+                <div class="header-wrap header-space-between position-relative">
+                    <div class="header-nav d-none d-lg-flex">
+                        <div class="main-menu main-menu-padding-1 main-menu-lh-2 d-none d-lg-block">
+                            <nav>
+                                <ul>
+                                    <li class="position-static"><a href="#">Mega menu <i class="fi-rs-angle-down"></i></a>
+                                        <ul class="mega-menu">
+                                        {{#each categories}}
+                                        <li class="sub-mega-menu sub-mega-menu-width-22">
+                                            <a class="menu-title" href="#">{{name}}</a>
+                                            <ul>
+                                                {{#each subCategoriesData}}
+                                                <li><a href="shop-product-right.html">{{name}}</a></li>
+                                                {{/each}}
+                                            </ul>
+                                        </li>
+                                        {{/each}}
+                                        </ul>
+                                    </li>
+                                    <li><a href="/">Home</a>
+                                    </li>
+                                    <li><a class="active" href="./shop">Shop</a>
+                                    </li>
+                                </ul>
+                            </nav>
+                        </div>
+                    </div>
+                    <div class="hotline d-none d-lg-block">
+                        {{#if loginStatus}}
+                            <a href="/account/view~profile"><i class="fi-rs-user"></i>{{username}}</a>
+                            {{else}}
+                            <a href="../login"><i class="fi-rs-user"></i> Log In / Sign Up</a>
+                        {{/if}}
+                    </div>
+                </div>
+            </div>
+        </div>
+    </header>
+<!-- end of Nav-bottom -->
+<!-- end of Header -->
+
+    {{!-- body --}}
+    <main class="main">
+        <div class="page-header breadcrumb-wrap">
+            <div class="container">
+                <div class="breadcrumb">
+                    <a href="index.html" rel="nofollow">Home</a>
+                    <span></span> Shop
+                </div>
+            </div>
+        </div>
+
+        <section class="mt-50 mb-50">
+            <div class="container">
+                <div class="row">
+                    <div class="col-lg-12">
+                                <a class="shop-filter-toogle" href="#">
+                            <span class="fi-rs-filter mr-5"></span>
+                            Filters
+                            <i class="fi-rs-angle-small-down angle-down"></i>
+                            <i class="fi-rs-angle-small-up angle-up"></i>
+                        </a>
+                        <div class="shop-product-fillter-header">
+                            <div class="row">
+                                <div class="col-lg-2 col-md-4 mb-lg-0 mb-md-5 mb-sm-5">
+                                    <h5 class="mb-20">Categories</h5>
+                                    <ul class="categor-list">
+                                        <li class="cat-item text-muted"><a href="shop-grid-right.html">Jacket</a>(125)</li>
+                                        <li class="cat-item text-muted"><a href="shop-grid-right.html">Jeans</a>(68)</li>
+                                        <li class="cat-item text-muted"><a href="shop-grid-right.html">Sweatshirts</a>(284)</li>
+                                        <li class="cat-item text-muted"><a href="shop-grid-right.html">Trousers</a>(274)</li>
+                                        <li class="cat-item text-muted"><a href="shop-grid-right.html">Kitwears</a>(152)</li>
+                                        <li class="cat-item text-muted"><a href="shop-grid-right.html">Sportswear</a>(302)</li>
+                                        <li class="cat-item text-muted"><a href="shop-grid-right.html">Accessories</a>(168)</li>
+                                    </ul>
+                                </div>
+                                <div class="col-lg-2 col-md-4 mb-lg-0 mb-md-5 mb-sm-5">
+                                    <h5 class="mb-20">Manufacturers</h5>
+                                    <ul class="categor-list">
+                                        <li class="cat-item text-muted"><a href="shop-grid-right.html">Adidas</a>(125)</li>
+                                        <li class="cat-item text-muted"><a href="shop-grid-right.html">Armani</a>(68)</li>
+                                        <li class="cat-item text-muted"><a href="shop-grid-right.html">Burberry</a>(274)</li>
+                                        <li class="cat-item text-muted"><a href="shop-grid-right.html">Chanel</a>(152)</li>
+                                        <li class="cat-item text-muted"><a href="shop-grid-right.html">Prada</a>(302)</li>
+                                        <li class="cat-item text-muted"><a href="shop-grid-right.html">Bootstrap</a>(32)</li>
+                                        <li class="cat-item text-muted"><a href="shop-grid-right.html">Helixx</a>(312)</li>
+                                    </ul>
+                                </div>
+                                <div class="col-lg-2 col-md-4 mb-lg-0 mb-md-5 mb-sm-5">
+                                    <h5 class="mb-20">Price range</h5>
+                                    <ul class="categor-list">
+                                        <li class="cat-item text-muted"><a href="shop-grid-right.html">All</a></li>
+                                        <li class="cat-item text-muted"><a href="shop-grid-right.html">$0.00 - $20.00 </a></li>
+                                        <li class="cat-item text-muted"><a href="shop-grid-right.html">$20.00 - $40.00 </a></li>
+                                        <li class="cat-item text-muted"><a href="shop-grid-right.html">$40.00 - $60.00 </a></li>
+                                        <li class="cat-item text-muted"><a href="shop-grid-right.html">$60.00 - $80.00 </a></li>
+                                        <li class="cat-item text-muted"><a href="shop-grid-right.html">$80.00 - $100.00 </a></li>
+                                        <li class="cat-item text-muted"><a href="shop-grid-right.html">$100.00 - $200.00 </a></li>
+                                    </ul>
+                                </div>
+                                <div class="col-lg-2 col-md-4 mb-lg-0 mb-md-5 mb-sm-5">
+                                    <h5 class="mb-20">By Review</h5>
+                                    <div class="product-rate-cover">
+                                        <div class="product-rate d-inline-block">
+                                            <div class="product-rating" style="width:100%">
+                                            </div>
+                                        </div>
+                                        <span class="font-small ml-5 text-muted"> (25)</span>
+                                    </div>
+                                    <div class="product-rate-cover">
+                                        <div class="product-rate d-inline-block">
+                                            <div class="product-rating" style="width:80%">
+                                            </div>
+                                        </div>
+                                        <span class="font-small ml-5 text-muted"> (25)</span>
+                                    </div>
+                                    <div class="product-rate-cover">
+                                        <div class="product-rate d-inline-block">
+                                            <div class="product-rating" style="width:60%">
+                                            </div>
+                                        </div>
+                                        <span class="font-small ml-5 text-muted"> (25)</span>
+                                    </div>
+                                    <div class="product-rate-cover">
+                                        <div class="product-rate d-inline-block">
+                                            <div class="product-rating" style="width:40%">
+                                            </div>
+                                        </div>
+                                        <span class="font-small ml-5 text-muted"> (25)</span>
+                                    </div>
+                                    <div class="product-rate-cover">
+                                        <div class="product-rate d-inline-block">
+                                            <div class="product-rating" style="width:20%">
+                                            </div>
+                                        </div>
+                                        <span class="font-small ml-5 text-muted"> (25)</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-lg-12">
+                        <div class="shop-product-fillter">
+                            <div class="totall-product">
+                                <p> We found <strong class="text-brand">688</strong> items for you!</p>
+                            </div>
+                            <div class="sort-by-product-area">
+                                <div class="sort-by-cover mr-10">
+                                    <div class="sort-by-product-wrap">
+                                        <div class="sort-by">
+                                            <span><i class="fi-rs-apps"></i>Show:</span>
+                                        </div>
+                                        <div class="sort-by-dropdown-wrap">
+                                            <span> 50 <i class="fi-rs-angle-small-down"></i></span>
+                                        </div>
+                                    </div>
+                                    <div class="sort-by-dropdown">
+                                        <ul>
+                                            <li><a class="active" href="#">50</a></li>
+                                            <li><a href="#">100</a></li>
+                                            <li><a href="#">150</a></li>
+                                            <li><a href="#">200</a></li>
+                                            <li><a href="#">All</a></li>
+                                        </ul>
+                                    </div>
+                                </div>
+                                <div class="sort-by-cover">
+                                    <div class="sort-by-product-wrap">
+                                        <div class="sort-by">
+                                            <span><i class="fi-rs-apps-sort"></i>Sort by:</span>
+                                        </div>
+                                        <div class="sort-by-dropdown-wrap">
+                                            <span> Featured <i class="fi-rs-angle-small-down"></i></span>
+                                        </div>
+                                    </div>
+                                    <div class="sort-by-dropdown">
+                                        <ul>
+                                            <li><a class="active" href="#">Featured</a></li>
+                                            <li><a href="#">Price: Low to High</a></li>
+                                            <li><a href="#">Price: High to Low</a></li>
+                                            <li><a href="#">Release Date</a></li>
+                                            <li><a href="#">Avg. Rating</a></li>
+                                        </ul>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row product-grid-3">
+                            {{#each productList}}
+                            <div class="col-lg-4 col-md-4 col-12 col-sm-6">
+                                <div class="product-cart-wrap mb-30">
+                                    <div class="product-img-action-wrap">
+                                        <div class="product-img product-img-zoom">
+                                            <a href="/shop/product/details?productid={{_id}}">
+                                                <img class="default-img" src="/multer/products/{{productimages.[0]}}" alt="">
+                                                <img class="hover-img" src="/multer/products/{{productimages.[1]}}" alt="">
+                                            </a>
+                                        </div>
+                                        <div class="product-action-1">
+                                            <a aria-label="Add To Wishlist" class="action-btn hover-up" href="/wishlist/add/?wishlistItemId={{_id}}"><i class="fi-rs-heart"></i></a>
+                                        </div>
+                                    </div>
+                                    <div class="product-content-wrap">
+                                        <div class="product-category">
+                                            <a href="shop-grid-right.html">{{categories.[0]}}</a>
+                                        </div>
+                                        <h2><a href="shop-product-right.html">{{productname}}</a></h2>
+                                        <div class="product-price">
+                                            <span>${{promotionalprice}}</span>
+                                            <span class="old-price">${{regularprice}}</span>
+                                        </div>
+                                        <div class="product-action-1 show">
+                                            <div class="rating-result" title="90%">
+                                                <span>
+                                                    <span>95%</span>
+                                                </span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            {{/each}}
+                        </div>
+                        <!--pagination-->
+                        <div class="pagination-area mt-15 mb-sm-5 mb-lg-0">
+                            <nav aria-label="Page navigation example">
+                                <ul class="pagination justify-content-start">
+                                    <li class="page-item active"><a class="page-link" href="#">01</a></li>
+                                    <li class="page-item"><a class="page-link" href="#">02</a></li>
+                                    <li class="page-item"><a class="page-link" href="#">03</a></li>
+                                    <li class="page-item"><a class="page-link dot" href="#">...</a></li>
+                                    <li class="page-item"><a class="page-link" href="#">16</a></li>
+                                    <li class="page-item"><a class="page-link" href="#"><i class="fi-rs-angle-double-small-right"></i></a></li>
+                                </ul>
+                            </nav>
+                        </div>
+                    </div>
+
+</div></div></div></section>
+
+
+        
+    </main>
+
+    {{!-- footer --}}
+    <footer class="main">
+        <hr>
+        <section class="section-padding footer-mid">
+            <div class="container pt-15 pb-20">
+                <div class="row">
+                    <div class="col-lg-4 col-md-6">
+                        <div class="widget-about font-md mb-md-5 mb-lg-0">
+                            <div class="logo logo-width-1 wow fadeIn animated">
+                                <a href="index.html"><img src="/user/assets/imgs/theme/logo.svg" alt="logo"></a>
+                            </div>
+                            <h5 class="mt-20 mb-10 fw-600 text-grey-4 wow fadeIn animated">Contact</h5>
+                            <p class="wow fadeIn animated">
+                                <strong>Address: </strong>562 Wellington Road, Street 32, San Francisco
+                            </p>
+                            <p class="wow fadeIn animated">
+                                <strong>Phone: </strong>+01 2222 365 /(+91) 01 2345 6789
+                            </p>
+                            <p class="wow fadeIn animated">
+                                <strong>Hours: </strong>10:00 - 18:00, Mon - Sat
+                            </p>
+                            <h5 class="mb-10 mt-30 fw-600 text-grey-4 wow fadeIn animated">Follow Us</h5>
+                            <div class="mobile-social-icon wow fadeIn animated mb-sm-5 mb-md-0">
+                                <a href="#"><img src="/user/assets/imgs/theme/icons/icon-facebook.svg" alt=""></a>
+                                <a href="#"><img src="/user/assets/imgs/theme/icons/icon-twitter.svg" alt=""></a>
+                                <a href="#"><img src="/user/assets/imgs/theme/icons/icon-instagram.svg" alt=""></a>
+                                <a href="#"><img src="/user/assets/imgs/theme/icons/icon-pinterest.svg" alt=""></a>
+                                <a href="#"><img src="/user/assets/imgs/theme/icons/icon-youtube.svg" alt=""></a>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-lg-2 col-md-3">
+                        <h5 class="widget-title wow fadeIn animated">About</h5>
+                        <ul class="footer-list wow fadeIn animated mb-sm-5 mb-md-0">
+                            <li><a href="#">About Us</a></li>
+                            <li><a href="#">Delivery Information</a></li>
+                            <li><a href="#">Privacy Policy</a></li>
+                            <li><a href="#">Terms &amp; Conditions</a></li>
+                            <li><a href="#">Contact Us</a></li>
+                            <li><a href="#">Support Center</a></li>
+                        </ul>
+                    </div>
+                    <div class="col-lg-2  col-md-3">
+                        <h5 class="widget-title wow fadeIn animated">My Account</h5>
+                        <ul class="footer-list wow fadeIn animated">
+                            <li><a href="#">Sign In</a></li>
+                            <li><a href="#">View Cart</a></li>
+                            <li><a href="#">My Wishlist</a></li>
+                            <li><a href="#">Track My Order</a></li>
+                            <li><a href="#">Help</a></li>
+                            <li><a href="#">Order</a></li>
+                        </ul>
+                    </div>
+                    <div class="col-lg-4">
+                        <h5 class="widget-title wow fadeIn animated">Install App</h5>
+                        <div class="row">
+                            <div class="col-md-8 col-lg-12">
+                                <p class="wow fadeIn animated">From App Store or Google Play</p>
+                                <div class="download-app wow fadeIn animated">
+                                    <a href="#" class="hover-up mb-sm-4 mb-lg-0"><img class="active" src="/user/assets/imgs/theme/app-store.jpg" alt=""></a>
+                                    <a href="#" class="hover-up"><img src="/user/assets/imgs/theme/google-play.jpg" alt=""></a>
+                                </div>
+                            </div>
+                            <div class="col-md-4 col-lg-12 mt-md-3 mt-lg-0">
+                                <p class="mb-20 wow fadeIn animated">Secured Payment Gateways</p>
+                                <img class="wow fadeIn animated" src="/user/assets/imgs/theme/payment-method.png" alt="">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+        <div class="container pb-20 wow fadeIn animated">
+            <div class="row">
+                <div class="col-12 mb-20">
+                    <div class="footer-bottom"></div>
+                </div>
+                <div class="col-lg-6">
+                    <p class="float-md-left font-sm text-muted mb-0">&copy; 2021, <strong class="text-brand">Evara</strong> - HTML Ecommerce Template </p>
+                </div>
+                <div class="col-lg-6">
+                    <p class="text-lg-end text-start font-sm text-muted mb-0">
+                        Designed by <a href="http://alithemes.com/" target="_blank">Alithemes.com</a>. All rights reserved
+                    </p>
+                </div>
+            </div>
+        </div>
+    </footer>
+    {{!-- end of footer --}}
+
+    <!-- Preloader Start -->
+    <div id="preloader-active">
+        <div class="preloader d-flex align-items-center justify-content-center">
+            <div class="preloader-inner position-relative">
+                <div class="text-center">
+                    <h5 class="mb-5">Now Loading</h5>
+                    <div class="loader">
+                        <div class="bar bar1"></div>
+                        <div class="bar bar2"></div>
+                        <div class="bar bar3"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- Vendor JS-->
+    <script src="/user/assets/js/vendor/modernizr-3.6.0.min.js"></script>
+    <script src="/user/assets/js/vendor/jquery-3.6.0.min.js"></script>
+    <script src="/user/assets/js/vendor/jquery-migrate-3.3.0.min.js"></script>
+    <script src="/user/assets/js/vendor/bootstrap.bundle.min.js"></script>
+    <script src="/user/assets/js/plugins/slick.js"></script>
+    <script src="/user/assets/js/plugins/jquery.syotimer.min.js"></script>
+    <script src="/user/assets/js/plugins/wow.js"></script>
+    <script src="/user/assets/js/plugins/jquery-ui.js"></script>
+    <script src="/user/assets/js/plugins/perfect-scrollbar.js"></script>
+    <script src="/user/assets/js/plugins/magnific-popup.js"></script>
+    <script src="/user/assets/js/plugins/select2.min.js"></script>
+    <script src="/user/assets/js/plugins/waypoints.js"></script>
+    <script src="/user/assets/js/plugins/counterup.js"></script>
+    <script src="/user/assets/js/plugins/jquery.countdown.min.js"></script>
+    <script src="/user/assets/js/plugins/images-loaded.js"></script>
+    <script src="/user/assets/js/plugins/isotope.js"></script>
+    <script src="/user/assets/js/plugins/scrollup.js"></script>
+    <script src="/user/assets/js/plugins/jquery.vticker-min.js"></script>
+    <script src="/user/assets/js/plugins/jquery.theia.sticky.js"></script>
+    <script src="/user/assets/js/plugins/jquery.elevatezoom.js"></script>
+    <!-- Template  JS -->
+    <script src="/user/assets/js/main.js"></script>
+    <script src="/user/assets/js/shop.js"></script>
+
+
+    <script>
+
+let categories
+
+// Fetch data from the backend
+fetch('/getOnlyCategories')
+  .then(response => response.json())
+  .then(data => {
+    // Handle the fetched data
+    console.log(data); 
+    categories = date
+  })
+  .catch(error => {
+    console.log('Error:', error);
+  });
+
+// Sample array of documents (you should replace this with your actual data)
+    const documents = [
+        {
+            name: "Category 1",
+            tier: 1,
+            subcategories: [
+                { name: "Subcategory 1", items: ["Item 1", "Item 2"] },
+                { name: "Subcategory 2", items: ["Item 3", "Item 4"] },
+            ],
+        },
+        {
+            name: "Category 2",
+            tier: 2, // Not tier 1
+            subcategories: [
+                { name: "Subcategory 3", items: ["Item 5", "Item 6"] },
+            ],
+        },
+    ];
+
+    const categoryTier01 = document.getElementById("category-tier-01");
+
+    // Loop through the documents
+    documents.forEach((document) => {
+        if (document.tier === 1) {
+            const liTier01 = document.createElement("li");
+            liTier01.className = "has-children";
+
+            const aTier01 = document.createElement("a");
+            aTier01.href = "shop-grid-right.html";
+            aTier01.innerHTML = `<i class="evara-font-dress"></i>${document.name}`;
+
+            const divTier01 = document.createElement("div");
+            divTier01.className = "dropdown-menu";
+
+            const ulTier02 = document.createElement("ul");
+            ulTier02.className = "mega-menu d-lg-flex";
+
+            // Loop through subcategories
+            document.subcategories.forEach((subcategory) => {
+                const liTier02 = document.createElement("li");
+                liTier02.className = "mega-menu-col col-lg-7";
+
+                const ulTier03 = document.createElement("ul");
+                ulTier03.id = "category-tier-03";
+
+                const liTier03Title = document.createElement("li");
+                liTier03Title.innerHTML = '<span class="submenu-title">Hot & Trending</span>';
+
+                // Loop through items
+                subcategory.items.forEach((item) => {
+                    const liTier03Item = document.createElement("li");
+                    const aTier03Item = document.createElement("a");
+                    aTier03Item.className = "dropdown-item nav-link nav_item";
+                    aTier03Item.href = "#";
+                    aTier03Item.textContent = item;
+                    liTier03Item.appendChild(aTier03Item);
+                    ulTier03.appendChild(liTier03Item);
+                });
+
+                liTier03.appendChild(liTier03Title);
+                liTier03.appendChild(ulTier03);
+                liTier02.appendChild(liTier03);
+                ulTier02.appendChild(liTier02);
+            });
+
+            divTier01.appendChild(ulTier02);
+            liTier01.appendChild(aTier01);
+            liTier01.appendChild(divTier01);
+            categoryTier01.appendChild(liTier01);
+        }
+    });  
+
+
+
+
+
+// Get all elements with the class "category-link"
+const categoryLinks = document.querySelectorAll(".category-link");
+
+// Add a click event listener to each "category-link" element
+categoryLinks.forEach(link => {
+    link.addEventListener("click", (event) => {
+        event.preventDefault();
+        const categoryName = link.id;
+        console.log(`Clicked category: ${categoryName}`);
+    });
+});
+
+    </script>
+</body>
+
+
+<!-- Mirrored from wp.alithemes.com/html/evara/evara-frontend/shop-grid-left.html by HTTrack Website Copier/3.x [XR&CO'2014], Sun, 01 Aug 2021 15:26:43 GMT -->
+</html>

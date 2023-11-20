@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Order Confirmation</title>
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            min-height: 100vh;
+            background-color: #f4f4f4;
+        }
+
+        .card {
+            width: 80%;
+            max-width: 400px;
+            background: #ffffff;
+            border-radius: 10px;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.2);
+            text-align: center;
+            padding: 20px;
+        }
+
+        .circle {
+            width: 60px;
+            height: 60px;
+            background: #0af02a;
+            border-radius: 50%;
+            margin: 0 auto;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 30px;
+            color: #fff;
+        }
+
+        .message {
+            margin: 20px 0;
+            font-size: 20px;
+            font-weight: 600;
+            color: #333;
+        }
+
+        .details {
+            margin: 20px 0;
+            font-size: 16px;
+            color: #666;
+        }
+
+        .buttons {
+            display: flex;
+            justify-content: space-around;
+            margin: 20px 0;
+        }
+
+        .button {
+            padding: 10px 20px;
+            border: 2px solid #333;
+            background: #fff;
+            color: #333;
+            border-radius: 10px;
+            text-decoration: none;
+            transition: background 0.3s, color 0.3s;
+            font-weight: 600;
+        }
+
+        .button.green {
+            background: #0af02a;
+            color: #fff;
+            border: none;
+        }
+
+        .button:hover {
+            background: #333;
+            color: #fff;
+        }
+    </style>
+</head>
+<body>
+    <div class="card">
+        <div class="circle">
+            &#10004;
+        </div>
+        <div class="message">
+            Thank you for your order!
+        </div>  
+        <div class="details">
+            Your order has been successfully placed. We appreciate your business and will process your order as soon as possible.
+        </div>
+        <div class="buttons">
+            <a href="/orders/history" class="button green">View Order</a>
+            <a href="#" class="button">Continue Shopping</a>
+        </div>
+    </div>
+</body>
+</html>

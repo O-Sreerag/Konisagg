@@ -1,0 +1,703 @@
+<!DOCTYPE html>
+<html class="no-js" lang="en">
+
+
+<!-- Mirrored from wp.alithemes.com/html/evara/evara-frontend/shop-checkout.html by HTTrack Website Copier/3.x [XR&CO'2014], Sun, 01 Aug 2021 15:26:06 GMT -->
+<head>
+    <meta charset="utf-8">
+    <title>Evara - eCommerce HTML Template</title>
+    <meta http-equiv="x-ua-compatible" content="ie=edge">
+    <meta name="description" content="">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta property="og:title" content="">
+    <meta property="og:type" content="">
+    <meta property="og:url" content="">
+    <meta property="og:image" content="">
+    <!-- Favicon -->
+    <link rel="shortcut icon" type="image/x-icon" href="user/assets/imgs/theme/favicon.svg">
+    <!-- Template CSS -->
+    <link rel="stylesheet" href="user/assets/css/main.css">
+</head>
+
+<body>
+    <!-- Header -->
+    <header class="header-area header-style-1 header-height-2">
+<!-- Nav-middle -->
+        <div class="header-middle header-middle-ptb-1 d-none d-lg-block">
+            <div class="container">
+                <div class="header-wrap">
+                    <div class="logo logo-width-1">
+                        <a href="index.html"><img src="user/assets/imgs/theme/logo.svg" alt="logo"></a>
+                    </div>
+                    <div class="header-right">
+                        <div class="search-style-2">
+                            <form action="#">
+                                <select class="select-active">
+                                    <option>All Categories</option>
+                                    <option>Women's</option>
+                                    <option>Men's</option>
+                                    <option>Cellphones</option>
+                                    <option>Computer</option>
+                                    <option>Electronics</option>
+                                    <option> Accessories</option>
+                                    <option>Home & Garden</option>
+                                    <option>Luggage</option>
+                                    <option>Shoes</option>
+                                    <option>Mother & Kids</option>
+                                </select>
+                                <input type="text" placeholder="Search for items...">
+                            </form>
+                        </div>
+                        <div class="header-action-right">
+                            <div class="header-action-2">
+                                <div class="header-action-icon-2">
+                                    <a href="/wishlist/view">
+                                        <img class="svgInject" alt="Evara" src="user/assets/imgs/theme/icons/icon-heart.svg">
+                                        <span class="pro-count blue">4</span>
+                                    </a>
+                                </div>
+                                <div class="header-action-icon-2">
+                                    <a class="mini-cart-icon" href="/cart/view">
+                                        <img alt="Evara" src="user/assets/imgs/theme/icons/icon-cart.svg">
+                                        <span class="pro-count blue">2</span>
+                                    </a>
+                                </div>
+                                {{#if loginStatus}}
+                                <div class="header-action-icon-2 dropdown nav-item">
+                                    <a href="user-profile.html" data-bs-toggle="dropdown" id="dropdownAccount" aria-expanded="false">
+                                        <img class="svgInject" alt="Evara" src="../images/user-icon-2.png">
+                                        {{!-- <span class="pro-count blue">4</span> --}}
+                                    </a>
+                                    <div class="dropdown-menu dropdown-menu-end" aria-labelledby="dropdownAccount">
+                                        <a class="dropdown-item" href="/account/view~profile"><i class="material-icons md-settings"></i>Account Settings</a>
+                                        <a class="dropdown-item" href="#"><i class="material-icons md-account_balance_wallet"></i>Wallet</a>
+                                        <a class="dropdown-item" href="#"><i class="material-icons md-receipt"></i>Billing</a>
+                                        <a class="dropdown-item" href="#"><i class="material-icons md-help_outline"></i>Help center</a>
+                                        <div class="dropdown-divider"></div>
+                                        <a class="dropdown-item text-danger" href="/logout"><i class="material-icons md-exit_to_app"></i>Logout</a>
+                                    </div>
+                                </div>
+                                {{/if}}
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+<!-- end of Nav-middle -->
+
+<!-- Nav-bottom -->
+        <div class="header-bottom header-bottom-bg-color sticky-bar">
+            <div class="container">
+                <div class="header-wrap header-space-between position-relative">
+                    <div class="logo logo-width-1 d-block d-lg-none">
+                        <a href="index.html"><img src="user/assets/imgs/theme/logo.svg" alt="logo"></a>
+                    </div>
+                    <div class="header-nav d-none d-lg-flex">
+                        <div class="main-categori-wrap d-none d-lg-block">
+                            <a class="categori-button-active" href="">
+                                <span class="fi-rs-apps"></span> Browse Categories
+                            </a>
+                            <div class="categori-dropdown-wrap categori-dropdown-active-large">
+                                <ul>
+
+                                    {{!-- loop 1 --}}
+                                    <li class="has-children">
+                                        <a href="shop-grid-right.html"><i class="evara-font-dress"></i>Women's Clothing</a>
+                                        <div class="dropdown-menu">
+                                            <ul class="mega-menu d-lg-flex">
+
+                                                {{!-- loop 2 --}}
+                                                <li class="mega-menu-col col-lg-7">
+                                                    <ul class="d-lg-flex">
+                                                        <li class="mega-menu-col col-lg-6">
+                                                            <ul>
+                                                                <li><span class="submenu-title">Hot & Trending</span></li>
+                                                                {{!-- loop 3 --}}
+                                                                <li><a class="dropdown-item nav-link nav_item" href="#">Dresses</a></li>
+                                                            </ul>
+                                                        </li>
+                                                    </ul>
+                                                </li>
+
+                                            </ul>
+                                        </div>
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+                        <div class="main-menu main-menu-padding-1 main-menu-lh-2 d-none d-lg-block">
+                            <nav>
+                                <ul>
+                                    <li><a class="active" href="index.html">Home</a>
+                                    </li>
+                                    <li><a href="../shop">Shop</a>
+                                    </li>
+                                    <li class="position-static"><a href="#">Mega menu <i class="fi-rs-angle-down"></i></a>
+                                        <ul class="mega-menu">
+                                            <li class="sub-mega-menu sub-mega-menu-width-22">
+                                                <a class="menu-title" href="#">Women's Fashion</a>
+                                                <ul>
+                                                    <li><a href="shop-product-right.html">Dresses</a></li>
+                                                    <li><a href="shop-product-right.html">Blouses & Shirts</a></li>
+                                                    <li><a href="shop-product-right.html">Hoodies & Sweatshirts</a></li>
+                                                    <li><a href="shop-product-right.html">Wedding Dresses</a></li>
+                                                    <li><a href="shop-product-right.html">Prom Dresses</a></li>
+                                                    <li><a href="shop-product-right.html">Cosplay Costumes</a></li>
+                                                </ul>
+                                            </li>
+                                            <li class="sub-mega-menu sub-mega-menu-width-22">
+                                                <a class="menu-title" href="#">Men's Fashion</a>
+                                                <ul>
+                                                    <li><a href="shop-product-right.html">Jackets</a></li>
+                                                    <li><a href="shop-product-right.html">Casual Faux Leather</a></li>
+                                                    <li><a href="shop-product-right.html">Genuine Leather</a></li>
+                                                    <li><a href="shop-product-right.html">Casual Pants</a></li>
+                                                    <li><a href="shop-product-right.html">Sweatpants</a></li>
+                                                    <li><a href="shop-product-right.html">Harem Pants</a></li>
+                                                </ul>
+                                            </li>
+                                            <li class="sub-mega-menu sub-mega-menu-width-22">
+                                                <a class="menu-title" href="#">Technology</a>
+                                                <ul>
+                                                    <li><a href="shop-product-right.html">Gaming Laptops</a></li>
+                                                    <li><a href="shop-product-right.html">Ultraslim Laptops</a></li>
+                                                    <li><a href="shop-product-right.html">Tablets</a></li>
+                                                    <li><a href="shop-product-right.html">Laptop Accessories</a></li>
+                                                    <li><a href="shop-product-right.html">Tablet Accessories</a></li>
+                                                </ul>
+                                            </li>
+                                        </ul>
+                                    </li>
+                                    <li>
+                                        <a href="page-contact.html">Contact</a>
+                                    </li>
+                                </ul>
+                            </nav>
+                        </div>
+                    </div>
+                    <div class="hotline d-none d-lg-block">
+                        {{#if loginStatus}}
+                            <a href="/account/view~profile"><i class="fi-rs-user"></i>{{username}}</a>
+                            {{else}}
+                            <a href="../login"><i class="fi-rs-user"></i> Log In / Sign Up</a>
+                        {{/if}}
+                    </div>
+                </div>
+            </div>
+        </div>
+    </header>
+<!-- end of Nav-bottom -->
+
+<!-- Mobile -->
+    <div class="mobile-header-active mobile-header-wrapper-style">
+        <div class="mobile-header-wrapper-inner">
+            <div class="mobile-header-top">
+                <div class="mobile-header-logo">
+                    <a href="index.html"><img src="user/assets/imgs/theme/logo.svg" alt="logo"></a>
+                </div>
+                <div class="mobile-menu-close close-style-wrap close-style-position-inherit">
+                    <button class="close-style search-close">
+                        <i class="icon-top"></i>
+                        <i class="icon-bottom"></i>
+                    </button>
+                </div>
+            </div>
+            <div class="mobile-header-content-area">
+                <div class="mobile-search search-style-3 mobile-header-border">
+                    <form action="#">
+                        <input type="text" placeholder="Search for items…">
+                        <button type="submit"><i class="fi-rs-search"></i></button>
+                    </form>
+                </div>
+                <div class="mobile-menu-wrap mobile-header-border">
+                    <div class="main-categori-wrap mobile-header-border">
+                        <a class="categori-button-active-2" href="#">
+                            <span class="fi-rs-apps"></span> Browse Categories
+                        </a>
+                        <div class="categori-dropdown-wrap categori-dropdown-active-small">
+                            <ul>
+                                <li><a href="shop-grid-right.html"><i class="evara-font-dress"></i>Women's Clothing</a></li>
+                                <li><a href="shop-grid-right.html"><i class="evara-font-tshirt"></i>Men's Clothing</a></li>
+                                <li> <a href="shop-grid-right.html"><i class="evara-font-smartphone"></i> Cellphones</a></li>
+                                <li><a href="shop-grid-right.html"><i class="evara-font-desktop"></i>Computer & Office</a></li>
+                                <li><a href="shop-grid-right.html"><i class="evara-font-cpu"></i>Consumer Electronics</a></li>
+                                <li><a href="shop-grid-right.html"><i class="evara-font-home"></i>Home & Garden</a></li>
+                                <li><a href="shop-grid-right.html"><i class="evara-font-high-heels"></i>Shoes</a></li>
+                                <li><a href="shop-grid-right.html"><i class="evara-font-teddy-bear"></i>Mother & Kids</a></li>
+                                <li><a href="shop-grid-right.html"><i class="evara-font-kite"></i>Outdoor fun</a></li>
+                            </ul>
+                        </div>
+                    </div>
+                    <!-- mobile menu start -->
+                    <nav>
+                        <ul class="mobile-menu">
+                            <li class="menu-item-has-children"><span class="menu-expand"></span><a href="index.html">Home</a>
+                                <ul class="dropdown">
+                                    <li><a href="index.html">Home 1</a></li>
+                                    <li><a href="index-2.html">Home 2</a></li>
+                                    <li><a href="index-3.html">Home 3</a></li>
+                                    <li><a href="index-4.html">Home 4</a></li>
+                                </ul>
+                            </li>
+                            <li class="menu-item-has-children"><span class="menu-expand"></span><a href="shop-grid-right.html">shop</a>
+                                <ul class="dropdown">
+                                    <li><a href="shop-grid-right.html">Shop Grid – Right Sidebar</a></li>
+                                    <li><a href="shop-grid-left.html">Shop Grid – Left Sidebar</a></li>
+                                    <li><a href="shop-list-right.html">Shop List – Right Sidebar</a></li>
+                                    <li><a href="shop-list-left.html">Shop List – Left Sidebar</a></li>
+                                    <li><a href="shop-fullwidth.html">Shop - Wide</a></li>
+                                    <li class="menu-item-has-children"><span class="menu-expand"></span><a href="#">Single Product</a>
+                                        <ul class="dropdown">
+                                            <li><a href="shop-product-right.html">Product – Right Sidebar</a></li>
+                                            <li><a href="shop-product-left.html">Product – Left Sidebar</a></li>
+                                            <li><a href="shop-product-full.html">Product – No sidebar</a></li>
+                                        </ul>
+                                    </li>
+                                    <li><a href="shop-filter.html">Shop – Filter</a></li>
+                                    <li><a href="shop-wishlist.html">Shop – Wishlist</a></li>
+                                    <li><a href="shop-cart.html">Shop – Cart</a></li>
+                                    <li><a href="shop-checkout.html">Shop – Checkout</a></li>
+                                    <li><a href="shop-compare.html">Shop – Compare</a></li>
+                                </ul>
+                            </li>
+                            <li class="menu-item-has-children"><span class="menu-expand"></span><a href="#">Mega menu</a>
+                                <ul class="dropdown">
+                                    <li class="menu-item-has-children"><span class="menu-expand"></span><a href="#">Women's Fashion</a>
+                                        <ul class="dropdown">
+                                            <li><a href="shop-product-right.html">Dresses</a></li>
+                                            <li><a href="shop-product-right.html">Blouses & Shirts</a></li>
+                                            <li><a href="shop-product-right.html">Hoodies & Sweatshirts</a></li>
+                                            <li><a href="shop-product-right.html">Women's Sets</a></li>
+                                        </ul>
+                                    </li>
+                                    <li class="menu-item-has-children"><span class="menu-expand"></span><a href="#">Men's Fashion</a>
+                                        <ul class="dropdown">
+                                            <li><a href="shop-product-right.html">Jackets</a></li>
+                                            <li><a href="shop-product-right.html">Casual Faux Leather</a></li>
+                                            <li><a href="shop-product-right.html">Genuine Leather</a></li>
+                                        </ul>
+                                    </li>
+                                    <li class="menu-item-has-children"><span class="menu-expand"></span><a href="#">Technology</a>
+                                        <ul class="dropdown">
+                                            <li><a href="shop-product-right.html">Gaming Laptops</a></li>
+                                            <li><a href="shop-product-right.html">Ultraslim Laptops</a></li>
+                                            <li><a href="shop-product-right.html">Tablets</a></li>
+                                            <li><a href="shop-product-right.html">Laptop Accessories</a></li>
+                                            <li><a href="shop-product-right.html">Tablet Accessories</a></li>
+                                        </ul>
+                                    </li>
+                                </ul>
+                            </li>
+                            <li class="menu-item-has-children"><span class="menu-expand"></span><a href="blog-category-fullwidth.html">Blog</a>
+                                <ul class="dropdown">
+                                    <li><a href="blog-category-grid.html">Blog Category Grid</a></li>
+                                    <li><a href="blog-category-list.html">Blog Category List</a></li>
+                                    <li><a href="blog-category-big.html">Blog Category Big</a></li>
+                                    <li><a href="blog-category-fullwidth.html">Blog Category Wide</a></li>
+                                    <li class="menu-item-has-children"><span class="menu-expand"></span><a href="#">Single Product Layout</a>
+                                        <ul class="dropdown">
+                                            <li><a href="blog-post-left.html">Left Sidebar</a></li>
+                                            <li><a href="blog-post-right.html">Right Sidebar</a></li>
+                                            <li><a href="blog-post-fullwidth.html">No Sidebar</a></li>
+                                        </ul>
+                                    </li>
+                                </ul>
+                            </li>
+                            <li class="menu-item-has-children"><span class="menu-expand"></span><a href="#">Pages</a>
+                                <ul class="dropdown">
+                                    <li><a href="page-about.html">About Us</a></li>
+                                    <li><a href="page-contact.html">Contact</a></li>
+                                    <li><a href="page-account.html">My Account</a></li>
+                                    <li><a href="page-login-register.html">login/register</a></li>
+                                    <li><a href="page-purchase-guide.html">Purchase Guide</a></li>
+                                    <li><a href="page-privacy-policy.html">Privacy Policy</a></li>
+                                    <li><a href="page-terms.html">Terms of Service</a></li>
+                                    <li><a href="page-404.html">404 Page</a></li>
+                                </ul>
+                            </li>
+                            <li class="menu-item-has-children"><span class="menu-expand"></span><a href="#">Language</a>
+                                <ul class="dropdown">
+                                    <li><a href="#">English</a></li>
+                                    <li><a href="#">French</a></li>
+                                    <li><a href="#">German</a></li>
+                                    <li><a href="#">Spanish</a></li>
+                                </ul>
+                            </li>
+                        </ul>
+                    </nav>
+                    <!-- mobile menu end -->
+                </div>
+                <div class="mobile-header-info-wrap mobile-header-border">
+                    <div class="single-mobile-header-info mt-30">
+                        <a  href="page-contact.html"> Our location </a>
+                    </div>
+                    <div class="single-mobile-header-info">
+                        <a href="page-login-register.html">Log In / Sign Up </a>
+                    </div>
+                    <div class="single-mobile-header-info">
+                        <a href="#">(+01) - 2345 - 6789 </a>
+                    </div>
+                </div>
+                <div class="mobile-social-icon">
+                    <h5 class="mb-15 text-grey-4">Follow Us</h5>
+                    <a href="#"><img src="user/assets/imgs/theme/icons/icon-facebook.svg" alt=""></a>
+                    <a href="#"><img src="user/assets/imgs/theme/icons/icon-twitter.svg" alt=""></a>
+                    <a href="#"><img src="user/assets/imgs/theme/icons/icon-instagram.svg" alt=""></a>
+                    <a href="#"><img src="user/assets/imgs/theme/icons/icon-pinterest.svg" alt=""></a>
+                    <a href="#"><img src="user/assets/imgs/theme/icons/icon-youtube.svg" alt=""></a>
+                </div>
+            </div>
+        </div>
+    </div>
+<!-- end of Mobile -->
+<!-- end of Header -->
+
+    <main class="main">
+        <section class="mt-50 mb-50">
+            <div class="container">
+                <div class="row">
+                    <h3>Checkout page</h3>
+                    <div class="col-12">
+                        <div class="divider mt-50 mb-50"></div>
+                    </div>
+                </div>
+
+
+                <form id="checkoutForm" name="sub" method="" action="">
+                <div class="row">
+                    <div class="col-md-6 col-lg-6">
+                        <div class="mb-25">
+                            <h4>Billing Details</h4>
+                        </div>
+                        <div class="form-group">
+                            <input type="text" name="username" value="{{#if user.username}}{{user.username}}{{/if}}" placeholder="{{#unless user.username}}Name *{{/unless}}" required="">
+                        </div>
+                        <div class="form-group">
+                            <input type="text" name="useremail" value="{{#if user.useremail}}{{user.useremail}}{{/if}}" placeholder="{{#unless user.useremail}}Email address *{{/unless}}" required="">
+                        </div>
+                        <div class="form-group">
+                            <label><span>Your current address</span></label>
+                        </div>
+                        <div class="form-group">
+                            <input type="text" name="phone" value="{{#if user.userphone}}{{user.userphone}}{{/if}}" placeholder="{{#unless user.userphone}}Phone number *{{/unless}}" required="">
+                        </div>
+                        <div class="form-group">
+                            <input type="text" name="state" value="{{#if user.useraddress.state}}{{user.useraddress.state}}{{/if}}" placeholder="{{#unless user.useraddress.state}}State/ Country *{{/unless}}" required="">
+                        </div>
+                        <div class="form-group">
+                            <input type="text" name="district" value="{{#if user.useraddress.city}}{{user.useraddress.city}}{{/if}}" placeholder="{{#unless user.useraddress.city}}Districts/ City *{{/unless}}" required="">
+                        </div>
+                        <div class="form-group">
+                            <input type="text" name="city" value="{{#if user.useraddress.city}}{{user.useraddress.city}}{{/if}}" placeholder="{{#unless user.useraddress.city}}City *{{/unless}}" required="">
+                        </div>
+                        <div class="form-group">
+                            <input type="text" name="house" value="{{#if user.useraddress.house}}{{user.useraddress.house}}{{/if}}" placeholder="{{#unless user.useraddress.house}}Address *{{/unless}}" required="">
+                        </div>
+                        <div class="form-group">
+                            <input type="text" name="pin" value="{{#if user.useraddress.pin}}{{user.useraddress.pin}}{{/if}}" placeholder="{{#unless user.useraddress.pin}}Pin / ZIP *{{/unless}}" required="">
+                        </div>
+                        <div class="ship_detail">
+                            <div class="form-group">
+                                <div class="chek-form">
+                                    <div class="custome-checkbox">
+                                        <input class="form-check-input" type="checkbox" name="checkbox" id="differentaddress">
+                                        <label class="form-check-label label_info" data-bs-toggle="collapse" data-target="#collapseAddress" href="#collapseAddress" aria-controls="collapseAddress" for="differentaddress"><span>Ship to a different address?</span></label>
+                                    </div>
+                                </div>
+                            </div>
+                            <div id="collapseAddress" class="different_address collapse in">
+                                <div class="form-group">
+                                    <input type="text" name="phoneTemp" placeholder="Phone *">
+                                </div>
+                                <div class="form-group">
+                                    <input type="text" name="stateTemp" placeholder="State / County *" >
+                                </div>
+                                <div class="form-group">
+                                    <input type="text" name="districtTemp" placeholder="District / City *" >
+                                </div>
+                                <div class="form-group">
+                                    <input type="text" name="cityTemp" placeholder="City / Town *" >
+                                </div>
+                                <div class="form-group">
+                                    <input type="text" name="houseTemp" placeholder="Address *" >
+                                </div>
+                                <div class="form-group">
+                                    <input type="text" name="pinTemp" placeholder="Postcode / PIN *" >
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="order_review">
+                            <div class="mb-20">
+                                <h4>Your Orders</h4>
+                            </div>
+                            <div class="table-responsive order_table text-center">
+                                <table class="table">
+                                    <thead>
+                                        <tr>
+                                            <th colspan="2">Product</th>
+                                            <th>Total</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        {{#each cartItems}}
+                                        <tr>
+                                            <td class="image product-thumbnail"><img src="multer/products/{{product.productimages.[0]}}" alt="#"></td>
+                                            <td>
+                                                <h5><a href="shop-product-full.html">{{product.productname}}</a></h5> <span class="product-qty">x {{quantity}}</span>
+                                            </td>
+                                            <td>${{price}}</td>
+                                        </tr>
+                                        {{/each}}
+                                        <tr>
+                                            <th>Total</th>
+                                            <td colspan="2" class="product-subtotal"><span class="font-xl text-brand fw-900">${{total}}</span></td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                            <div class="bt-1 border-color-1 mt-30 mb-30"></div>
+                            <div class="row">
+                                <div class="col-lg-6">
+                                    <br><br>
+                                    <div class="payment_method">
+                                        <div class="mb-25">
+                                            <h5>Payment</h5>
+                                        </div>
+                                        <div class="payment_option">
+                                            <div class="custome-radio">
+                                                <input class="form-check-input" required="" type="radio" name="payment_option" id="exampleRadios3" value="cash_on_delivery" checked="">
+                                                <label class="form-check-label" for="exampleRadios3" data-bs-toggle="collapse" data-target="#bankTranfer" aria-controls="bankTranfer">Cash on Delivery</label>
+                                            </div>
+                                            <div class="custome-radio">
+                                                <input class="form-check-input" required="" type="radio" name="payment_option" id="exampleRadios4" value="razorpay">
+                                                <label class="form-check-label" for="exampleRadios4" data-bs-toggle="collapse" data-target="#razorpay" aria-controls="razorpay">Razorpay</label>
+                                            </div>
+                                            <div class="custome-radio">
+                                                <input class="form-check-input" required="" type="radio" name="payment_option" id="exampleRadios5" value="wallet">
+                                                <label class="form-check-label" for="exampleRadios5" data-bs-toggle="collapse" data-target="#wallet" aria-controls="wallet">Wallet</label>
+                                            </div>
+                                            <p>{{error}}</p>
+                                            <div>
+                                                <button class="btn btn-md" type="submit">Place Order</button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-lg-6">
+                                    <div class="coupon_form " id="coupon">
+                                        <div class="panel-body">
+                                            <p class="mb-30 font-sm">If you have a coupon code, please apply it below.</p>
+                                            <form method="post">
+                                                <div class="form-group">
+                                                    <input type="text" placeholder="Enter Coupon Code...">
+                                                </div>
+                                                <div class="form-group">
+                                                    <button class="btn  btn-md">Apply Coupon</button>
+                                                </div>
+                                                <script src="https://checkout.razorpay.com/v1/checkout.js"></script>
+                                            </form>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                </form>
+            </div>
+        </section>
+    </main>
+    <footer class="main">
+        <hr>
+        <section class="section-padding footer-mid">
+            <div class="container pt-15 pb-20">
+                <div class="row">
+                    <div class="col-lg-4 col-md-6">
+                        <div class="widget-about font-md mb-md-5 mb-lg-0">
+                            <div class="logo logo-width-1 wow fadeIn animated">
+                                <a href="index.html"><img src="user/assets/imgs/theme/logo.svg" alt="logo"></a>
+                            </div>
+                            <h5 class="mt-20 mb-10 fw-600 text-grey-4 wow fadeIn animated">Contact</h5>
+                            <p class="wow fadeIn animated">
+                                <strong>Address: </strong>562 Wellington Road, Street 32, San Francisco
+                            </p>
+                            <p class="wow fadeIn animated">
+                                <strong>Phone: </strong>+01 2222 365 /(+91) 01 2345 6789
+                            </p>
+                            <p class="wow fadeIn animated">
+                                <strong>Hours: </strong>10:00 - 18:00, Mon - Sat
+                            </p>
+                            <h5 class="mb-10 mt-30 fw-600 text-grey-4 wow fadeIn animated">Follow Us</h5>
+                            <div class="mobile-social-icon wow fadeIn animated mb-sm-5 mb-md-0">
+                                <a href="#"><img src="user/assets/imgs/theme/icons/icon-facebook.svg" alt=""></a>
+                                <a href="#"><img src="user/assets/imgs/theme/icons/icon-twitter.svg" alt=""></a>
+                                <a href="#"><img src="user/assets/imgs/theme/icons/icon-instagram.svg" alt=""></a>
+                                <a href="#"><img src="user/assets/imgs/theme/icons/icon-pinterest.svg" alt=""></a>
+                                <a href="#"><img src="user/assets/imgs/theme/icons/icon-youtube.svg" alt=""></a>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-lg-2 col-md-3">
+                        <h5 class="widget-title wow fadeIn animated">About</h5>
+                        <ul class="footer-list wow fadeIn animated mb-sm-5 mb-md-0">
+                            <li><a href="#">About Us</a></li>
+                            <li><a href="#">Delivery Information</a></li>
+                            <li><a href="#">Privacy Policy</a></li>
+                            <li><a href="#">Terms &amp; Conditions</a></li>
+                            <li><a href="#">Contact Us</a></li>
+                            <li><a href="#">Support Center</a></li>
+                        </ul>
+                    </div>
+                    <div class="col-lg-2  col-md-3">
+                        <h5 class="widget-title wow fadeIn animated">My Account</h5>
+                        <ul class="footer-list wow fadeIn animated">
+                            <li><a href="#">Sign In</a></li>
+                            <li><a href="#">View Cart</a></li>
+                            <li><a href="#">My Wishlist</a></li>
+                            <li><a href="#">Track My Order</a></li>
+                            <li><a href="#">Help</a></li>
+                            <li><a href="#">Order</a></li>
+                        </ul>
+                    </div>
+                    <div class="col-lg-4">
+                        <h5 class="widget-title wow fadeIn animated">Install App</h5>
+                        <div class="row">
+                            <div class="col-md-8 col-lg-12">
+                                <p class="wow fadeIn animated">From App Store or Google Play</p>
+                                <div class="download-app wow fadeIn animated">
+                                    <a href="#" class="hover-up mb-sm-4 mb-lg-0"><img class="active" src="user/assets/imgs/theme/app-store.jpg" alt=""></a>
+                                    <a href="#" class="hover-up"><img src="user/assets/imgs/theme/google-play.jpg" alt=""></a>
+                                </div>
+                            </div>
+                            <div class="col-md-4 col-lg-12 mt-md-3 mt-lg-0">
+                                <p class="mb-20 wow fadeIn animated">Secured Payment Gateways</p>
+                                <img class="wow fadeIn animated" src="user/assets/imgs/theme/payment-method.png" alt="">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+        <div class="container pb-20 wow fadeIn animated">
+            <div class="row">
+                <div class="col-12 mb-20">
+                    <div class="footer-bottom"></div>
+                </div>
+                <div class="col-lg-6">
+                    <p class="float-md-left font-sm text-muted mb-0">&copy; 2021, <strong class="text-brand">Evara</strong> - HTML Ecommerce Template </p>
+                </div>
+                <div class="col-lg-6">
+                    <p class="text-lg-end text-start font-sm text-muted mb-0">
+                        Designed by <a href="http://alithemes.com/" target="_blank">Alithemes.com</a>. All rights reserved
+                    </p>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Vendor JS-->
+    <script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+
+    <script src="user/assets/js/vendor/modernizr-3.6.0.min.js"></script>
+    <script src="user/assets/js/vendor/jquery-3.6.0.min.js"></script>
+    <script src="user/assets/js/vendor/jquery-migrate-3.3.0.min.js"></script>
+    <script src="user/assets/js/vendor/bootstrap.bundle.min.js"></script>
+    <script src="user/assets/js/plugins/slick.js"></script>
+    <script src="user/assets/js/plugins/jquery.syotimer.min.js"></script>
+    <script src="user/assets/js/plugins/wow.js"></script>
+    <script src="user/assets/js/plugins/jquery-ui.js"></script>
+    <script src="user/assets/js/plugins/perfect-scrollbar.js"></script>
+    <script src="user/assets/js/plugins/magnific-popup.js"></script>
+    <script src="user/assets/js/plugins/select2.min.js"></script>
+    <script src="user/assets/js/plugins/waypoints.js"></script>
+    <script src="user/assets/js/plugins/counterup.js"></script>
+    <script src="user/assets/js/plugins/jquery.countdown.min.js"></script>
+    <script src="user/assets/js/plugins/images-loaded.js"></script>
+    <script src="user/assets/js/plugins/isotope.js"></script>
+    <script src="user/assets/js/plugins/scrollup.js"></script>
+    <script src="user/assets/js/plugins/jquery.vticker-min.js"></script>
+    <!-- Template  JS -->
+    <script src="user/assets/js/main.js"></script>
+    <script src="user/assets/js/shop.js"></script>
+
+    <script>
+        $('#checkoutForm').submit((e)=>{
+            e.preventDefault()
+            $.ajax({
+                url:'/placeorder',
+                method:'POST',
+                data:$('#checkoutForm').serialize(),
+                success:(order)=>{
+                    if(order.COD){
+                        console.log("order - COD")
+                        location.href='/order-success'
+                    }else if(order.WalletTrue){
+                        console.log("order - WALLET true")
+                        location.href='/order-success'
+                    }else if(order.WalletFalse){
+                        console.log("order - WALLET false")
+                        location.href='/checkout'
+                    }else{
+                        razorpayPayment(order)
+                    }	
+                }
+            })
+        })
+
+        function razorpayPayment(order){
+            var options = {
+                "key": "rzp_test_KDaOanuC48JEej",
+                "amount": order.amount, // Amount is in currency subunits. Default currency is INR. Hence, 50000 refers to 50000 paise
+                "currency": "INR",
+                "name": "Konisagg", 
+                "description": "Test Transaction",
+                "image": "data:image/jpeg;base64,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",
+                "order_id": order.id, 
+                "handler": function (response){
+                    console.log("verify payment action")
+                    verifyPayment(response,order)
+                },
+                "prefill": {
+                    "name": "Gaurav Kumar", 
+                    "email": "gaurav.kumar@example.com",
+                    "contact": "9000090000"
+                },
+                "notes": {
+                    "address": "Razorpay Corporate Office"
+                },
+                "theme": {
+                    "color": "#3399cc"
+                }
+            };
+
+            var rzp1 = new Razorpay(options);
+            rzp1.open(); // Open the Razorpay payment window
+
+        }
+
+        function verifyPayment(response,order){
+            $.ajax({
+                url:'/verify-payment',
+                data:{
+                    response,
+                    order
+                },
+                method:"POST",
+                success:(response)=>{
+                    if(response.status){
+                        location.href ='/order-success'
+                    }else{
+                    alert('payment failed')
+                    }
+                }
+            })
+        }
+    </script>
+</body>
+
+
+<!-- Mirrored from wp.alithemes.com/html/evara/evara-frontend/shop-checkout.html by HTTrack Website Copier/3.x [XR&CO'2014], Sun, 01 Aug 2021 15:26:06 GMT -->
+</html>

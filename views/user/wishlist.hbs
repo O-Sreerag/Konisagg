@@ -58,11 +58,6 @@
                         <span class="text">Wishlist</span>
                     </a>
                 </li>
-                <li class="menu-item">
-                    <a class="menu-link" href="../accountSettings/editSettings"> <i class="icon material-icons md-settings"></i>
-                        <span class="text">Settings</span>
-                    </a>
-                </li>
             </ul>
             <hr>
             <ul class="menu-aside ">
@@ -115,36 +110,6 @@
             </div>
         </header>
         <section class="content-main">
-                            <div class="col-lg-6 mb-sm-15">
-                        <div class="toggle_info">
-                            <span><i class="fi-rs-user mr-10"></i><span class="text-muted">Already have an account?</span> <a href="#loginform" data-bs-toggle="collapse" class="collapsed" aria-expanded="false">Click here to login</a></span>
-                        </div>
-                        <div class="panel-collapse collapse login_form" id="loginform">
-                            <div class="panel-body">
-                                <p class="mb-30 font-sm">If you have shopped with us before, please enter your details below. If you are a new customer, please proceed to the Billing &amp; Shipping section.</p>
-                                <form method="post">
-                                    <div class="form-group">
-                                        <input type="text" name="email" placeholder="Username Or Email">
-                                    </div>
-                                    <div class="form-group">
-                                        <input type="password" name="password" placeholder="Password">
-                                    </div>
-                                    <div class="login_footer form-group">
-                                        <div class="chek-form">
-                                            <div class="custome-checkbox">
-                                                <input class="form-check-input" type="checkbox" name="checkbox" id="remember" value="">
-                                                <label class="form-check-label" for="remember"><span>Remember me</span></label>
-                                            </div>
-                                        </div>
-                                        <a href="#">Forgot password?</a>
-                                    </div>
-                                    <div class="form-group">
-                                        <button class="btn btn-md" name="login">Log in</button>
-                                    </div>
-                                </form>
-                            </div>
-                        </div>
-                    </div>
                     <br><br>
             <div class="content-header">
                 <h2 class="content-title">Your Wishlist</h2>
@@ -158,11 +123,11 @@
                                     <div class="row">
                                         <div class="col-12">
                                             <div class="table-responsive">
+                                                {{#if wishlistItems}}
                                                 <table class="table shopping-summery text-center">
                                                     <thead>
                                                         <tr class="main-heading">
-                                                            <th scope="col">Index</th>
-                                                            <th scope="col" colspan="2">Product</th>
+                                                            <th scope="col" width="40%" colspan="2">Product</th>
                                                             <th scope="col">Price</th>
                                                             <th scope="col">Stock Status</th>
                                                             <th scope="col">Action</th>
@@ -172,21 +137,23 @@
                                                     <tbody>
                                                         {{#each wishlistItems}}
                                                         <tr>
-                                                            <td>{{@index}}</td>
-                                                            <td class="image product-thumbnail"><img src="../multer/products/{{productimages.[0]}}" alt="#"></td>
+                                                            <td class="image product-thumbnail"><img src="../multer/products/cropped-{{productimages.[0]}}" alt="#"></td>
                                                             <td class="product-des product-name">
                                                                 <h5 class="product-name"><a href="shop-product-right.html">{{productname}}</a></h5>
                                                                 <p class="font-xs">{{productdescription}}
                                                                 </p>
                                                             </td>
-                                                            <td class="price" data-title="Price"><span>${{promotionalprice}}</span></td>
+                                                            {{#if promotionalprice}}
+                                                            <td class="price" data-title="Price"><span>₹{{promotionalprice}}</span></td>
+                                                            {{else}}
+                                                            <td class="price" data-title="Price"><span>₹{{regularprice}}</span></td>
+                                                            {{/if}}
                                                             <td class="text-center" data-title="Stock">
                                                                 <span class="color3 font-weight-bold">in stock</span>
                                                             </td>
                                                             <td class="text-right" data-title="Cart">
                                                                 <a href="/shop/product/details?productid={{_id}}">
                                                                     <button class="btn btn-sm">
-                                                                        <i class="fi-rs-shopping-bag mr-5" style="margin-top: 1px;"></i>
                                                                         Details
                                                                     </button>
                                                                 </a>
@@ -196,6 +163,11 @@
                                                         {{/each}}
                                                     </tbody>
                                                 </table>
+                                                {{else}}
+                                                <div class="card-body">
+                                                    <p style="color: red;">there are no wishlist items added  yet</p>
+                                                </div>
+                                                {{/if}}
                                             </div>
                                         </div>
                                     </div>
@@ -228,9 +200,28 @@
     <script src="../admin/assets/js/vendors/jquery.fullscreen.min.js"></script>
     <!-- Main Script -->
     <script src="../admin/assets/js/main.js" type="text/javascript"></script>
+        <!-- SweetAlert CDN -->
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script> 
 
     
 <script>
+</script>
+
+<script>
+  document.addEventListener("DOMContentLoaded", function () {
+    // Check if the bannerMessage exists and is not empty
+    const bannerMessage = "{{ Message }}";
+    if (bannerMessage) {
+      // Trigger SweetAlert to display the bannerMessage
+      Swal.fire({
+        title: 'Notification',
+        text: bannerMessage,
+        icon: 'info',
+        // You can add more configurations as needed
+      });
+    }
+
+  });
 </script>
 
 </body>

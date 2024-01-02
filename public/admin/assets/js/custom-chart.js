@@ -17,7 +17,7 @@
                         fill: true,
                         backgroundColor: 'rgba(44, 120, 220, 0.2)',
                         borderColor: 'rgba(44, 120, 220)',
-                        data: [18, 17, 4, 3, 2, 20, 25, 31, 25, 22, 20, 9]
+                        data: [18, 17, 4, 3, 2, 20, 25, 31, 25, 22]
                     },
                     {
                         label: 'Visitors',
@@ -56,31 +56,25 @@
         var myChart = new Chart(ctx, {
             type: 'bar',
             data: {
-            labels: ["900", "1200", "1400", "1600"],
+            labels: ["Daily", "Monthly", "Yearly"],
             datasets: [
                 {
-                    label: "US",
+                    label: "Payment Done",
                     backgroundColor: "#5897fb",
                     barThickness:10,
-                    data: [233,321,783,900]
+                    data: [233,321,783]
                 }, 
                 {
-                    label: "Europe",
+                    label: "Awaiting Payment",
                     backgroundColor: "#7bcf86",
                     barThickness:10,
-                    data: [408,547,675,734]
+                    data: [408,547,675]
                 },
                 {
-                    label: "Asian",
+                    label: "Refund Requested",
                     backgroundColor: "#ff9076",
                     barThickness:10,
-                    data: [208,447,575,634]
-                },
-                {
-                    label: "Africa",
-                    backgroundColor: "#d595e5",
-                    barThickness:10,
-                    data: [123,345,122,302]
+                    data: [208,447,575]
                 },
             ]
             },

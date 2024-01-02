@@ -1,0 +1,268 @@
+<!DOCTYPE HTML>
+<html lang="en">
+
+
+<!-- Mirrored from wp.alithemes.com/html/evara/evara-backend/page-settings-1.html by HTTrack Website Copier/3.x [XR&CO'2014], Sun, 01 Aug 2021 15:33:49 GMT -->
+<head>
+    <meta charset="utf-8"> 
+    <title>Evara Dashboard</title>
+    <meta http-equiv="x-ua-compatible" content="ie=edge">
+    <meta name="description" content="">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta property="og:title" content="">
+    <meta property="og:type" content="">
+    <meta property="og:url" content="">
+    <meta property="og:image" content="">
+    <!-- Favicon -->
+    <link rel="shortcut icon" type="image/x-icon" href="../admin/assets/imgs/theme/favicon.svg">
+    <!-- Template CSS -->
+    <link href="../admin/assets/css/main.css" rel="stylesheet" type="text/css" />
+
+</head>
+
+<body>
+    <div class="screen-overlay"></div>
+    <aside class="navbar-aside" id="offcanvas_aside">
+        <div class="aside-top">
+            <a href="index.html" class="brand-wrap">
+                <img src="../admin/assets/imgs/theme/logo.svg" class="logo" alt="Evara Dashboard">
+            </a>
+            <div>
+                <button class="btn btn-icon btn-aside-minimize"> <i class="text-muted material-icons md-menu_open"></i> </button>
+            </div>
+        </div>
+        <nav>
+            <ul class="menu-aside">
+                <li class="menu-item ">
+                    <a class="menu-link" href="/"> <i class="icon material-icons md-home"></i>
+                        <span class="text">Home</span>
+                    </a>
+                </li>
+                <li class="menu-item active">
+                    <a class="menu-link" href="/account/view~profile"> <i class="icon material-icons md-person"></i>
+                        <span class="text">Account</span>
+                    </a>
+                </li>
+                <li class="menu-item">
+                    <a class="menu-link" href="/orders/history"><i class="icon material-icons md-monetization_on"></i>
+                        <span class="text">Orders</span>
+                    </a>
+                </li>
+                <li class="menu-item">
+                    <a class="menu-link" href="/cart/view"> <i class="icon material-icons md-shopping_cart"></i> 
+                        <span class="text">Cart</span>
+                    </a>
+                </li>
+                <li class="menu-item">
+                    <a class="menu-link" href="/wishlist/view"> <i class="icon material-icons md-shopping_bag"></i>
+                        <span class="text">Wishlist</span>
+                    </a>
+                </li>
+                <li class="menu-item">
+                    <a class="menu-link" href="../accountSettings/editSettings"> <i class="icon material-icons md-settings"></i>
+                        <span class="text">Settings</span>
+                    </a>
+                </li>
+            </ul>
+            <hr>
+            <ul class="menu-aside ">
+                <li class="menu-item">
+                    <a class="menu-link  text-danger" href="../logout"><i class="material-icons md-exit_to_app"></i>
+                        <span class="text">Logout</span>
+                    </a>
+                </li>
+            </ul>
+            <br>
+            <br>
+        </nav>
+    </aside>
+    <main class="main-wrap">
+        <header class="main-header navbar">
+            <div class="col-search">
+                <form class="searchform">
+                    <div class="input-group">
+                        <input list="search_terms" type="text" class="form-control" placeholder="Search term">
+                        <button class="btn btn-light bg" type="button"> <i class="material-icons md-search"></i></button>
+                    </div>
+                    <datalist id="search_terms">
+                        <option value="Products">
+                        <option value="New orders">
+                        <option value="Apple iphone">
+                        <option value="Ahmed Hassan">
+                    </datalist>
+                </form>
+            </div>
+            <div class="col-nav">
+                <button class="btn btn-icon btn-mobile me-auto" data-trigger="#offcanvas_aside"> <i class="material-icons md-apps"></i> </button>
+                <ul class="nav">
+                    <li class="nav-item">
+                        <a class="nav-link btn-icon" href="#">
+                            <i class="material-icons md-notifications animation-shake"></i>
+                            <span class="badge rounded-pill">3</span>
+                        </a>
+                    </li>
+                    <li class="dropdown nav-item">
+                        <a class="dropdown-toggle" data-bs-toggle="dropdown" href="#" id="dropdownAccount" aria-expanded="false"> <img class="img-xs rounded-circle" src="../admin/assets/imgs/people/avatar2.jpg" alt="User"></a>
+                        <div class="dropdown-menu dropdown-menu-end" aria-labelledby="dropdownAccount">
+                            <a class="dropdown-item" href="/account/view~profile"><i class="material-icons md-settings"></i>Account Settings</a>
+                            <a class="dropdown-item" href="#"><i class="material-icons md-account_balance_wallet"></i>Wallet</a>
+                            <a class="dropdown-item" href="#"><i class="material-icons md-receipt"></i>Billing</a>
+                            <a class="dropdown-item" href="#"><i class="material-icons md-help_outline"></i>Help center</a>
+                            <div class="dropdown-divider"></div>
+                            <a class="dropdown-item text-danger" href="../logout"><i class="material-icons md-exit_to_app"></i>Logout</a>
+                        </div>
+                    </li>
+                </ul>
+            </div>
+        </header>
+        <section class="content-main">
+            <div class="content-header">
+                <h2 class="content-title">Account settings</h2>
+            </div>
+            <div class="card">
+                <div class="card-body">
+                    <div class="row gx-5">
+                        <aside class="col-lg-3 border-end">
+                            <nav class="nav nav-pills flex-lg-column mb-4">
+                                <br>
+                                <a class="nav-link" href="/account/view~profile">view Profile</a>
+                                <a class="nav-link" href="/account/edit~profile">edit Profile</a>
+                                <a class="nav-link active" aria-current="page">Add Address</a>
+                                <a class="nav-link" href="/account/security">Security</a>     
+                            </nav>
+                        </aside>
+                        <div class="col-lg-9">
+                            <section class="content-body p-xl-4">
+                                <div class="address-details">
+                                    <form action="/account/add~address/submit" method="post">
+                                        <div class="row">
+                                            <div class="col-lg-12  mb-3 d-flex justify-content-between align-items-center">
+                                                <div> 
+                                                    <label class="form-label">Add Another address</label>
+                                                    <p class="text-muted" style="font-size: 14px;">
+                                                        (up to 4 addresses. Adding a new address will delete the oldest one.)
+                                                    </p>
+                                                </div>
+                                            
+                                                <button class="btn btn-primary" type="submit">Save changes</button>
+                                            </div>
+                                            <div class="col-lg-6  mb-3">
+                                                <input class="form-control" required placeholder="state" name="state" type="text">
+                                            </div>
+                                            <div class="col-lg-6  mb-3">
+                                                <input class="form-control" required placeholder="district" name="district" type="text">
+                                            </div>
+                                            <div class="col-lg-6  mb-3">
+                                                <input class="form-control" required placeholder="city address" name="city" type="text">
+                                            </div>
+                                            <div class="col-lg-6  mb-3">
+                                                <input class="form-control" required pattern="[0-9]{6}" title="Please enter a valid 6-digit pin code" placeholder="Post/Pin" name="pin" type="text">
+                                            </div>
+                                            <div class="col-lg-12 mb-3">
+                                                <input class="form-control" required placeholder="House Address" name="house" type="text">
+                                            </div>
+                                        </div>
+                                    </form>
+                                </div>
+                                <h6>Address</h6> <br>
+                                {{#if user.useraddresses.[0]}}
+                                    {{#each user.useraddresses}}
+                                        <div class="address-slide">
+                                            <div class="row">
+                                                <div class="col-lg-12 mb-3">
+                                                    <p class="address-label">Address:</p>
+                                                </div>
+                                                <div class="col-lg-6 mb-3">
+                                                    <p class="form-control">{{#if state}}{{state}}{{else}}<span style="color: #3d4949; font-style: italic;">no address</span>{{/if}}</p>
+                                                </div>
+                                                <div class="col-lg-6 mb-3">
+                                                    <p class="form-control">{{#if district}}{{district}}{{else}}<span style="color: #3d4949; font-style: italic;">no address</span>{{/if}}</p>
+                                                </div>
+                                                <div class="col-lg-6 mb-3">
+                                                    <p class="form-control">{{#if city}}{{city}}{{else}}<span style="color: #3d4949; font-style: italic;">no address</span>{{/if}}</p>
+                                                </div>
+                                                <div class="col-lg-6 mb-3">
+                                                    <p class="form-control">{{#if pin}}{{pin}}{{else}}<span style="color: #3d4949; font-style: italic;">no address</span>{{/if}}</p>
+                                                </div>
+                                                <div class="col-lg-12 mb-3">
+                                                    <p class="form-control">{{#if house}}{{house}}{{else}}<span style="color: #3d4949; font-style: italic;">no address</span>{{/if}}</p>
+                                                </div>
+                                                <!-- Your HTML code -->
+                                                <div class="col-lg-12 mb-3">
+                                                    <a href="/account/delete~address/submit?addressIndex={{@index}}" class="btn btn-danger delete-address-btn">Delete</a>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <hr>
+                                    {{/each}}
+                                {{else}}
+                                    <div class="address-slide">
+                                        <div class="row">
+                                            <div class="col-lg-12 mb-3">
+                                                <p class="form-control">
+                                                    <span style="color: #3d4949; font-style: italic;">Address not added</span>
+                                                </p>
+                                            </div>
+                                        </div>
+                                    </div>
+                                {{/if}}
+                            </section> 
+                        </div>
+                    </div> 
+                </div> <!-- card body end// -->
+            </div> <!-- card end// -->
+        </section> <!-- content-main end// -->
+        <footer class="main-footer font-xs">
+            <div class="row pb-30 pt-15">
+                <div class="col-sm-6">
+                    <script>
+                    document.write(new Date().getFullYear())
+                    </script> ©, Konisagg by O Sreerag
+                </div>
+                <div class="col-sm-6">
+                    <div class="text-sm-end">
+                        All rights reserved
+                    </div>
+                </div>
+            </div>
+        </footer>
+    </main>
+    <script src="../admin/assets/js/vendors/jquery-3.6.0.min.js"></script>
+    <script src="../admin/assets/js/vendors/bootstrap.bundle.min.js"></script>
+    <script src="../admin/assets/js/vendors/select2.min.js"></script>
+    <script src="../admin/assets/js/vendors/perfect-scrollbar.js"></script>
+    <script src="../admin/assets/js/vendors/jquery.fullscreen.min.js"></script>
+    <!-- Main Script -->
+    <script src="../admin/assets/js/main.js" type="text/javascript"></script>
+    <!-- SweetAlert CDN -->
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
+
+<script>
+// JavaScript/jQuery code
+$('.delete-address-btn').on('click', function(e) {
+    e.preventDefault(); // Prevent default link behavior
+
+    const deleteUrl = $(this).attr('href'); // Get the delete URL from the button's href attribute
+
+    // Show a confirmation dialog using SweetAlert
+    Swal.fire({
+        title: 'Are you sure?',
+        text: 'Once deleted, this address will be permanently removed!',
+        icon: 'warning',
+        showCancelButton: true,
+        confirmButtonColor: '#d33',
+        cancelButtonColor: '#3085d6',
+        confirmButtonText: 'Yes, delete it!'
+    }).then((result) => {
+        if (result.isConfirmed) {
+            // If confirmed, proceed with the deletion by redirecting to the delete route
+            window.location.href = deleteUrl;
+        }
+    });
+});
+  
+</script>
+</body>
+
+</html>

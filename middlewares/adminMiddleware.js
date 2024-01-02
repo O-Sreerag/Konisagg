@@ -7,7 +7,7 @@ const adminLoginStatusTrue = (req, res, next) => {
     console.log("login status" + req.session?.verifiedAdmin?.loginStatus)
 
     if (req.session?.verifiedAdmin?.loginStatus) {
-        res.redirect('admin/home')
+        res.redirect('/admin/home')
     } else {
         next()
     }

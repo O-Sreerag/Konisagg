@@ -15,7 +15,6 @@ const productSchema = new mongoose.Schema({
     },
     promotionalprice: {
         type: Number,
-        required: true
     },
     stock: {
         type: Number,
@@ -51,7 +50,11 @@ const productSchema = new mongoose.Schema({
     productimages: {
         type: Array,
         required: true
-    }
+    },
+    createdAt: {
+        type: Date,
+        default: Date.now
+    },
 });
 
 const productModel = mongoose.model("productInfo", productSchema);

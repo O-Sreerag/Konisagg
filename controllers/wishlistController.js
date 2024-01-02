@@ -16,9 +16,17 @@ const addToWishlist = async (req, res, next) => {
             if (!userWishlist.productIds.includes(itemId)) {
                 userWishlist.productIds.push(itemId);
                 await userWishlist.save();
-                res.status(200).json({ message: 'Product added to wishlist' });
+                if (!req.session.Message) {
+                    req.session.Message = {};
+                }
+                req.session.Message = "Product added to wishlist"
+                res.redirect('/wishlist/view')
             } else {
-                res.status(200).json({ message: 'Product already exists in the wishlist' });
+                if (!req.session.Message) {
+                    req.session.Message = {};
+                }
+                req.session.Message = "Product already exists in the wishlist"
+                res.redirect('/wishlist/view')
             }
         } else {
             const newWishlist = new wishlistModel({
@@ -28,7 +36,11 @@ const addToWishlist = async (req, res, next) => {
             await newWishlist.save();
         }
 
-        res.status(200).json({ message: 'Product added to wishlist' });
+        if (!req.session.Message) {
+            req.session.Message = {};
+        }
+        req.session.Message = "Product added to wishlist"
+        res.redirect('/wishlist/view')
     } catch(error) {
         console.log(error)
     }
@@ -50,17 +62,15 @@ const viewItems = async (req, res) => {
             console.log('products');
             console.log(products);
 
-            res.render('user/wishlist', { wishlistItems: products });
+            res.render('user/wishlist', { wishlistItems: products , Message: req.session?.Message});
+            if(req.session.Message) {
+                req.session.Message = null
+            }
         }
     } catch (error) {
         console.log(error);
     }
 };
-
-
-const contactUs = (req, res) => {
-    res.send('contactUs')
-}
 
 const deleteItem = async (req, res) => {
     try {
@@ -73,19 +83,30 @@ const deleteItem = async (req, res) => {
             userWishlist.productIds = userWishlist.productIds.filter(id => id.toString() !== itemId);
             await userWishlist.save();
 
-            res.status(200).json({ message: 'Item removed from the wishlist' });
+            if (!req.session.Message) {
+                req.session.Message = {};
+            }
+            req.session.Message = "Item removed from the wishlist"
+            res.redirect('/wishlist/view')
         } else {
-            res.status(404).json({ message: 'User\'s wishlist not found' });
+            if (!req.session.Message) {
+                req.session.Message = {};
+            }
+            req.session.Message = "User\'s wishlist not found"
+            res.redirect('/wishlist/view')
         }
     } catch (error) {
         console.log(error);
-        res.status(500).json({ error: 'An error occurred while removing the item from the wishlist' });
+        if (!req.session.Message) {
+            req.session.Message = {};
+        }
+        req.session.Message = "An error occurred while removing the item from the wishlist"
+        res.redirect('/wishlist/view')
     }
 };
 
 module.exports = {
     addToWishlist,
     viewItems,
-    contactUs,
     deleteItem,
 }

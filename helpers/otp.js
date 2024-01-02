@@ -15,7 +15,8 @@ const sendOtp = (verifiedEmail, otpValue)=>{
           service: "gmail",
           auth: {
             user: "konisagg.official@gmail.com",
-            pass: "ytyc wsta opgs oebn"
+            // pass: "ytyc wsta opgs oebn"
+            pass: process.env.NODEMAILER_PASS
           }
         })
         let docs = {

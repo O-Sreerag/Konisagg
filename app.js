@@ -4,10 +4,10 @@ const path = require('path');
 const cookieParser = require('cookie-parser');
 const logger = require('morgan');
 const session = require('express-session')
+const hbs = require('hbs');
 
 
 const app = express();
-
 
 
 // mount middlewares
@@ -18,15 +18,32 @@ app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 
 
-
-// // Create a Handlebars instance
-// const hbs = exphbs.create({
-//   // Specify your custom helpers here
-//   helpers: {
-//     eq: (v1, v2) => v1 === v2,
-//   },
-// });
-// view engine setup
+hbs.registerHelper('eq', function (a, b) {
+  return a === b;
+});
+// Define a custom helper named "ifCond" for conditional checks
+hbs.registerHelper('ifCond', function(v1, operator, v2, options) {
+  switch (operator) {
+      case '==':
+          return (v1 == v2) ? options.fn(this) : options.inverse(this);
+      case '===':
+          return (v1 === v2) ? options.fn(this) : options.inverse(this);
+      case '!=':
+          return (v1 != v2) ? options.fn(this) : options.inverse(this);
+      case '!==':
+          return (v1 !== v2) ? options.fn(this) : options.inverse(this);
+      case '<':
+          return (v1 < v2) ? options.fn(this) : options.inverse(this);
+      case '<=':
+          return (v1 <= v2) ? options.fn(this) : options.inverse(this);
+      case '>':
+          return (v1 > v2) ? options.fn(this) : options.inverse(this);
+      case '>=':
+          return (v1 >= v2) ? options.fn(this) : options.inverse(this);
+      default:
+          return options.inverse(this);
+  }
+});
 app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'hbs');
 
@@ -34,7 +51,6 @@ app.set('view engine', 'hbs');
 // setting routes
 const usersRouter = require('./routes/user');
 const adminRouter = require('./routes/admin');
-
 
 
 // Configure express-session
@@ -51,18 +67,18 @@ app.use(session({
 }));
 
 
-
 // database handling
 const database = require('./config/mongoose')
 database()
-
 
 
 // handling routes
 app.use('/', usersRouter);
 app.use('/admin', adminRouter);
 
-
+// Setup cron job here
+const cronJob = require('./utility/cronJob');
+cronJob.start(); // Assuming 'start' is a function that initiates your cron job
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {

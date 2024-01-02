@@ -1,0 +1,390 @@
+<!DOCTYPE HTML>
+<html lang="en">
+
+
+<!-- Mirrored from wp.alithemes.com/html/evara/evara-backend/page-form-product-1.html by HTTrack Website Copier/3.x [XR&CO'2014], Sun, 01 Aug 2021 15:33:31 GMT -->
+<head>
+    <meta charset="utf-8">
+    <title>Evara Dashboard</title>
+    <meta http-equiv="x-ua-compatible" content="ie=edge">
+    <meta name="description" content="">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta property="og:title" content="">
+    <meta property="og:type" content="">
+    <meta property="og:url" content="">
+    <meta property="og:image" content="">
+    <!-- Favicon -->
+    <link rel="shortcut icon" type="image/x-icon" href="../assets/imgs/theme/favicon.svg">
+    <!-- Template CSS -->
+    <link href="../assets/css/main.css" rel="stylesheet" type="text/css" />
+
+    <style>
+    /* CSS to limit the image sizes */
+    .image-previews-og img {
+        max-width: 150px; 
+        max-height: 150px; 
+    }
+</style>
+
+</head>
+
+<body>
+    <div class="screen-overlay"></div>
+    {{!-- Menu left --}}
+    <aside class="navbar-aside" id="offcanvas_aside">
+        <div class="aside-top">
+            <a href="index.html" class="brand-wrap">
+                <img src="../assets/imgs/theme/logo.svg" class="logo" alt="Evara Dashboard">
+            </a>
+            <div>
+                <button class="btn btn-icon btn-aside-minimize"> <i class="text-muted material-icons md-menu_open"></i> </button>
+            </div>
+        </div>
+        <nav>
+            <ul class="menu-aside">
+                <li class="menu-item">
+                    <a class="menu-link" href="/admin/home"> <i class="icon material-icons md-home"></i>
+                        <span class="text">Dashboard</span>
+                    </a>
+                </li>
+                <li class="menu-item">
+                    <a class="menu-link" href="/admin/users"> <i class="icon material-icons md-person"></i>
+                        <span class="text">users</span>
+                    </a>
+                </li>
+                <li class="menu-item">
+                    <a class="menu-link" href="/admin/categories"> <i class="icon material-icons md-store"></i>
+                        <span class="text">Categories</span>
+                    </a>
+                </li>
+                <li class="menu-item active">
+                    <a class="menu-link" href="/admin/products"> <i class="icon material-icons md-shopping_bag"></i>
+                        <span class="text">Products</span>
+                    </a>
+                </li>
+                <li class="menu-item">
+                    <a class="menu-link" href="/admin/addProduct"> <i class="icon material-icons md-add_box"></i>
+                        <span class="text">Add product</span>
+                    </a>
+                </li>
+                <li class="menu-item">
+                    <a class="menu-link" href="/admin/orders"> <i class="icon material-icons md-shopping_cart"></i>
+                        <span class="text">Orders</span>
+                    </a>
+                </li>
+                <li class="menu-item">
+                    <a class="menu-link" href="/admin/offers/category-offers"> <i class="icon material-icons md-monetization_on"></i>
+                        <span class="text">Offers</span>
+                    </a>
+                </li>
+                <li class="menu-item">
+                    <a class="menu-link" disabled href="/admin/banners"> <i class="icon material-icons md-pie_chart"></i>
+                        <span class="text">Banners</span>
+                    </a>
+                </li>
+                <li class="menu-item">
+                    <a class="menu-link" href="/admin/coupens"> <i class="icon material-icons md-local_offer"></i>
+                        <span class="text"> Coupens </span>
+                    </a>
+                </li>
+                <hr>
+                <li class="menu-item">
+                    <a class="menu-link" style="color:red" href="/admin/logout"><i class="material-icons md-exit_to_app"></i>
+                        <span class="text"> Logout </span>
+                    </a>
+                </li>
+            </ul>
+            <hr>
+        </nav>
+    </aside>
+    {{!-- Header right --}}
+    <main class="main-wrap">
+
+        {{!-- navbar header --}}
+        <header class="main-header navbar">
+            <div class="col-nav ms-auto"> <!-- Utilizing ms-auto (margin-left: auto) to align content to the right -->
+                <button class="btn btn-icon btn-mobile me-auto" data-trigger="#offcanvas_aside">
+                    <i class="material-icons md-apps"></i>
+                </button>
+                <ul class="nav">
+                    <li class="dropdown nav-item">
+                        <a class="dropdown-toggle" data-bs-toggle="dropdown" href="#" id="dropdownAccount" aria-expanded="false">
+                            <img class="img-xs rounded-circle" src="assets/imgs/people/avatar2.jpg" alt="User">
+                        </a>
+                        <div class="dropdown-menu dropdown-menu-end" aria-labelledby="dropdownAccount">
+                            <div class="dropdown-divider"></div>
+                            <a class="dropdown-item text-danger" href="/admin/logout">
+                                <i class="material-icons md-exit_to_app"></i>Logout
+                            </a>
+                        </div>
+                    </li>
+                </ul>
+            </div>
+        </header>
+
+        {{!-- body right --}}
+        <section class="content-main">
+                <div class="col-9">
+                    <div class="content-header">
+                        <h2 class="content-title">Edit Product Images</h2>
+                    </div>
+                </div>
+
+                <div class="col-lg-9">
+                    <div class="card mb-4">
+                        <div class="card-header">
+                            <h4>Media</h4>
+                        </div>
+
+                        <div class="card-body">
+                            <div class="input-upload-og">
+                                <div class="d-flex" style="justify-content: space-around;">
+                                    <label class="form-label">Og-images</label><br>
+                                    <label class="form-label text-end">New images</label><br>
+                                </div>
+                                <br>
+                                {{#each product.productimages}}
+                                    <form class="dynamic-form">
+                                        <input type="hidden" name="imageIndex" value="{{@index}}">
+                                        <div class="class-body">
+                                            <div class="d-flex" style="justify-content: space-around;">
+                                                <div class="image-previews-og" id="image-previews-og-{{@index}}">
+                                                    <img src="/multer/products/cropped-{{this}}" alt="Product Image">
+                                                </div>
+                                                <div class="input-upload">
+                                                    <div id="image-previews-{{@index}}" class="image-previews">
+                                                        <img src="../assets/imgs/theme/upload.svg" alt="">
+                                                    </div>
+                                                    <input class="form-control file-input" type="file" id="file-input-{{@index}}" name="productimage" data-index="{{@index}}">
+                                                    <div id="productImageError-{{@index}}" class="text-danger"></div>
+                                                    <br>
+                                                    <button type="submit" class="btn btn-primary" style="padding:5px 10px">Edit</button> 
+                                                    <button onclick="validateAndDeleteImage({{@index}})" class="btn btn-danger" style="padding:3px 10px">Delete</button>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </form>
+                                    <br><br>
+                                {{/each}}
+                            </div>
+                        </div>
+                    </div>
+                </div>
+        </section> 
+
+        {{!-- footer --}}
+        <footer class="main-footer font-xs">
+            <div class="row pb-30 pt-15">
+                <div class="col-sm-6">
+                    <script>
+                    document.write(new Date().getFullYear())
+                    </script> © Konisagg , a app by O Sreerag
+                </div>
+                <div class="col-sm-6">
+                    <div class="text-sm-end">
+                        All rights reserved
+                    </div>
+                </div>
+            </div>
+        </footer>
+    </main>
+
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <script>
+
+    const productId = {{{productId}}}
+    console.log(productId )
+    // Get all file input elements
+    const fileInputs = document.querySelectorAll('.file-input');
+
+    // Handle file input change event for each input
+    fileInputs.forEach(fileInput => {
+        fileInput.addEventListener('change', function(event) {
+            const index = this.dataset.index; // Get the index from data-index attribute
+            const previewContainer = document.getElementById(`image-previews-${index}`);
+            const file = event.target.files[0]; // Get the selected file
+
+            if (file) {
+                const reader = new FileReader();
+
+                reader.onload = function(e) {
+                    // Create an image element and set the src attribute to the selected file
+                    const imagePreview = document.createElement('img');
+                    imagePreview.src = e.target.result;
+                    imagePreview.alt = 'Selected Image';
+
+                    // Clear previous previews and display the new image preview
+                    previewContainer.innerHTML = '';
+                    previewContainer.appendChild(imagePreview);
+                };
+
+                // Read the file as a URL
+                reader.readAsDataURL(file);
+            }
+        });
+    });
+
+    document.addEventListener('submit', function(event) {
+        console.log("validating and editing image")
+        if (event.target && event.target.classList.contains('dynamic-form')) {
+            event.preventDefault();
+
+            const form = event.target;
+            const formData = new FormData(form);
+            console.log(formData)
+
+            // Validate image input
+            const fileInput = form.querySelector('.file-input');
+            const uploadedFile = fileInput.files[0];
+
+            if (!uploadedFile) {
+                alert('Please select an image file.');
+                return; 
+            }
+
+            const allowedExtensions = ['jpg', 'jpeg', 'png', 'gif'];
+            const fileExtension = uploadedFile.name.split('.').pop().toLowerCase();
+            if (!allowedExtensions.includes(fileExtension)) {
+                alert('Please select a valid image file (JPG, JPEG, PNG, GIF).');
+                return; 
+            }
+
+            // If all validations pass, proceed with form submission
+            const imageIndex = formData.get('imageIndex');
+            console.log(`Submitted form for image index: ${imageIndex}`);
+
+            // Redirect or perform actions based on your requirements
+            const url = `/admin/product/editImage/submit?productId=${productId}&imageIndex=${imageIndex}`;
+            fetch(url, {
+                method: 'POST',
+                body: formData 
+            })
+            .then(response => {
+                if (response.ok) {
+                    return response.json();
+                } else {
+                    throw new Error('Network response was not ok.');
+                }
+            })
+            .then(data => {
+                Swal.fire({
+                    icon: 'success',
+                    title: 'Image Edited Successfully!',
+                    text: 'Product Image edited succesfully' 
+                });
+                const imagePreviewOgElementId = `image-previews-og-${imageIndex}`;
+                const imagePreviewOgElement = document.getElementById(imagePreviewOgElementId);
+                if (!imagePreviewOgElement) {
+                    console.error(`Image preview element with ID ${imagePreviewOgElementId} not found.`);
+                    return;
+                }
+
+                const imageName = data.imageName; // Replace 'imageName' with the correct property name from your server response
+                console.log('Received Image Name:', imageName);
+                const imageOgSrc = `/multer/products/cropped-${imageName}`;
+
+                const imgOgElement = imagePreviewOgElement.querySelector('img');
+                if (imgOgElement) {
+                    imgOgElement.src = imageOgSrc;
+                    imgOgElement.alt = "New Product Image";
+                } else {
+                    console.error(`img element not found inside ${imagePreviewOgElementId}.`);
+                }
+
+
+                const imagePreviewElementId = `image-previews-${imageIndex}`;
+                const imagePreviewElement = document.getElementById(imagePreviewElementId);
+                if (!imagePreviewElement) {
+                    console.error(`Image preview element with ID ${imagePreviewElementId} not found.`);
+                    return;
+                }
+
+                // Update the image source to ../assets/imgs/theme/upload.svg
+                const imgElement = imagePreviewElement.querySelector('img');
+                if (imgElement) {
+                    imgElement.src = '../assets/imgs/theme/upload.svg';
+                    imgElement.alt = "Default Product Image"; // Optionally, update alt attribute for accessibility
+                } else {
+                    console.error(`img element not found inside ${imagePreviewElementId}.`);
+                }
+            })
+            .catch(error => {
+                Swal.fire({
+                    icon: 'error',
+                    title: 'Error!',
+                    text: 'Failed to edit image.'
+                });
+
+                console.error('Error submitting form:', error);
+            });
+        }
+    });
+
+    function validateAndDeleteImage(index) {
+        console.log("validating and deleting image")
+        // Ask for confirmation before deletion
+        Swal.fire({
+            title: 'Are you sure?',
+            text: 'This action cannot be undone!',
+            icon: 'warning',
+            showCancelButton: true,
+            confirmButtonColor: '#d33',
+            cancelButtonColor: '#3085d6',
+            confirmButtonText: 'Yes, delete it!'
+        }).then((result) => {
+            if (result.isConfirmed) {
+                // If confirmed, proceed with deletion
+                const productId = {{{productId}}}
+                const imageIndex = index;
+                console.log("productId and image Index")
+                console.log(productId, imageIndex)
+
+                const deleteUrl = `/admin/product/deleteImage/submit?productId=${productId}&imageIndex=${imageIndex}`; 
+                fetch(deleteUrl, {
+                    method: 'DELETE'
+                })
+                .then(response => {
+                    if (response.ok) {
+                        Swal.fire({
+                            icon: 'success',
+                            title: 'Image Deleted Successfully!',
+                            text: 'Your image has been deleted.',
+                            timer: 2000,
+                            showConfirmButton: false 
+                        }).then(() => {             
+                            location.reload(); 
+                        });
+                    } else {
+                        Swal.fire({
+                            icon: 'error',
+                            title: 'Error!',
+                            text: 'Failed to delete image.'
+                        });
+                    }
+                })
+                .catch(error => {
+                    // Handle fetch error
+                    console.error('Error deleting image:', error);
+                    Swal.fire({
+                        icon: 'error',
+                        title: 'Error!',
+                        text: 'Failed to delete image.'
+                    });
+                });
+            }
+        });
+        event.preventDefault();
+    }
+
+        
+    </script>
+    <script src="../assets/js/vendors/jquery-3.6.0.min.js"></script>
+    <script src="../assets/js/vendors/bootstrap.bundle.min.js"></script>
+    <script src="../assets/js/vendors/select2.min.js"></script>
+    <script src="../assets/js/vendors/perfect-scrollbar.js"></script>
+    <script src="../assets/js/vendors/jquery.fullscreen.min.js"></script>
+    <!-- Main Script -->
+    <script src="../assets/js/main.js" type="text/javascript"></script>
+</body>
+
+</html>

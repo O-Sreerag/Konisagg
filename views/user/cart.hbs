@@ -58,11 +58,6 @@
                         <span class="text">Wishlist</span>
                     </a>
                 </li>
-                <li class="menu-item">
-                    <a class="menu-link" href="../accountSettings/editSettings"> <i class="icon material-icons md-settings"></i>
-                        <span class="text">Settings</span>
-                    </a>
-                </li>
             </ul>
             <hr>
             <ul class="menu-aside ">
@@ -119,44 +114,12 @@
         <section class="content-main">
             <div class="container">
 
-                {{!-- Login with account --}}
-                <div class="col-lg-6 mb-sm-15">
-                    <div class="toggle_info">
-                        <span><i class="fi-rs-user mr-10"></i><span class="text-muted">Already have an account?</span> <a href="#loginform" data-bs-toggle="collapse" class="collapsed" aria-expanded="false">Click here to login</a></span>
-                    </div>
-                    <div class="panel-collapse collapse login_form" id="loginform">
-                        <div class="panel-body">
-                            <p class="mb-30 font-sm">If you have shopped with us before, please enter your details below. If you are a new customer, please proceed to the Billing &amp; Shipping section.</p>
-                            <form method="post">
-                                <div class="form-group">
-                                    <input type="text" name="email" placeholder="Username Or Email">
-                                </div>
-                                <div class="form-group">
-                                    <input type="password" name="password" placeholder="Password">
-                                </div>
-                                <div class="login_footer form-group">
-                                    <div class="chek-form">
-                                        <div class="custome-checkbox">
-                                            <input class="form-check-input" type="checkbox" name="checkbox" id="remember" value="">
-                                            <label class="form-check-label" for="remember"><span>Remember me</span></label>
-                                        </div>
-                                    </div>
-                                    <a href="#">Forgot password?</a>
-                                </div>
-                                <div class="form-group">
-                                    <button class="btn btn-md" name="login">Log in</button>
-                                </div>
-                            </form>
-                        </div>
-                    </div>
-                </div>
-
-                <br><br>
                 
                 {{!-- Cart table --}}
                 <div class="content-header">
                     <h2 class="content-title">Your Cart</h2>
                 </div>
+                {{#if cartItems}}
                 <div class="col-12">
                     <div class="table-responsive">
                         <table class="table shopping-summery text-center clean">
@@ -176,28 +139,43 @@
                                 {{#each cartItems}}
                                 <tr>
                                     <td>{{@index}}</td>
-                                    <td class="image product-thumbnail"><img src="../multer/products/{{product.productimages.[0]}}" alt="#"></td>
+                                    <td class="image product-thumbnail"><img src="../multer/products/cropped-{{product.productimages.[0]}}" alt="#"></td>
                                     <td class="product-des product-name">
                                         <h5 class="product-name"><a href="shop-product-right.html">{{product.productname}}</a></h5>
                                         </p>
                                     </td>
                                     <td class="Spec" data-title="Spec"> <div>color: {{color}}</div>  <div>size: {{size}}</div></td>
-                                    <td class="price" data-title="Price"><span>{{product.selected_Currency}}{{product.promotionalprice}}</span></td>
+                                    {{#if product.promotionalprice}}
+                                    <td class="price" data-title="Price"><span>₹{{product.promotionalprice}}</span></td>
                                     <td class="text-center" data-title="Stock">
                                         <div class="detail-qty border radius  m-auto">
-                                            <div onclick="handleQuantity(1, '{{ItemId}}', '{{product.promotionalprice}}')" id="increment-quantity" class="qty-up" style="cursor: pointer;">
+                                            <div onclick="handleQuantity(1, '{{ItemId}}', '{{product.promotionalprice}}', '{{product.stock}}')" id="increment-quantity" class="qty-up" style="cursor: pointer;">
                                                 <i class="fi-rs-angle-small-up"></i>
                                             </div>
                                             <span class="qty-val" id="quantityElement{{ItemId}}">{{quantity}}</span>
-                                            <div onclick="handleQuantity(-1, '{{ItemId}}' , '{{product.promotionalprice}}')" id="decrement-quantity" class="qty-down" style="cursor: pointer;">
+                                            <div onclick="handleQuantity(-1, '{{ItemId}}' , '{{product.promotionalprice}}', '{{product.stock}}')" id="decrement-quantity" class="qty-down" style="cursor: pointer;">
                                                 <i class="fi-rs-angle-small-down"></i>
                                             </div>
                                         </div>
                                     </td>
-                                    <td class="text-right" data-title="Cart">
-                                        <span>{{product.selected_Currency}}<div  id="subtotal{{ItemId}}">{{price}}</div></span>
+                                    {{else}}
+                                    <td class="price" data-title="Price"><span>{{product.selected_Currency}}{{product.regularprice}}</span></td>
+                                    <td class="text-center" data-title="Stock">
+                                        <div class="detail-qty border radius  m-auto">
+                                            <div onclick="handleQuantity(1, '{{ItemId}}', '{{product.regularprice}}')" id="increment-quantity" class="qty-up" style="cursor: pointer;">
+                                                <i class="fi-rs-angle-small-up"></i>
+                                            </div>
+                                            <span class="qty-val" id="quantityElement{{ItemId}}">{{quantity}}</span>
+                                            <div onclick="handleQuantity(-1, '{{ItemId}}' , '{{product.regularprice}}')" id="decrement-quantity" class="qty-down" style="cursor: pointer;">
+                                                <i class="fi-rs-angle-small-down"></i>
+                                            </div>
+                                        </div>
                                     </td>
-                                    <td class="action" data-title="Remove"><a href="/cart/delete/{{_id}}" class="text-muted"><i class="fi-rs-trash"></i></a></td>
+                                    {{/if}}
+                                    <td class="text-right" data-title="Cart">
+                                        <span><div  id="subtotal{{ItemId}}">{{price}}</div></span>
+                                    </td>
+                                    <td class="action" data-title="Remove"><a href="/cart/delete?itemId={{product._id}}&color={{color}}&size={{size}}" class="text-muted"><i class="fi-rs-trash"></i></a></td>
                                 </tr>
                                 {{/each}}
                                 <tr>
@@ -209,7 +187,7 @@
                         </table>
                     </div>
                     <div class="cart-action text-end">
-                        <a class="btn "><i class="fi-rs-shopping-bag mr-10"></i>Continue Shopping</a>
+                        <a class="btn" href="/shop"><i class="fi-rs-shopping-bag mr-10"></i>Continue Shopping</a>
                     </div>
                 </div>
                 {{!-- table end --}}
@@ -226,15 +204,32 @@
                                     <tbody>
                                         <tr>
                                             <td class="cart_total_label">Total</td>
-                                            <td class="cart_total_amount"><strong>₹<span class="font-xl fw-900 text-brand" id="totalPrice">{{total}}</span></strong></td>
+                                            <td class="cart_total_amount"><strong>$<span class="font-xl fw-900 text-brand" id="totalPrice">{{total}}</span></strong></td>
                                         </tr>
                                     </tbody>
                                 </table>
                             </div>
-                            <a href="/checkout"><button class="btn" type="submit"><i class="fi-rs-box-alt mr-10"></i>Proceed To CheckOut</button></a>      
+                            {{#if isPhoneEmpty}}
+                                <div class="d-flex justify-content-between">
+                                    <p style="color: red;">Phone number should be added.</p>
+                                    <a href="/account/edit~profile"><button class="btn" type="submit">Add</button></a>
+                                </div>
+                            {{else if isAddressEmpty}}
+                                <div class="d-flex justify-content-between">
+                                    <p style="color: red;">No addresses have been added.</p>
+                                    <a href="/checkout"><button class="btn" type="submit"><i class="fi-rs-box-alt mr-10"></i>Proceed To CheckOut</button></a>      
+                                </div>
+                            {{else}}
+                                <a href="/checkout"><button class="btn" type="submit"><i class="fi-rs-box-alt mr-10"></i>Proceed To CheckOut</button></a>      
+                            {{/if}}
                         </div>
                     </div>
             </div>
+            {{else}}
+                <div class="card-body">
+                    <p style="color: red;">there are no items in cart yet</p>
+                </div>
+            {{/if}}
         </section> <!-- content-main end// -->
         <footer class="main-footer font-xs">
             <div class="row pb-30 pt-15">
@@ -258,15 +253,29 @@
     <script src="../admin/assets/js/vendors/jquery.fullscreen.min.js"></script>
     <!-- Main Script -->
     <script src="../admin/assets/js/main.js" type="text/javascript"></script>
+        <!-- SweetAlert CDN -->
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     <script>
 
-    function handleQuantity(increment, ItemId, price) {
-        console.log(increment, ItemId)
+    function handleQuantity(increment, ItemId, price, stock) {
+        console.log(increment, ItemId, price, stock)
 
         const quantityElementId = `quantityElement${ItemId}`;
         const quantityElement = document.getElementById(quantityElementId);
         const currentQuantity = parseInt(quantityElement.textContent, 10);
         const newQuantity = currentQuantity + increment;
+
+        // Check if newQuantity is within the stock limits
+        if (newQuantity < 1) {
+            // Quantity cannot be less than 1
+            console.log('Cannot set quantity less than 1');
+            return;
+        } else if (newQuantity > stock) {
+            // Quantity exceeds available stock
+            console.log('Out of stock');
+            return;
+        }
+
         quantityElement.textContent = newQuantity;
 
         const subtotalElementId = `subtotal${ItemId}`;
@@ -300,6 +309,22 @@
     }
 
     </script>
+
+     <script>
+  document.addEventListener("DOMContentLoaded", function () {
+    // Check if the bannerMessage exists and is not empty
+    const bannerMessage = "{{ Message }}";
+    if (bannerMessage) {
+      // Trigger SweetAlert to display the bannerMessage
+      Swal.fire({
+        title: 'Notification',
+        text: bannerMessage,
+        icon: 'info',
+        // You can add more configurations as needed
+      });
+    }
+  });
+</script>
 </body>
 
 </html>

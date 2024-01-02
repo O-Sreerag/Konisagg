@@ -1,0 +1,303 @@
+<!DOCTYPE HTML>
+<html lang="en">
+
+
+<!-- Mirrored from wp.alithemes.com/html/evara/evara-backend/page-brands.html by HTTrack Website Copier/3.x [XR&CO'2014], Sun, 01 Aug 2021 15:33:35 GMT -->
+<head>
+    <meta charset="utf-8">
+    <title>Evara Dashboard</title>
+    <meta http-equiv="x-ua-compatible" content="ie=edge">
+    <meta name="description" content="">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta property="og:title" content="">
+    <meta property="og:type" content="">
+    <meta property="og:url" content="">
+    <meta property="og:image" content="">
+    <!-- Favicon -->
+    <link rel="shortcut icon" type="image/x-icon" href="../assets/imgs/theme/favicon.svg">
+    <!-- Template CSS -->
+    <link href="../assets/css/main.css" rel="stylesheet" type="text/css" />
+</head>
+
+<body>
+    <div class="screen-overlay"></div>
+    <aside class="navbar-aside" id="offcanvas_aside">
+        <div class="aside-top">
+            <a href="index.html" class="brand-wrap">
+                <img src="../assets/imgs/theme/logo.svg" class="logo" alt="Evara Dashboard">
+            </a>
+            <div>
+                <button class="btn btn-icon btn-aside-minimize"> <i class="text-muted material-icons md-menu_open"></i> </button>
+            </div>
+        </div>
+        <nav>
+            <ul class="menu-aside">
+                <li class="menu-item">
+                    <a class="menu-link" href="/admin/home"> <i class="icon material-icons md-home"></i>
+                        <span class="text">Dashboard</span>
+                    </a>
+                </li>
+                <li class="menu-item">
+                    <a class="menu-link" href="/admin/users"> <i class="icon material-icons md-person"></i>
+                        <span class="text">users</span>
+                    </a>
+                </li>
+                <li class="menu-item">
+                    <a class="menu-link" href="/admin/categories"> <i class="icon material-icons md-store"></i>
+                        <span class="text">Categories</span>
+                    </a>
+                </li>
+                <li class="menu-item">
+                    <a class="menu-link" href="/admin/products"> <i class="icon material-icons md-shopping_bag"></i>
+                        <span class="text">Products</span>
+                    </a>
+                </li>
+                <li class="menu-item">
+                    <a class="menu-link" href="/admin/addProduct"> <i class="icon material-icons md-add_box"></i>
+                        <span class="text">Add product</span>
+                    </a>
+                </li>
+                <li class="menu-item">
+                    <a class="menu-link" href="/admin/orders"> <i class="icon material-icons md-shopping_cart"></i>
+                        <span class="text">Orders</span>
+                    </a>
+                </li>
+                <li class="menu-item active">
+                    <a class="menu-link" href="/admin/offers/category-offers"> <i class="icon material-icons md-monetization_on"></i>
+                        <span class="text">Offers</span>
+                    </a>
+                </li>
+                <li class="menu-item">
+                    <a class="menu-link" disabled href="../admin/banners"> <i class="icon material-icons md-pie_chart"></i>
+                        <span class="text">Banners</span>
+                    </a>
+                </li>
+                <li class="menu-item">
+                    <a class="menu-link" href="../admin/coupens"> <i class="icon material-icons md-local_offer"></i>
+                        <span class="text"> Coupens </span>
+                    </a>
+                </li>
+                <hr>
+                <li class="menu-item">
+                    <a class="menu-link" style="color:red" href="../admin/logout"><i class="material-icons md-exit_to_app"></i>
+                        <span class="text"> Logout </span>
+                    </a>
+                </li>
+            </ul>
+            <hr>
+        </nav>
+    </aside>
+    <main class="main-wrap">
+
+        {{!-- navbar header --}}
+        <header class="main-header navbar">
+            <div class="col-nav ms-auto"> <!-- Utilizing ms-auto (margin-left: auto) to align content to the right -->
+                <button class="btn btn-icon btn-mobile me-auto" data-trigger="#offcanvas_aside">
+                    <i class="material-icons md-apps"></i>
+                </button>
+                <ul class="nav">
+                    <li class="dropdown nav-item">
+                        <a class="dropdown-toggle" data-bs-toggle="dropdown" href="#" id="dropdownAccount" aria-expanded="false">
+                            <img class="img-xs rounded-circle" src="../assets/imgs/people/avatar2.jpg" alt="User">
+                        </a>
+                        <div class="dropdown-menu dropdown-menu-end" aria-labelledby="dropdownAccount">
+                            <div class="dropdown-divider"></div>
+                            <a class="dropdown-item text-danger" href="/admin/logout">
+                                <i class="material-icons md-exit_to_app"></i>Logout
+                            </a>
+                        </div>
+                    </li>
+                </ul>
+            </div>
+        </header>
+
+        {{!-- body right --}}
+        <section class="content-main">
+            <div class="content-header">
+                <h2 class="content-title">Offer management</h2>
+            </div>
+            <div class="card">
+                <div class="card-body">
+                    <div class="row gx-5">
+                        <aside class="col-lg-3 border-end">
+                            <nav class="nav nav-pills flex-lg-column mb-4">
+                                <br>
+                                <a class="nav-link" href="/admin/offers/category-offers">View Category Offers</a>
+                                <a class="nav-link" href="/admin/offers/product-offers">View Product Offers</a>
+                                <a class="nav-link active" aria-current="page">Add Offer</a>
+                            </nav>
+                        </aside>
+
+                        {{#if nothingSelected}}
+                        <div class="col-lg-9">
+                            <section class="content-body p-xl-4">
+                                <div class="alert alert-warning" role="alert">
+                                    You can only create offers by clicking "Create Offers" from the category lists and products lists.
+                                </div>
+                            </section>
+                        </div>
+                        {{else}}
+                        <div class="col-lg-9">
+                            <section class="content-body p-xl-4">
+                                <form  id="productForm" action="/admin/offers/addOffer/submit" method="post" enctype="multipart/form-data">
+                                    <div class="col-9">
+                                        <div class="content-header">
+                                            <h2 class="content-title">Add New Offer</h2>
+                                            <div>
+                                                <button type="submit" class="btn btn-md rounded font-sm hover-up">Publish</button>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <div class="row">
+                                        
+                                        <div class="col-lg-9">
+                                            <div class="card mb-4">
+                                                <div class="card-body">
+                                                    <div class="mb-4">
+                                                        <label class="form-label">you have choosen offer for {{#if product}} Product {{else}} Category {{/if}}</label>
+                                                        <p>{{#if product}} Product Name: {{product.productname}} <br> Product Id: {{product._id}} {{else}} Category Name: {{category.name}} <br> Category Id: {{category._id}}{{/if}}</p>
+                                                        <input name="offer_for" {{#if product}} value="product" {{else}} value="category" {{/if}} hidden>
+                                                        <input name="offer_for" {{#if product}} value="{{product._id}}" {{else}} value="{{category._id}}" {{/if}} hidden>
+                                                    </div>
+                                                </div>
+                                            </div> 
+                                        </div>
+
+                                        <div class="col-lg-5">
+                                            <div class="card mb-4">
+                                                <div class="card-header">
+                                                    <h4>Basic Information</h4>
+                                                </div>
+                                                <div class="card-body">
+                                                    <div class="mb-4">
+                                                        <label for="offer_name" class="form-label">Offer title</label>
+                                                        <input type="text" placeholder="Type here" class="form-control" id="offer_name" name="offer_name">
+                                                    </div>
+                                                    <div class="mb-4">
+                                                        <label class="form-label">Full description</label>
+                                                        <textarea placeholder="Type here" class="form-control" rows="4" name="offer_description" id="offer_description"></textarea>
+                                                    </div>
+                                                    <div class="mb-4">
+                                                        <label class="form-label">Discount Percentage</label>
+                                                        <input type="text" placeholder="000" class="form-control" id="discountPercentage" name="discountPercentage">
+                                                    </div>
+                                                    <br>
+                                                </div>
+                                            </div> 
+                                        </div>  <!-- card end// -->
+
+                                        <div  class="col-lg-4">
+                                            <div class="card mb-4">
+                                                <div class="card-body">
+                                                    <div class="input-upload">
+                                                            <div id="image-previews" class="image-previews">
+                                                                <img src="../assets/imgs/theme/upload.svg" alt="">
+                                                            </div>
+                                                        <input class="form-control" type="file" id="file-input" name="offerimage" id="offerimage" multiple>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="card mb-4">
+                                                <div class="card-body">
+                                                    <div class="mb-4">
+                                                        <label class="form-label">Start Date</label>
+                                                        <input type="date" class="form-control" id="startDate" name="startDate">
+                                                    </div>
+                                                    <div class="mb-4">
+                                                        <label class="form-label">End Date</label>
+                                                        <input type="date" class="form-control" id="endDate" name="endDate">
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                    </div>
+                                </form>
+                                 
+                            </section> 
+                        </div> 
+                        {{/if}}
+                    </div> 
+                </div> <!-- card body end// -->
+            </div> <!-- card end// -->
+        </section> <!-- content-main end// -->
+        <footer class="main-footer font-xs">
+            <div class="row pb-30 pt-15">
+                <div class="col-sm-6">
+                    <script>
+                    document.write(new Date().getFullYear())
+                    </script> ©, Konisagg by O Sreerag
+                </div>
+                <div class="col-sm-6">
+                    <div class="text-sm-end">
+                        All rights reserved
+                    </div>
+                </div>
+            </div>
+        </footer>
+
+
+
+
+        
+    </main>
+    <script src="../assets/js/vendors/jquery-3.6.0.min.js"></script>
+    <script src="../assets/js/vendors/bootstrap.bundle.min.js"></script>
+    <script src="../assets/js/vendors/select2.min.js"></script>
+    <script src="../assets/js/vendors/perfect-scrollbar.js"></script>
+    <script src="../assets/js/vendors/jquery.fullscreen.min.js"></script>
+    <!-- Main Script -->
+    <script src="../assets/js/main.js" type="text/javascript"></script>
+
+    <script>
+    document.addEventListener("DOMContentLoaded", function() {
+        function validateForm(event) {
+            event.preventDefault(); // Prevent the form from submitting automatically
+
+            // Validation logic
+            const offerName = document.getElementById('offer_name').value.trim();
+            const offerDescription = document.getElementById('offer_description').value.trim();
+            const discountPercentage = document.getElementById('discountPercentage').value.trim();
+            const startDate = document.getElementById('startDate').value.trim();
+            const endDate = document.getElementById('endDate').value.trim();
+            const imageFile = document.getElementById('file-input').files[0];
+
+            // Check if an image is selected
+            if (!imageFile) {
+                alert('Please select an image.');
+                return false; // Prevent form submission
+            }
+
+            // Check other fields for emptiness
+            if (offerName === '' || offerDescription === '' || discountPercentage === '' || startDate === '' || endDate === '') {
+                alert('Please fill in all fields.');
+                return false; // Prevent form submission
+            }
+
+            // Check if start date is before end date
+            const start = new Date(startDate);
+            const end = new Date(endDate);
+            if (start >= end) {
+                alert('End date should be after the start date.');
+                return false; // Prevent form submission
+            }
+
+            // You can add additional validation logic here
+
+            // If all validations pass, allow form submission
+            event.target.submit();
+        }
+
+        // Attach the onsubmit event to the form
+        const form = document.getElementById('productForm');
+        if (form) {
+            form.addEventListener('submit', validateForm);
+        }
+    });
+</script>
+</body>
+
+
+<!-- Mirrored from wp.alithemes.com/html/evara/evara-backend/page-brands.html by HTTrack Website Copier/3.x [XR&CO'2014], Sun, 01 Aug 2021 15:33:49 GMT -->
+</html>

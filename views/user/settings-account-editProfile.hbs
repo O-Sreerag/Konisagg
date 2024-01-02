@@ -27,33 +27,6 @@
             100% { transform: translateY(5px); }
         }
 
-        .address-details {
-    position: relative;
-    margin-bottom: 20px; /* Adjust spacing as needed */
-}
-
-.address-details .row {
-    display: flex;
-    flex-wrap: wrap;
-}
-
-.address-details .col-lg-6 {
-    flex: 0 0 calc(50% - 15px); /* Adjust column width and spacing */
-    max-width: calc(50% - 15px); /* Adjust column width and spacing */
-    margin-right: 15px; /* Adjust spacing between columns */
-}
-
-.address-details .col-lg-6:last-child {
-    margin-right: 0; /* Remove margin from the last column */
-}
-
-.slider-arrows {
-    position: absolute;
-    top: 0;
-    right: 0;
-    display: flex;
-}
-
 .arrow {
     width: 20px;
     height: 20px;
@@ -80,6 +53,27 @@
     content: '\203A'; /* Unicode for right arrow */
 }
 
+
+.address-slider {
+    position: relative;
+    overflow: hidden;
+}
+
+.address-container {
+    display: flex;
+    transition: transform 0.5s ease;
+}
+
+.address-slide {
+    flex: 0 0 100%;
+    padding: 0 10px;
+}
+
+.error-message {
+    color: red;
+    font-size: 12px;
+    margin-top: 5px;
+}
     </style>
 </head>
 
@@ -186,57 +180,79 @@
                 <div class="card-body">
                     <div class="row gx-5">
                         <aside class="col-lg-3 border-end">
+                            <br>
                             <nav class="nav nav-pills flex-lg-column mb-4">
                                 <a class="nav-link" href="/account/view~profile">view Profile</a>
                                 <a class="nav-link active" aria-current="page">edit Profile</a>
-                                <a class="nav-link" href="/account/notifications">Notifications</a>
+                                <a class="nav-link" href="/account/add~address">Add Address</a>
                                 <a class="nav-link" href="/account/security">Security</a>    
                             </nav>
                         </aside>
                         <div class="col-lg-9">
                             <section class="content-body p-xl-4">
-                                <form action="/account/edit~profile/submit" method="post" enctype="multipart/form-data">
+                                <form action="/account/edit~profile/submit" method="post" enctype="multipart/form-data"  onsubmit="return validateForm()">
+                                    <p style="font-size: 14px; font-weight: 600; line-height: 24px; margin-bottom: 5px;">Edit Your Details</p>
+                                    <br>
                                     <div class="row">
                                         <div class="col-lg-8">
                                             <div class="row gx-3">
-                                                    <div class="col-lg-12  mb-3">
-                                                        <label class="form-label">Name</label>
-                                                        <input name="username" class="form-control" type="text" value="{{#if user.username}}{{user.username}}{{/if}}" placeholder="{{#unless user.username}}Name{{/unless}}">
-                                                    </div> 
-                                                    <div class="col-lg-6  mb-3">
-                                                        <label class="form-label">Email</label>
-                                                        <input id="useremail"  name="useremail" class="form-control" type="email" value="{{#if user.useremail }}{{user.useremail}}{{/if}}" placeholder="{{#unless user.useremail}}example@gmail.com{{/unless}}" readonly>
-                                                    </div> 
-                                                    <div class="col-lg-6  mb-3">
-                                                        <label class="form-label">Phone</label>
-                                                        <input name="userphone" class="form-control" type="tel" value="{{#if user.userphone}}{{user.userphone}}{{/if}}" placeholder="{{#unless user.userphone}}+1234567890{{/unless}}">
-                                                    </div> 
-                                                   <div class="address-details">
-                                                        <div class="row">
-                                                            <div class="col-lg-12  mb-3">
-                                                                <label class="form-label">Address</label>
-                                                            </div> 
-                                                            <div class="col-lg-6  mb-3">
-                                                                <input class="form-control" required="required" value="{{#if user.useraddress}}{{user.useraddress.state}}{{/if}}" placeholder="{{#unless user.useraddress}}state{{/unless}}" name="state" type="text">
-                                                            </div> 
-                                                            <div class="col-lg-6  mb-3">
-                                                                <input class="form-control" required="required" value="{{#if user.useraddress}}{{user.useraddress.district}}{{/if}}" placeholder="{{#unless user.useraddress}}district{{/unless}}" name="district" type="text">
-                                                            </div> 
-                                                            <div class="col-lg-6  mb-3">
-                                                                <input class="form-control" required="required" value="{{#if user.useraddress}}{{user.useraddress.city}}{{/if}}" placeholder="{{#unless user.useraddress}}city address{{/unless}}" name="city" type="text">
-                                                            </div> 
-                                                            <div class="col-lg-6  mb-3">
-                                                                <input class="form-control" required="required" value="{{#if user.useraddress}}{{user.useraddress.pin}}{{/if}}" placeholder="{{#unless user.useraddress}}Post/Pin{{/unless}}" name="pin" type="text">
-                                                            </div> 
-                                                            <div class="col-lg-12 mb-3">
-                                                                <input class="form-control" required="required" value="{{#if user.useraddress}}{{user.useraddress.house}}{{/if}}" placeholder="{{#unless user.useraddress}}House Address{{/unless}}" name="house" type="text">
-                                                            </div>  
-                                                        </div>
-                                                    <div class="slider-arrows">
+                                                <div class="col-lg-12  mb-3">
+                                                    <label class="form-label">Name</label>
+                                                    <input name="username" class="form-control" type="text" value="{{#if user.username}}{{user.username}}{{/if}}" placeholder="{{#unless user.username}}Name{{/unless}}">
+                                                    <p id="nameError" class="error-message"></p>
+                                                </div> 
+                                                <div class="col-lg-6  mb-3">
+                                                    <label class="form-label">Email</label>
+                                                    <input id="useremail"  name="useremail" class="form-control" type="email" value="{{#if user.useremail }}{{user.useremail}}{{/if}}" placeholder="{{#unless user.useremail}}example@gmail.com{{/unless}}" readonly>
+                                                </div> 
+                                                <div class="col-lg-6  mb-3">
+                                                    <label class="form-label">Phone</label>
+                                                    <input name="userphone" class="form-control" type="tel" value="{{#if user.userphone}}{{user.userphone}}{{/if}}" placeholder="{{#unless user.userphone}}+1234567890{{/unless}}">
+                                                    <p id="phoneError" class="error-message"></p>
+                                                </div> 
+                                                <div class="col-lg-10 mb-3">
+                                                    <label class="form-label">Address</label>
+                                                </div>
+                                                <div class="col-lg-2 mb-3 d-flex">
                                                         <div class="arrow left-arrow">&#8249;</div>
                                                         <div class="arrow right-arrow">&#8250;</div>
+                                                </div>
+                                                <div class="address-slider">
+                                                    <div class="address-container">
+                                                        {{#if user.useraddresses.[0]}}
+                                                            {{#each user.useraddresses}}
+                                                                <div class="address-slide">
+                                                                    <div class="row">
+                                                                        <div class="col-lg-6 mb-3">
+                                                                            <input class="form-control" required="required" value="{{#if state}}{{state}}{{else}}''{{/if}}" placeholder="{{#unless state}}State{{/unless}}" name="state" type="text">
+                                                                        </div>
+                                                                        <div class="col-lg-6 mb-3">
+                                                                            <input class="form-control" required="required" value="{{#if district}}{{district}}{{else}}''{{/if}}" placeholder="{{#unless district}}District{{/unless}}" name="district" type="text">
+                                                                        </div>
+                                                                        <div class="col-lg-6 mb-3">
+                                                                            <input class="form-control" required="required" value="{{#if city}}{{city}}{{else}}''{{/if}}" placeholder="{{#unless city}}City Address{{/unless}}" name="city" type="text">
+                                                                        </div>
+                                                                        <div class="col-lg-6 mb-3">
+                                                                            <input class="form-control" required="required" pattern="[0-9]{6}" value="{{#if pin}}{{pin}}{{else}}''{{/if}}" placeholder="{{#unless pin}}Post/Pin{{/unless}}" name="pin" type="text">
+                                                                        </div>
+                                                                        <div class="col-lg-12 mb-3">
+                                                                            <input class="form-control" required="required" value="{{#if house}}{{house}}{{else}}''{{/if}}" placeholder="{{#unless house}}House Address{{/unless}}" name="house" type="text">
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                            {{/each}}
+                                                        {{else}}
+                                                            <div class="address-slide">
+                                                                <div class="row">
+                                                                    <div class="col-lg-12 mb-3">
+                                                                        <p class="form-control">Address not added</p>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        {{/if}}
                                                     </div>
                                                 </div>
+                                               
                                             </div> <!-- row.// -->
                                         </div> <!-- col.// -->
                                         <aside class="col-lg-4">
@@ -244,13 +260,7 @@
                                                 {{#if user.userimage}}
                                                     <!-- Display the user's existing image -->
                                                     <img class="img-lg mb-3 img-avatar" src="/multer/users/{{user.userimage}}" alt="User Photo">
-                                                    <figcaption  style="display: flex; justify-content:center;">
-                                                        <label class="btn btn-light rounded font-md">
-                                                            <i class="icons material-icons md-backup font-md"></i> Change Image
-                                                            <input name="userimage" type="file" accept="image/*" style="display: none;" onchange="previewImage(this)">
-                                                        </label>
-                                                        <button type="button" id="removeImageButton" onclick="removeImage()" style="display:none; background-color: #ff0000; color: #fff; border: none; border-radius: 5px; padding: 0px 12px; cursor: pointer;">X</button>
-                                                    </figcaption>
+                                                    <a href="/account/edit~profile/image">edit/delete image</a>
                                                 {{else}}
                                                     <!-- Display the default image and "Upload" caption when there is no image -->
                                                     <img class="img-lg mb-3 img-avatar" src="../usericon/usericon.jpeg" alt="User Photo" id="imagePreview">
@@ -261,6 +271,7 @@
                                                         </label>
                                                         <button type="button" id="removeImageButton" onclick="removeImage()" style="display:none; background-color: #ff0000; color: #fff; border: none; border-radius: 5px; padding: 0px 12px; cursor: pointer;">X</button>
                                                     </figcaption>
+                                                        <p id="imageError" class="error-message"></p>
                                                 {{/if}}
                                             </figure>
                                         </aside>
@@ -275,7 +286,7 @@
                                 <div class="row" style="max-width:920px">
                                     <div class="col-md">
                                         <article class="box mb-3 bg-light">
-                                            <a id="vibrating-button" class="btn float-end btn-light rounded btn-sm font-md" href="/account/editprofile/editEmail">click here</a>   
+                                            <a id="vibrating-button" class="btn float-end btn-light rounded btn-sm font-md" href="/account/editprofile/editEmail?userId={{user._Id}}">click here</a>   
                                             <h6>Change Email</h6>
                                             <small class="text-muted d-block" style="width:70%">Click to change yout email and verify it</small>
                                         </article>
@@ -350,7 +361,80 @@
         vibratingButton.style.animation = '';
         }, 400); // Adjust the delay as needed
     }
+
+
+let currentIndex = 0;
+const slides = document.querySelectorAll('.address-slide');
+const totalSlides = slides.length;
+const slideWidth = slides[0].offsetWidth;
+
+document.querySelector('.right-arrow').addEventListener('click', () => {
+    if (currentIndex < totalSlides - 1) {
+        currentIndex++;
+        document.querySelector('.address-container').style.transform = `translateX(-${slideWidth * currentIndex}px)`;
+    }
+});
+
+document.querySelector('.left-arrow').addEventListener('click', () => {
+    if (currentIndex > 0) {
+        currentIndex--;
+        document.querySelector('.address-container').style.transform = `translateX(-${slideWidth * currentIndex}px)`;
+    }
+});
+
 </script>
+
+<script>
+    function validateForm() {
+        var isValid = true;
+
+        // Name Validation
+        var nameField = document.querySelector('input[name="username"]');
+        var nameError = document.getElementById('nameError');
+        var nameValue = nameField.value.trim();
+
+        if (nameValue === '' || nameValue.split(' ').filter(Boolean).length < 1 || nameValue.length < 5 || nameValue.length > 15) {
+            nameError.innerText = 'Please enter a valid name (between 5 and 15 characters).';
+            isValid = false;
+        } else {
+            nameError.innerText = '';
+        }
+
+        // Phone Number Validation
+        var phoneField = document.querySelector('input[name="userphone"]');
+        var phoneError = document.getElementById('phoneError');
+        var phoneValue = phoneField.value.trim();
+        var phoneRegex = /^\+?\d{8,}$/; // Update the regex based on your phone number format
+        if (!phoneRegex.test(phoneValue) || phoneValue === '' || phoneValue.length !== 10) {
+            phoneError.innerText = `Enter a valid phone number(10-digit).`;
+            isValid = false;
+        } else {
+            phoneError.innerText = '';
+        }
+
+
+        // Image Validation
+        var imageField = document.querySelector('input[name="userimage"]');
+        var imageError = document.getElementById('imageError');
+        var allowedExtensions = /(\.jpg|\.jpeg|\.png|\.gif)$/i; // Add more extensions if needed
+
+        // Check if there's a file selected
+        if (imageField.files.length > 0) {
+            if (!allowedExtensions.exec(imageField.value)) {
+                imageError.innerText = 'Please select a valid image file.';
+                isValid = false;
+            } else {
+                imageError.innerText = '';
+            }
+        } else {
+            // No file selected, no validation error
+            imageError.innerText = '';
+        }
+
+        return isValid; // Submit the form if all validations pass
+    }
+</script>
+
 
 </body>
 

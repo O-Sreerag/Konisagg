@@ -19,104 +19,128 @@
     <!-- Template CSS -->
     <link href="../admin/assets/css/main.css" rel="stylesheet" type="text/css" />
     <style>
-/* wallet card Styles */
+        /* wallet card Styles */
 
-.new-card {
-  border-radius: 16px;
-  max-width: 300px;
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); /* Adding a minimal box shadow */
-}
+        .new-card {
+            border-radius: 16px;
+            max-width: 300px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+            /* Adding a minimal box shadow */
+        }
 
-.new-pricing {
-  position: absolute;
-  top: 0;
-  right: 0;
-  background-color:rgba(8, 129, 120, 0.2);
-  border-radius: 99em 0 0 99em;
-  display: flex;
-  align-items: center;
-  padding: .625em .75em;
-  font-size: 1.25rem;
-  font-weight: 600;
-  color: #088178;
-}
+        .new-pricing {
+            position: absolute;
+            top: 0;
+            right: 0;
+            background-color: rgba(8, 129, 120, 0.2);
+            border-radius: 99em 0 0 99em;
+            display: flex;
+            align-items: center;
+            padding: .625em .75em;
+            font-size: 1.25rem;
+            font-weight: 600;
+            color: #088178;
+        }
 
-.new-title {
-  font-weight: 600;
-  font-size: 1.25rem;
-  color: #fff;
-}
+        .new-title {
+            font-weight: 600;
+            font-size: 1.25rem;
+            color: #fff;
+        }
 
-.new-plan {
-  padding: 10px;
-  background-color: #fff;
-  color: #rgb(56, 154, 148)
-}
+        .new-plan {
+            padding: 10px;
+            background-color: #fff;
+            color: #rgb(56, 154, 148)
+        }
 
-.new-inner {
-  padding: 20px;
-  padding-top: 40px;
-  background-color: rgba(8, 129, 120, 0.2);
-  border-radius: 12px;
-  position: relative;
-  overflow: hidden;
-}
+        .new-inner {
+            padding: 20px;
+            padding-top: 40px;
+            background-color: rgba(8, 129, 120, 0.2);
+            border-radius: 12px;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .arrow {
+            width: 20px;
+            height: 20px;
+            border-radius: 50%;
+            background-color: #3d4949;
+            color: white;
+            font-size: 12px;
+            text-align: center;
+            line-height: 20px;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+            margin-left: 5px;
+            /* Add space between arrows */
+        }
+
+        .arrow:hover {
+            background-color: #1e1e1e;
+        }
+
+        .left-arrow::before {
+            content: '\2039';
+            /* Unicode for left arrow */
+        }
+
+        .right-arrow::before {
+            content: '\203A';
+            /* Unicode for right arrow */
+        }
 
 
-.address-details {
-    position: relative;
-    margin-bottom: 20px; /* Adjust spacing as needed */
-}
+        .address-slider {
+            position: relative;
+            overflow: hidden;
+        }
 
-.address-details .row {
+        .address-container {
+            display: flex;
+            transition: transform 0.5s ease;
+        }
+
+        .address-slide {
+            flex: 0 0 100%;
+            padding: 0 10px;
+        }
+
+        /* Basic styling */
+.referral-section {
     display: flex;
-    flex-wrap: wrap;
+    align-items: center;
+    gap: 10px;
 }
 
-.address-details .col-lg-6 {
-    flex: 0 0 calc(50% - 15px); /* Adjust column width and spacing */
-    max-width: calc(50% - 15px); /* Adjust column width and spacing */
-    margin-right: 15px; /* Adjust spacing between columns */
+/* Style for the referral link */
+.referral-link {
+    color: blue; /* Change link color */
+    text-decoration: underline; /* Underline link */
+    cursor: pointer; /* Show pointer cursor on hover */
 }
 
-.address-details .col-lg-6:last-child {
-    margin-right: 0; /* Remove margin from the last column */
-}
-
-.slider-arrows {
-    position: absolute;
-    top: 0;
-    right: 0;
-    display: flex;
-}
-
-.arrow {
-    width: 20px;
-    height: 20px;
-    border-radius: 50%;
-    background-color: #3d4949;
-    color: white;
-    font-size: 12px;
-    text-align: center;
-    line-height: 20px;
+/* Style for the copy button */
+.copy-button {
+    background-color: #f0f0f0; /* Change button background color */
+    color: #333; /* Change button text color */
+    border: none;
+    padding: 8px 12px;
+    border-radius: 5px;
     cursor: pointer;
-    transition: background-color 0.3s ease;
-    margin-left: 5px; /* Add space between arrows */
 }
 
-.arrow:hover {
-    background-color: #1e1e1e;
+/* Style for the share button */
+.share-button {
+    background-color: #f0f0f0; /* Change button background color */
+    color: #333; /* Change button text color */
+    border: none;
+    padding: 8px 12px;
+    border-radius: 5px;
+    cursor: pointer;
 }
-
-.left-arrow::before {
-    content: '\2039'; /* Unicode for left arrow */
-}
-
-.right-arrow::before {
-    content: '\203A'; /* Unicode for right arrow */
-}
-
-
 
     </style>
 </head>
@@ -234,16 +258,19 @@
                 <div class="card-body">
                     <div class="row gx-5">
                         <aside class="col-lg-3 border-end">
+                            <br>
                             <nav class="nav nav-pills flex-lg-column mb-4">
                                 <a class="nav-link active" aria-current="page">view Profile</a>
                                 <a class="nav-link" href="/account/edit~profile">edit Profile</a>
-                                <a class="nav-link" href="/account/notifications">Notifications</a>
+                                <a class="nav-link" href="/account/add~address">Add Address</a>
                                 <a class="nav-link" href="/account/security">Security</a>
                             </nav>
                         </aside>
                         <div class="col-lg-9">
                             <section class="content-body p-xl-4">
                                 <form>
+                                    <p style="font-size: 14px; font-weight: 600; line-height: 24px; margin-bottom: 5px;">Your Details</p>
+                                    <br>
                                     <div class="row">
                                         <div class="col-lg-8">
                                             <div class="row gx-3">
@@ -251,69 +278,75 @@
                                                     <label class="form-label">Name</label>
                                                     <p class="form-control" {{#unless
                                                         user.username}}style="color: gray;" {{/unless}}>
-                                                        {{#if user.username}}{{user.username}}{{else}}<span style="color: #3d4949; font-style: italic;">add name</span>{{/if}}
+                                                        {{#if user.username}}{{user.username}}{{else}}<span
+                                                            style="color: #3d4949; font-style: italic;">add
+                                                            name</span>{{/if}}
                                                     </p>
                                                 </div> <!-- col .// -->
                                                 <div class="col-lg-6  mb-3">
                                                     <label class="form-label">Email</label>
                                                     <p class="form-control" {{#unless
                                                         user.useremail}}style="color: gray;" {{/unless}}>
-                                                        {{#if user.useremail}}{{user.useremail}}{{else}}<span style="color: #3d4949; font-style: italic;">add email</span>{{/if}}
+                                                        {{#if user.useremail}}{{user.useremail}}{{else}}<span
+                                                            style="color: #3d4949; font-style: italic;">add
+                                                            email</span>{{/if}}
                                                     </p>
                                                 </div> <!-- col .// -->
                                                 <div class="col-lg-6  mb-3">
                                                     <label class="form-label">Phone</label>
                                                     <p class="form-control" {{#unless
                                                         user.userphone}}style="color: gray;" {{/unless}}>
-                                                        {{#if user.userphone}}{{user.userphone}}{{else}}<span style="color: #3d4949; font-style: italic;">no phone number</span>{{/if}}
+                                                        {{#if user.userphone}}{{user.userphone}}{{else}}<span
+                                                            style="color: #3d4949; font-style: italic;">no phone
+                                                            number</span>{{/if}}
                                                     </p>
                                                 </div> <!-- col .// -->
-                                                <div class="address-details">
-                                                    <div class="row">
-                                                        <div class="col-lg-12  mb-3">
-                                                            <label class="form-label">Address</label>
-                                                        </div>
-                                                        <div class="col-lg-6  mb-3">
-                                                            <p class="form-control" {{#unless
-                                                                user.useraddress}}style="color: gray;" {{/unless}}>
-                                                                {{#if
-                                                                user.useraddress.state}}{{user.useraddress.state}}{{else}}<span style="color: #3d4949; font-style: italic;">no address</span>{{/if}}
-                                                            </p>
-                                                        </div>
-                                                        <div class="col-lg-6  mb-3">
-                                                            <p class="form-control" {{#unless
-                                                                user.useraddress}}style="color: gray;" {{/unless}}>
-                                                                {{#if
-                                                                user.useraddress.district}}{{user.useraddress.district}}{{else}}<span style="color: #3d4949; font-style: italic;">no address</span>{{/if}}
-                                                            </p>
-                                                        </div>
-                                                        <div class="col-lg-6  mb-3">
-                                                            <p class="form-control" {{#unless
-                                                                user.useraddress}}style="color: gray;" {{/unless}}>
-                                                                {{#if
-                                                                user.useraddress.city}}{{user.useraddress.city}}{{else}}<span style="color: #3d4949; font-style: italic;">no address</span>{{/if}}
-                                                            </p>
-                                                        </div>
-                                                        <div class="col-lg-6  mb-3">
-                                                            <p class="form-control" {{#unless
-                                                                user.useraddress}}style="color: gray;" {{/unless}}>
-                                                                {{#if
-                                                                user.useraddress.pin}}{{user.useraddress.pin}}{{else}}<span style="color: #3d4949; font-style: italic;">no address</span>{{/if}}
-                                                            </p>
-                                                        </div>
-                                                        <div class="col-lg-12 mb-3">
-                                                            <p class="form-control" {{#unless
-                                                                user.useraddress}}style="color: gray;" {{/unless}}>
-                                                                {{#if
-                                                                user.useraddress.house}}{{user.useraddress.house}}{{else}}<span style="color: #3d4949; font-style: italic;">no address</span>{{/if}}
-                                                            </p>
-                                                        </div>
-                                                    </div>
-                                                    <div class="slider-arrows">
-                                                        <div class="arrow left-arrow">&#8249;</div>
-                                                        <div class="arrow right-arrow">&#8250;</div>
+
+                                                <div class="col-lg-10 mb-3">
+                                                    <label class="form-label">Address</label>
+                                                </div>
+                                                <div class="col-lg-2 mb-3 d-flex">
+                                                    <div class="arrow left-arrow">&#8249;</div>
+                                                    <div class="arrow right-arrow">&#8250;</div>
+                                                </div>
+                                                <div class="address-slider">
+                                                    <div class="address-container">
+                                                        {{#if user.useraddresses.[0]}}
+                                                            {{#each user.useraddresses}}
+                                                                <div class="address-slide">
+                                                                    <div class="row">
+                                                                        <div class="col-lg-6 mb-3">
+                                                                            <p class="form-control">{{#if state}}{{state}}{{else}}<span style="color: #3d4949; font-style: italic;">no address</span>{{/if}}</p>
+                                                                        </div>
+                                                                        <div class="col-lg-6 mb-3">
+                                                                            <p class="form-control">{{#if district}}{{district}}{{else}}<span style="color: #3d4949; font-style: italic;">no address</span>{{/if}}</p>
+                                                                        </div>
+                                                                        <div class="col-lg-6 mb-3">
+                                                                            <p class="form-control">{{#if city}}{{city}}{{else}}<span style="color: #3d4949; font-style: italic;">no address</span>{{/if}}</p>
+                                                                        </div>
+                                                                        <div class="col-lg-6 mb-3">
+                                                                            <p class="form-control">{{#if pin}}{{pin}}{{else}}<span style="color: #3d4949; font-style: italic;">no address</span>{{/if}}</p>
+                                                                        </div>
+                                                                        <div class="col-lg-12 mb-3">
+                                                                            <p class="form-control">{{#if house}}{{house}}{{else}}<span style="color: #3d4949; font-style: italic;">no address</span>{{/if}}</p>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                            {{/each}}
+                                                        {{else}}
+                                                            <div class="address-slide">
+                                                                <div class="row">
+                                                                    <div class="col-lg-12 mb-3">
+                                                                        <p class="form-control">
+                                                                            <span style="color: #3d4949; font-style: italic;">Address not added</span>
+                                                                        </p>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        {{/if}}
                                                     </div>
                                                 </div>
+
                                             </div> <!-- row.// -->
                                         </div> <!-- col.// -->
                                         <aside class="col-lg-4">
@@ -334,22 +367,34 @@
                                         </aside> <!-- col.// -->
                                     </div> <!-- row.// -->
                                 </form>
-                                        <br><br>
-                                {{!-- wallet card --}}
-                                <article class="new-plan new-card">
-                                <div class="new-inner">
-                                    <span class="new-pricing">
-                                    <span>
-                                        ₹{{user.userwallet}}
-                                    </span>
-                                    </span>
-                                    <h2 class="new-title">WALLET</h2>
-                                    <!-- Add other necessary content as per your requirement -->
-                                    <p> this is your wallet amount,please use this to purchase new items</p>
-                                </div>
-                                </article>
+                                <br><br>
 
-                                    <hr class="my-5">
+                                {{!-- wallet card --}}
+                                <p style="font-size: 14px; font-weight: 600; line-height: 24px; margin-bottom: 5px;">Your Wallet</p>
+                                <br>
+                                <article class="new-plan new-card">
+                                    <div class="new-inner">
+                                        <span class="new-pricing">
+                                            <span>
+                                                ₹{{user.userwallet}}
+                                            </span>
+                                        </span>
+                                        <h2 class="new-title">WALLET</h2>
+                                        <!-- Add other necessary content as per your requirement -->
+                                        <p> this is your wallet amount,please use this to purchase new items</p>
+                                    </div>
+                                </article>
+                                <br><br>
+
+                                {{!-- referal Link --}}
+                                <p style="font-size: 14px; font-weight: 600; line-height: 24px; margin-bottom: 5px;">Your referal Link</p>
+                                <div class="referral-section">
+                                    <p class="referral-link" id="referralLink">{{user.referalLink}}</p>
+                                    <button class="copy-button" onclick="copyReferralLink()">Copy Link</button>
+                                    <button class="share-button" onclick="shareReferralLink()">Share</button>
+                                </div>
+
+                                <hr class="my-5">
                             </section>
                         </div>
                     </div>
@@ -378,6 +423,80 @@
     <script src="../admin/assets/js/vendors/jquery.fullscreen.min.js"></script>
     <!-- Main Script -->
     <script src="../admin/assets/js/main.js" type="text/javascript"></script>
+        <!-- SweetAlert CDN -->
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
+    <script>
+        let currentIndex = 0;
+        const slides = document.querySelectorAll('.address-slide');
+        const totalSlides = slides.length;
+        const slideWidth = slides[0].offsetWidth;
+
+        document.querySelector('.right-arrow').addEventListener('click', () => {
+            if (currentIndex < totalSlides - 1) {
+                currentIndex++;
+                document.querySelector('.address-container').style.transform = `translateX(-${slideWidth * currentIndex}px)`;
+            }
+        });
+
+        document.querySelector('.left-arrow').addEventListener('click', () => {
+            if (currentIndex > 0) {
+                currentIndex--;
+                document.querySelector('.address-container').style.transform = `translateX(-${slideWidth * currentIndex}px)`;
+            }
+        });
+
+        // Function to copy referral link to clipboard
+        function copyReferralLink() {
+            const referralLink = document.getElementById('referralLink').innerText;
+            navigator.clipboard.writeText(referralLink)
+                .then(() => {
+                    alert('Referral link copied to clipboard: ' + referralLink);
+                })
+                .catch(err => {
+                    console.error('Error copying to clipboard: ', err);
+                });
+        }
+
+        // Function to share referral link (adjust 'shareReferralLink' as per your sharing requirements)
+        function shareReferralLink() {
+            const referralLink = document.getElementById('referralLink').innerText;
+            // Implement your share logic here (e.g., using Web Share API or custom share functionality)
+            // Example:
+            if (navigator.share) {
+                navigator.share({
+                    title: 'Check out this referral link!',
+                    text: 'Join us using this referral link:',
+                    url: referralLink
+                })
+                    .then(() => {
+                        console.log('Referral link shared successfully.');
+                    })
+                    .catch(err => {
+                        console.error('Error sharing referral link: ', err);
+                    });
+            } else {
+                alert('Sharing not supported on this browser.');
+            }
+        }
+
+    </script>
+
+    <script>
+  document.addEventListener("DOMContentLoaded", function () {
+    // Check if the addresMessage exists and is not empty
+    const addresMessage = "{{ addressMessage }}";
+    if (addresMessage) {
+      // Trigger SweetAlert to display the addresMessage
+      Swal.fire({
+        title: 'Notification',
+        text: addresMessage,
+        icon: 'info',
+        // You can add more configurations as needed
+      });
+    }
+  });
+</script>
 </body>
 
 </html>

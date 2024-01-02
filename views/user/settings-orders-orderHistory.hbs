@@ -57,11 +57,6 @@
                         <span class="text">Wishlist</span>
                     </a>
                 </li>
-                <li class="menu-item">
-                    <a class="menu-link" href="../accountSettings/editSettings"> <i class="icon material-icons md-settings"></i>
-                        <span class="text">Settings</span>
-                    </a>
-                </li>
             </ul>
             <hr>
             <ul class="menu-aside ">
@@ -115,40 +110,6 @@
             </div>
         </header>
         <section class="content-main">
-            <div class="col-lg-6 mb-sm-15">
-                <div class="toggle_info" style="font-size: 14px;">
-                    <span>
-                        <i class="fi-rs-user mr-10" style="margin-right: 10px;"></i>
-                        <span class="text-muted">Already have an account?</span>
-                        <a href="#loginform" data-bs-toggle="collapse" class="collapsed" aria-expanded="false" style="text-decoration: none; margin-left: 5px; font-weight: bold; color: #088178;">Click here to login</a>
-                    </span>
-                </div>
-                <div class="panel-collapse collapse login_form" id="loginform" style="padding: 20px;">
-                    <div class="panel-body">
-                        <p class="mb-30 font-sm" style="font-size: 12px;">If you have shopped with us before, please enter your details below. If you are a new customer, please proceed to the Billing &amp; Shipping section.</p>
-                        <form method="post">
-                            <div class="form-group">
-                                <input type="text" name="email" placeholder="Username Or Email" style="width: 100%; padding: 10px; margin: 5px 0; border: 1px solid #ccc; border-radius: 5px;">
-                            </div>
-                            <div class="form-group">
-                                <input type="password" name="password" placeholder="Password" style="width: 100%; padding: 10px; margin: 5px 0; border: 1px solid #ccc; border-radius: 5px;">
-                            </div>
-                            <div class="login_footer form-group" style="font-size: 12px; display: flex; justify-content: space-between; align-items: center;">
-                                <div class="chek-form">
-                                    <div class="custome-checkbox" style="display: flex; align-items: center;">
-                                        <input class="form-check-input" type="checkbox" name="checkbox" id="remember" value="" style="margin: 0; cursor: pointer;">
-                                        <label class="form-check-label" for="remember" style="font-size: 14px; cursor: pointer;"><span>Remember me</span></label>
-                                    </div>
-                                </div>
-                                <a href="#" style="text-decoration: none; color: #088178;">Forgot password?</a>
-                            </div>
-                            <div class="form-group">
-                                <button class="btn btn-md" name="login" style="background-color: #088178; color: #fff; border: none; padding: 10px 20px; border-radius: 5px; font-weight: bold; cursor: pointer;">Log in</button>
-                            </div>
-                        </form>
-                    </div>
-                </div>
-            </div>
             <br><br>
             <div class="content-header">
                 <h2 class="content-title">Orders Mangement</h2>
@@ -156,19 +117,12 @@
             <div class="card">
                 <div class="card-body">
                     <div class="row">
-                    <aside class="col-lg-3 border-end">
-                        <nav class="nav nav-pills flex-lg-column mb-4">
-                            <br><br>
-                            <a class="nav-link active" aria-current="page">Order History</a>
-                            <a class="nav-link" href="/orders/track">Track Orders</a>
-                            <a class="nav-link" href="/orders/address">Billing Address</a> 
-                        </nav>
-                    </aside>
-                    <div class="col-lg-9">
+                    <div class="col-lg-12">
                         <section class="content-body p-xl-4">
                             <div class="card-body">
                                 <div class="table-responsive">
                                     <table class="table table-hover">
+                                        {{#if orders}}
                                         <thead>
                                             <tr>
                                                 <th>#ID</th>
@@ -181,8 +135,12 @@
                                         <tbody>
                                             {{#each orders}}
                                             <tr>
-                                                <td width="40%">{{_id}}</td>
-                                                <td width="15%">${{total}}</td>
+                                                <td width="40%">{{orderId}}</td>
+                                                {{#if totalWithDiscount}}
+                                                <td width="15%">₹{{totalWithDiscount}}</td>
+                                                {{else}}
+                                                <td width="15%">₹{{total}}</td>
+                                                {{/if}}
                                                 <td width="15%">
                                                 <script>
                                                     var updatedAt = "{{updatedAt}}"; // Assuming updatedAt is a string
@@ -204,6 +162,11 @@
                                             </tr>
                                             {{/each}}
                                         </tbody>
+                                        {{else}}
+                                        <div class="card-body">
+                                            <p style="color: red;">there are no orders yet</p>
+                                        </div>
+                                        {{/if}}
                                     </table>
                                 </div>
                             </div>
@@ -237,8 +200,22 @@
     <script src="../admin/assets/js/main.js" type="text/javascript"></script>
 
     
+        <!-- SweetAlert CDN -->
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 <script>
-
+  document.addEventListener("DOMContentLoaded", function () {
+    // Check if the bannerMessage exists and is not empty
+    const bannerMessage = "{{ Message }}";
+    if (bannerMessage) {
+      // Trigger SweetAlert to display the bannerMessage
+      Swal.fire({
+        title: 'Notification',
+        text: bannerMessage,
+        icon: 'info',
+        // You can add more configurations as needed
+      });
+    }
+  });
 </script>
 
 </body>

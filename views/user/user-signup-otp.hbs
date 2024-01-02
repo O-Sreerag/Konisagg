@@ -37,7 +37,7 @@
                         </div> <!-- form-group// -->
                         <div class="mb-4">
                             <label class="form-label">One more click</label>
-                            <a href="#" class="float-end font-sm text-muted">Resend OTP?</a>
+                            <a href="#" class="float-end font-sm text-muted" id="resendOTP"  style="display: none;">Resend OTP?</a>
                             <button type="submit" class="btn btn-primary w-100"> Submit </button>
                         </div> <!-- form-group// -->
                     </form>
@@ -59,6 +59,48 @@
     <script src="../admin/assets/js/vendors/jquery.fullscreen.min.js"></script>
     <!-- Main Script -->
     <script src="../admin/assets/js/main.js" type="text/javascript"></script>
+
+    <script>
+
+    // Function to show the button after a specified time
+    function showResendOTPButton() {
+        document.getElementById('resendOTP').style.display = 'inline'; // Display the button
+    }
+
+    // Wait for the specified time period before showing the button
+    const timePeriod = 5000; // 5 seconds
+    setTimeout(showResendOTPButton, timePeriod);
+
+    document.getElementById('resendOTP').addEventListener('click', async (event) => {
+  event.preventDefault();
+
+  document.getElementById('resendOTP').style.display = 'none';
+
+  try {
+    const response = await fetch('/resendotp', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify({
+        // Add any data you need to send in the request body
+      })
+    });
+
+    if (response.ok) {
+      const data = await response.text();
+      alert(data); // Display the response message in an alert
+    } else {
+      console.error('Failed to resend OTP');
+    }
+
+        setTimeout(showResendOTPButton, timePeriod);
+  } catch (error) {
+    console.error('Error occurred:', error);
+  }
+});
+
+    </script>
 </body>
 
 

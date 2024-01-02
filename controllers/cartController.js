@@ -1,13 +1,17 @@
 const mongoose = require('mongoose');
 const cartModel = require('../models/cartModel')
+const wishlistModel = require('../models/wishlistModel')
 const orderModel = require('../models/orderModel')
 const productModel = require('../models/productModel')
+const coupenModel = require('../models/coupenModel')
+const categoryModel = require('../models/categoryModel')
 const userModel = require('../models/userModel')
 const { ObjectId } = require("mongodb");
 
 const bcrypt = require("bcrypt");
 const Razorpay = require("razorpay");
 const { v4: uuidv4 } = require('uuid');
+// const { default: items } = require('razorpay/dist/types/items');
 require("dotenv").config();
 
 const instance = new Razorpay({
@@ -37,38 +41,6 @@ const addToCart = async (req, res, next) => {
             console.log("existingProducts")
             console.log(existingProducts)
 
-            // if (!existingProducts) {
-            //     // If the product doesn't exist, add it to the cart
-            //     usercart.products.push({
-            //         productId: itemId,
-            //         selectedColor: colors,
-            //         selectedSize: sizes,
-            //     });
-
-            //     await usercart.save();
-            //     res.status(200).json({ message: 'Product added to cart' });
-            // } else {
-            //     // If the product exists, increase the quantity or add as a new product
-            //     if (
-            //         existingProducts.selectedColor === colors &&
-            //         existingProducts.selectedSize === sizes
-            //     ) {
-            //         // Same color and size, increase the quantity
-            //         existingProducts.defaultQuantity++;
-            //         await usercart.save();
-            //         res.status(200).json({ message: 'Product quantity increased by one' });
-            //     } else {
-            //         // Different color and size, add a new product
-            //         usercart.products.push({
-            //             productId: itemId,
-            //             selectedColor: colors,
-            //             selectedSize: sizes,
-            //         });
-
-            //         await usercart.save();
-            //         res.status(200).json({ message: 'Product added to cart' });
-            //     }
-            // }
             if (existingProducts.length > 0) {
                 // Iterate through existing products to find a match based on color and size
                 let productExists = false;
@@ -82,7 +54,11 @@ const addToCart = async (req, res, next) => {
                         productExists = true;
     
                         await usercart.save();
-                        res.status(200).json({ message: 'Product added/quantity updated in the cart' });
+                        if (!req.session.Message) {
+                            req.session.Message = {};
+                        }
+                        req.session.Message = "Product added/quantity updated in the cart"
+                        res.redirect('/shop')
     
                         break; 
                     }
@@ -98,7 +74,11 @@ const addToCart = async (req, res, next) => {
                     });
     
                     await usercart.save();
-                    res.status(200).json({ message: 'Product added to cart' });
+                    if (!req.session.Message) {
+                        req.session.Message = {};
+                    }
+                    req.session.Message = "item added to cart"
+                    res.redirect('/shop')
                 }
     
             } else {
@@ -111,7 +91,11 @@ const addToCart = async (req, res, next) => {
                 });
     
                 await usercart.save();
-                res.status(200).json({ message: 'Product added to cart' });
+                if (!req.session.Message) {
+                    req.session.Message = {};
+                }
+                req.session.Message = "item added to cart"
+                res.redirect('/shop')
             }
         } else {
             // Create a new cart with the first product
@@ -127,7 +111,11 @@ const addToCart = async (req, res, next) => {
             });
 
             await newCart.save();
-            res.status(200).json({ message: 'Product added to cart' });
+            if (!req.session.Message) {
+                req.session.Message = {};
+            }
+            req.session.Message = "item added to cart"
+            res.redirect('/shop')
         }
 
     } catch (error) {
@@ -139,7 +127,7 @@ const addToCart = async (req, res, next) => {
 
 const viewItems = async (req, res) => {
     try {
-        console.log("cart/view-items");
+        console.log("cart/view-items root");
 
         console.log(req.session.verifiedUser)
         const userId = req.session.verifiedUser.userid
@@ -180,8 +168,13 @@ const viewItems = async (req, res) => {
         ])
 
         products.forEach(item => {
-            item.price = item.product.promotionalprice * item.quantity
-            item.price = item.price.toFixed(2);
+            if(item.product.promotionalprice) {
+                item.price = item.product.promotionalprice * item.quantity
+                item.price = item.price.toFixed(2);
+            } else {
+                item.price = item.product.regularprice * item.quantity
+                item.price = item.price.toFixed(2);
+            }
         })
         let total = 0
         products.forEach(item => {
@@ -195,11 +188,31 @@ const viewItems = async (req, res) => {
         console.log("total")
         console.log(total)
 
-        res.render('user/cart', { cartItems: products, total: total });
+        const user = await userModel.findOne({ _id: userId });
+        console.log(user)
+        let isAddressEmpty 
+        let isPhoneEmpty 
+        if (user && user.useraddresses && user.useraddresses.length > 0) {
+        } else {
+            isAddressEmpty = 1;
+        }
+        if (user && user.userphone) {            
+        } else {
+            isPhoneEmpty = 1;
+        }
+
+        res.render('user/cart', { cartItems: products, total: total, isAddressEmpty: isAddressEmpty, isPhoneEmpty: isPhoneEmpty, Message: req.session?.Message});
+        if(req.session.Message) {
+            req.session.Message = null
+        }
 
     } catch (error) {
         console.log(error);
-        res.status(500).json({ error: 'An error occurred while retrieving cart items' });
+        if (!req.session.Message) {
+            req.session.Message = {};
+        }
+        req.session.Message = "an Error occured while retrieving cart items"
+        res.redirect('/shop')
     }
 };
 
@@ -208,17 +221,37 @@ const deleteItem = async (req, res) => {
     try {
         console.log("delete item")
 
-        const itemId = req.params.itemId;
+        const itemId = req.query.itemId;
+        const color = req.query.color;
+        const size = req.query.size;
+        console.log(`itemId: ${itemId} color: ${color} size: ${size} `)
+
         const userId = req.session.verifiedUser.userid;
         const usercart = await cartModel.findOne({ userId });
+        console.log("usercart " + usercart)
 
         if (usercart) {
-            usercart.productIds = usercart.productIds.filter(id => id.toString() !== itemId);
+            // Filter the user's products array to remove the matching item
+            usercart.products = usercart.products.filter(product =>
+                !(String(product.productId) === itemId &&
+                product.selectedColor === color &&
+                product.selectedSize === size)
+            );
+
             await usercart.save();
 
-            res.status(200).json({ message: 'Item removed from the cart' });
+            console.log('Product removed from the user cart successfully');
+            if (!req.session.Message) {
+                req.session.Message = {};
+            }
+            req.session.Message = "Product removed"
+            res.redirect('/cart/view')
         } else {
-            res.status(404).json({ message: 'User\'s cart not found' });
+            if (!req.session.Message) {
+                req.session.Message = {};
+            }
+            req.session.Message = "User\'s cart not found"
+            res.redirect('/cart/view')
         }
     } catch (error) {
         console.log(error);
@@ -230,10 +263,38 @@ const deleteAllItems = async (req, res) => {
     try {
         console.log("delete all items")
 
+        const userId = req.session.verifiedUser.userid;
+        const usercart = await cartModel.findOne({ userId });
+        console.log("usercart " + usercart)
+
+        const updatedCart = await cartModel.findOneAndUpdate(
+            { userId },
+            { $set: { products: [] } },
+            { new: true }
+        );
+
+        if (updatedCart) {
+            console.log('All products removed from the user cart successfully');
+            if (!req.session.Message) {
+                req.session.Message = {};
+            }
+            req.session.Message = "All products deleted from user cart"
+            res.redirect('/cart/view')
+        } else {
+            if (!req.session.Message) {
+                req.session.Message = {};
+            }
+            req.session.Message = "User\'s cart not found"
+            res.redirect('/cart/view')
+        }
 
     } catch (error) {
         console.log(error);
-        res.status(500).json({ error: 'An error occurred while removing the item from the cart' });
+        if (!req.session.Message) {
+            req.session.Message = {};
+        }
+        req.session.Message = "An error occurred while removing the item from the cart"
+        res.redirect('/cart/view')
     }
 };
 
@@ -304,8 +365,13 @@ const checkout = async (req, res) => {
         ])
 
         products.forEach(item => {
-            item.price = item.product.promotionalprice * item.quantity
-            item.price = item.price.toFixed(2);
+            if(item.product.promotionalprice) {
+                item.price = item.product.promotionalprice * item.quantity
+                item.price = item.price.toFixed(2);
+            } else {
+                item.price = item.product.regularprice * item.quantity
+                item.price = item.price.toFixed(2);
+            }
         })
         let total = 0
         products.forEach(item => {
@@ -324,9 +390,189 @@ const checkout = async (req, res) => {
         console.log("userDetails")
         console.log(userDetails)
 
+        const userId = req.session.verifiedUser.userid
+        const availableCoupens = await coupenModel.find({
+            usedBy: { $nin: [userId] } 
+        });
+        console.log("availableCoupens")
+        console.log(availableCoupens)
+
         const error = req.session.walletError
         console.log("wallet error : " + error)
-        res.render('user/checkout', { user: userDetails[0], cartItems: products, total: total, error: error })
+
+        const parentCategories = await categoryModel.aggregate([
+            {
+            $match: { tier: 1 } 
+            },
+            {
+            $lookup: {
+                from: 'categoryinfos', 
+                localField: 'subCategories',
+                foreignField: '_id',
+                as: 'subCategoriesData' 
+            }
+            },
+            {
+            $project: {
+                name: 1,  
+                image: 1, 
+                subCategoriesData: {
+                _id: 1,
+                name: 1, 
+                products: 1 
+                }
+            }
+            }
+        ]);
+        console.log("parent categories")
+        console.log(parentCategories);  
+    
+        const allCategories = await categoryModel.find({})
+        console.log("all categories")
+        console.log(allCategories)
+    
+        let wishlistItemCount, cartItemCount  
+        if(user?.userid) {
+            const wishlist = await wishlistModel.findOne({ userId: user?.userid})
+            const cart = await cartModel.findOne({ userId: user?.userid})
+            console.log("wishlist & cart")
+            console.log(wishlist + "\n" + cart)
+            
+            wishlistItemCount = wishlist?.productIds?.length || 0
+            cartItemCount = cart?.products?.length || 0
+        }
+        console.log(wishlistItemCount + " " + cartItemCount)
+
+        res.render('user/checkout', { 
+            loginStatus: req.session?.verifiedUser?.loginStatus,
+            username: req.session?.verifiedUser?.username,
+            user: userDetails[0],
+            cartItems: products,
+            total: total,
+            coupens: availableCoupens,
+            error: error,
+            parentCategories: parentCategories,
+            allCategories: allCategories,
+            wishlistItemCount: wishlistItemCount,
+            cartItemCount: cartItemCount, })
+
+    } catch (error) {
+        console.log(error)
+    }
+}
+
+const applyCoupen = async (req, res) => {
+    try {
+        console.log("apply coupen code root.")
+        
+        const user = req.session.verifiedUser
+        console.log("user")
+        console.log(user)
+
+        const products = await cartModel.aggregate([
+            {
+                $match: { userId: new ObjectId(user.userid) }
+            },
+            {
+                $unwind: "$products"
+            },
+            {
+                $project: {
+                    productId: "$products.productId",
+                    color: "$products.selectedColor",
+                    size: "$products.selectedSize",
+                    quantity: "$products.defaultQuantity",
+                    ItemId: "$products._id",
+                },
+            },
+            {
+                $lookup: {
+                    from: "productinfos",
+                    localField: "productId",
+                    foreignField: "_id",
+                    as: "product"
+                }
+            },
+            {
+                $project: {
+                    productId: 1,
+                    quantity: 1,
+                    size: 1,
+                    color: 1,
+                    ItemId: 1,
+                    product: { $arrayElemAt: ["$product", 0] },
+                },
+            }
+        ])
+
+        products.forEach(item => {
+            if(item.product.promotionalprice) {
+                item.price = item.product.promotionalprice * item.quantity
+                item.price = item.price.toFixed(2);
+            } else {
+                item.price = item.product.regularprice * item.quantity
+                item.price = item.price.toFixed(2);
+            }
+        })
+        let total = 0
+        products.forEach(item => {
+            total = total + parseFloat(item.price)
+        })
+        total = total.toFixed(2)
+
+        console.log("products")
+        console.log(products)
+
+        console.log("total")
+        console.log(total)
+
+        const {coupenCode} = req.body
+        console.log(coupenCode)
+
+        const coupen = await coupenModel.findOne({code:coupenCode})
+        console.log(coupen)
+
+        if (!coupen) {
+            return res.status(400).json({ error: 'Invalid coupen code' });
+        }
+
+        if (coupen.minPurchaseAmount && total < coupen.minPurchaseAmount) {
+            console.log("total < minPurchaseAmount")
+            return res.status(400).json({ error: 'Minimum amount not met for this coupen' });
+        }
+
+        let appliedDiscount = 0;
+
+        if (coupen.type === 'flat') {
+            // For flat discount type, subtract the discount from the total
+            appliedDiscount = coupen.discount;
+        } else if (coupen.type === 'percentage') {
+            // For percentage discount type, calculate the discounted amount
+            appliedDiscount = total * (coupen.discount / 100);
+        }
+
+        console.log(total)
+        console.log(appliedDiscount)
+        total = parseFloat(total);
+        console.log(total)
+        
+        // Check if total is a valid number before proceeding
+        if (typeof total !== 'number' || isNaN(total)) {
+            throw new Error('Total is not a valid number');
+        }
+        
+        let discountedTotal = (total - appliedDiscount).toFixed(2);
+        discountedTotal = parseFloat(discountedTotal);
+
+        // Ensure discountedTotal is a valid number before sending the response
+        if (typeof discountedTotal !== 'number' || isNaN(discountedTotal)) {
+            throw new Error('Discounted total is not a valid number');
+        }
+
+        total = total.toFixed(2)
+        discountedTotal = discountedTotal.toFixed(2)
+
+        return res.json({ total: discountedTotal, discount: appliedDiscount, appliedCoupenCode: coupenCode});
 
     } catch (error) {
         console.log(error)
@@ -336,30 +582,22 @@ const checkout = async (req, res) => {
 const placeOrder = async (req, res) => {
     try {
         console.log("place order")
-
+        
         const user = req.session.verifiedUser
         console.log("user session details")
         console.log(user)
-
+        
         const User = await userModel.find({ _id: user.userid })
         console.log("user details")
         console.log(User)
 
+        // console.log({selectedState, selectedDistrict, selectedCity, selectedPin, selectedHouse})        
         const { username, useremail } = req.body
-        const { state, district, city, pin, house } = req.body
+        const {selectedState, selectedDistrict, selectedCity, selectedPin, selectedHouse} = req.body
         const defaultPhone = req.body.phone
-        const defaultAddress = { state, district, city, pin, house }
+        const defaultAddress = {selectedState, selectedDistrict, selectedCity, selectedPin, selectedHouse}
         console.log("user default details in submit")
         console.log({ username, useremail, defaultPhone, defaultAddress })
-
-        const filter = { useremail: useremail };
-        const update = {
-            $set: {
-                userphone: defaultPhone,
-                useraddress: defaultAddress,
-            },
-        };
-        const result = await userModel.updateOne(filter, update);
 
         const { stateTemp, districtTemp, cityTemp, pinTemp, houseTemp } = req.body
         const phoneTemp = req.body.phoneTemp
@@ -414,14 +652,23 @@ const placeOrder = async (req, res) => {
         ])
 
         products.forEach(item => {
-            item.price = item.product.promotionalprice * item.quantity
-            item.price = item.price.toFixed(2);
+            if(item.product.promotionalprice) {
+                item.price = item.product.promotionalprice * item.quantity
+                item.price = item.price.toFixed(2);
+            } else {
+                item.price = item.product.regularprice * item.quantity
+                item.price = item.price.toFixed(2);
+            }
         })
         let total = 0
         products.forEach(item => {
             total = total + parseFloat(item.price)
         })
         total = total.toFixed(2)
+
+        products.forEach(item => {
+            item.status = "cancel"
+        })
 
         console.log("products")
         console.log(products)
@@ -435,9 +682,9 @@ const placeOrder = async (req, res) => {
 
         if (payment === 'cash_on_delivery') {
             paymentStatus = 'Awaiting Payment';
-          } else {
+        } else {
             paymentStatus = 'Payment Done';
-          }
+        }
 
 
         req.session.newOrder = {
@@ -450,6 +697,25 @@ const placeOrder = async (req, res) => {
             userAddress: attachAddress,
         }
 
+        const { discount, appliedCoupenCode } = req.body;
+        console.log("coupen details");
+        console.log({ discount, appliedCoupenCode });
+
+        // Calculate total with discount (if applicable)
+        let totalWithDiscount
+        if (discount) {
+            totalWithDiscount = parseFloat(total);
+            totalWithDiscount -= parseFloat(discount);
+            totalWithDiscount = totalWithDiscount.toFixed(2);
+        }
+
+        // Check if a coupon code was applied
+        if (appliedCoupenCode) {
+            req.session.newOrder.discount = discount;
+            req.session.newOrder.totalWithDiscount = totalWithDiscount;
+            req.session.newOrder.appliedCoupenCode = appliedCoupenCode;
+        }
+
         console.log("req.session.newOrder")
         console.log(req.session.newOrder)
 
@@ -457,8 +723,14 @@ const placeOrder = async (req, res) => {
             console.log("payment method === razorpay")
 
             req.session.payReciept = uuidv4();
+            let amount
+            if(totalWithDiscount) {
+                amount = totalWithDiscount * 100
+            } else {
+                amount = total * 100
+            }
             var options = {
-                amount: total * 100,
+                amount: amount,
                 currency: "INR",
                 receipt: req.session.payReciept,
             };
@@ -474,10 +746,10 @@ const placeOrder = async (req, res) => {
             await orderModel.create(req.session.newOrder)
             await cartModel.deleteMany({ userId: req.session.verifiedUser.userid })
 
-            // await couponModel.updateOne(
-            //     { code: req.session.orders.couponId },
-            //     { $push: { usedUsers: req.session.user } }
-            // );
+            await coupenModel.updateOne(
+                { code: req.session.newOrder.appliedCoupenCode },
+                { $push: { usedBy: req.session.verifiedUser.userid} }
+            );
 
             res.json({ COD: true });
         } else { // req.session.newOrder.paymentMethod === "wallet"
@@ -486,7 +758,12 @@ const placeOrder = async (req, res) => {
             console.log("wallet amount");
             console.log(User[0].userwallet);
             console.log("billing total");
-            const totalNumber = parseFloat(req.session.newOrder.total);
+            let totalNumber 
+            if (totalWithDiscount) {
+                totalNumber = parseFloat(req.session.newOrder.totalWithDiscount);
+            } else {
+                totalNumber = parseFloat(req.session.newOrder.total);
+            }
             console.log(totalNumber);
 
             if (totalNumber < User[0].userwallet) {
@@ -504,10 +781,10 @@ const placeOrder = async (req, res) => {
                 );
                 await cartModel.deleteMany({ userId: req.session.verifiedUser.userid })
 
-                //   await couponModel.updateOne(
-                //     { code: req.session.orders.couponId },
-                //     { $push: { usedUsers: req.session.user } }
-                //   );
+                await coupenModel.updateOne(
+                { code: req.session.newOrder.appliedCoupenCode },
+                { $push: { usedBy: req.session.verifiedUser.userid} }
+                );
 
                 res.json({ WalletTrue: true });
             } else {
@@ -515,10 +792,7 @@ const placeOrder = async (req, res) => {
                 req.session.walletError = "Sorry you dont have enough money on your wallet";
                 res.json({ WalletFalse: true });
             }
-
         }
-
-
     } catch (error) {
         console.log(error)
     }
@@ -551,6 +825,11 @@ const verifyPayment = async (req, res) => {
             await orderModel.create(req.session.newOrder);
             await cartModel.deleteMany({ userId: req.session.verifiedUser.userid })
 
+            await coupenModel.updateOne(
+                { code: req.session.newOrder.appliedCoupenCode },
+                { $push: { usedBy: req.session.verifiedUser.userid} }
+            );
+
             res.json({ status: true });
         } else {
             console.log("failed transaction");
@@ -576,6 +855,7 @@ module.exports = {
     deleteAllItems,
     updateQuantity,
     checkout,
+    applyCoupen,
     placeOrder,
     verifyPayment,
     orderSuccess

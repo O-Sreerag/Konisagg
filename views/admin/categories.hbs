@@ -16,29 +16,33 @@
     <!-- Template CSS -->
     <link href="assets/css/main.css" rel="stylesheet" type="text/css" />
 
-    <style>
-        .pagination {
-        text-align: center;
-        }
+<style>
+  .pagination {
+    margin-top: 20px;
+    display: flex;
+    justify-content: center;
+  }
 
-        .pagination-button {
-        display: inline-block;
-        padding: 4px 11px;
-        margin: 5px;
-        background-color: #007bff;
-        color: #fff;
-        border: none;
-        border-radius: 5px;
-        cursor: pointer;
-        font-weight: bold;
-        text-align: center;
-        }
+  .pagination-link {
+    padding: 5px 10px;
+    margin: 0 2px;
+    border: 1px solid #ccc;
+    text-decoration: none;
+    color: #333;
+    border-radius: 4px;
+  }
 
-        .pagination-button.active {
-        background-color: #0056b3;
-        }
+  .pagination-link:hover {
+    background-color: #f0f0f0;
+  }
 
-    </style>
+  .pagination-link.active {
+    background-color: #007bff;
+    color: white;
+    border-color: #007bff;
+    pointer-events: none;
+  }
+</style>
 </head>
 
 <body>
@@ -86,40 +90,28 @@
                     </a>
                 </li>
                 <li class="menu-item">
-                    <a class="menu-link" href="../admin/transactions"> <i class="icon material-icons md-monetization_on"></i>
-                        <span class="text">Transactions</span>
+                    <a class="menu-link" href="/admin/offers/category-offers"> <i class="icon material-icons md-monetization_on"></i>
+                        <span class="text">Offers</span>
                     </a>
                 </li>
                 <li class="menu-item">
-                    <a class="menu-link" href="../admin/reviews"> <i class="icon material-icons md-comment"></i>
-                        <span class="text">Reviews</span>
+                    <a class="menu-link" disabled href="../admin/banners"> <i class="icon material-icons md-pie_chart"></i>
+                        <span class="text">Banners</span>
                     </a>
                 </li>
                 <li class="menu-item">
-                    <a class="menu-link" href="../admin/brands"> <i class="icon material-icons md-stars"></i>
-                        <span class="text">Brands</span> </a>
+                    <a class="menu-link" href="../admin/coupens"> <i class="icon material-icons md-local_offer"></i>
+                        <span class="text"> Coupens </span>
+                    </a>
                 </li>
+                <hr>
                 <li class="menu-item">
-                    <a class="menu-link" disabled href="../admin/statistics"> <i class="icon material-icons md-pie_chart"></i>
-                        <span class="text">Statistics</span>
+                    <a class="menu-link" style="color:red" href="../admin/logout"><i class="material-icons md-exit_to_app"></i>
+                        <span class="text"> Logout </span>
                     </a>
                 </li>
             </ul>
             <hr>
-            <ul class="menu-aside">
-                <li class="menu-item">
-                    <a class="menu-link" href="../admin/settings"> <i class="icon material-icons md-settings"></i>
-                        <span class="text">Settings</span>
-                    </a>
-                </li>
-                <li class="menu-item">
-                    <a class="menu-link" href="#"> <i class="icon material-icons md-local_offer"></i>
-                        <span class="text"> Starter page </span>
-                    </a>
-                </li>
-            </ul>
-            <br>
-            <br>
         </nav>
     </aside>
 
@@ -127,51 +119,31 @@
     <main class="main-wrap">
         {{!-- navbar right --}}
         <header class="main-header navbar">
-            <div class="col-search">
-                <form class="searchform">
-                    <div class="input-group">
-                        <input list="search_terms" type="text" class="form-control" placeholder="Search term">
-                        <button class="btn btn-light bg" type="button"> <i class="material-icons md-search"></i></button>
-                    </div>
-                    <datalist id="search_terms">
-                        <option value="Products">
-                        <option value="New orders">
-                        <option value="Apple iphone">
-                        <option value="Ahmed Hassan">
-                    </datalist>
-                </form>
-            </div>
-            <div class="col-nav">
-                <button class="btn btn-icon btn-mobile me-auto" data-trigger="#offcanvas_aside"> <i class="material-icons md-apps"></i> </button>
+            <div class="col-nav ms-auto"> <!-- Utilizing ms-auto (margin-left: auto) to align content to the right -->
+                <button class="btn btn-icon btn-mobile me-auto" data-trigger="#offcanvas_aside">
+                    <i class="material-icons md-apps"></i>
+                </button>
                 <ul class="nav">
-                    <li class="nav-item">
-                        <a class="nav-link btn-icon" href="#">
-                            <i class="material-icons md-notifications animation-shake"></i>
-                            <span class="badge rounded-pill">3</span>
-                        </a>
-                    </li>
                     <li class="dropdown nav-item">
-                        <a class="dropdown-toggle" data-bs-toggle="dropdown" href="#" id="dropdownAccount" aria-expanded="false"> <img class="img-xs rounded-circle" src="assets/imgs/people/avatar2.jpg" alt="Product"></a>
+                        <a class="dropdown-toggle" data-bs-toggle="dropdown" href="#" id="dropdownAccount" aria-expanded="false">
+                            <img class="img-xs rounded-circle" src="assets/imgs/people/avatar2.jpg" alt="User">
+                        </a>
                         <div class="dropdown-menu dropdown-menu-end" aria-labelledby="dropdownAccount">
-                            <a class="dropdown-item" href="#"><i class="material-icons md-perm_identity"></i>Edit Profile</a>
-                            <a class="dropdown-item" href="#"><i class="material-icons md-settings"></i>Account Settings</a>
-                            <a class="dropdown-item" href="#"><i class="material-icons md-account_balance_wallet"></i>Wallet</a>
-                            <a class="dropdown-item" href="#"><i class="material-icons md-receipt"></i>Billing</a>
-                            <a class="dropdown-item" href="#"><i class="material-icons md-help_outline"></i>Help center</a>
                             <div class="dropdown-divider"></div>
-                            <a class="dropdown-item text-danger" href="#"><i class="material-icons md-exit_to_app"></i>Logout</a>
+                            <a class="dropdown-item text-danger" href="/admin/logout">
+                                <i class="material-icons md-exit_to_app"></i>Logout
+                            </a>
                         </div>
                     </li>
                 </ul>
             </div>
         </header>
-
         {{!-- body right --}}
         <section class="content-main">
+
             <div class="content-header">
                 <div>
                     <h2 class="content-title card-title">Categories </h2>
-                    <p>Add, edit or delete a category</p>
                 </div>
                 <div class="content-header">
                     <div>
@@ -179,11 +151,12 @@
                     </div>
                 </div>
             </div>
+
             <div class="card">
                 <div class="card-body">
                     <div class="row">
 
-
+                        {{!-- add category form --}}
                         <div id="addCategoryForm" class="col-md-3" style="display: none">
                             <button  onclick="closeCategoryForm()" class="mb-4" style="border: none; border-radius: 10px "> close</button>
 
@@ -191,6 +164,8 @@
                                 <div class="mb-4"> {{!-- product name --}}
                                     <label for="categoryname" class="form-label">Name</label>
                                     <input type="text" placeholder="Type here" class="form-control" name="categoryname" id="categoryname" />
+                                    <p style="color: red;">{{error}}</p>
+                                    <div id="categoryNameError" class="text-danger"></div> 
                                 </div>
                                 <div id="checkboxForm" class="mb-4"> {{!-- parent category --}}
                                     <label class="form-label">Parent</label><br>
@@ -198,7 +173,7 @@
                                         {{#each pCategoryList}}
                                         <input type="radio" name="option" value={{this.name}} id={{this._id}}> 
                                         <label class="form-label">{{this.name}}</label><br>
-                                        <label class="form-label">{{this._id}}</label><br>
+                                        {{!-- <label class="form-label">{{this._id}}</label><br> --}}
                                         {{/each}}
                                     </div>   
                                 </div>
@@ -210,7 +185,8 @@
                                     <div class="card-body">
                                         <div class="input-upload">
                                             <img src="assets/imgs/theme/upload.svg" alt="" id="categoryImagePreview">
-                                            <input class="form-control" type="file" name="categoryimage" id="categoryImageInput" onchange="previewCategoryImage()">
+                                            <input class="form-control" type="file" name="categoryimage" id="categoryImageInput" accept=".jpg, .jpeg, .png" onchange="previewCategoryImage()">
+                                            <div id="categoryImageError" class="text-danger"></div>
                                         </div>
                                     </div>
                                 </div> 
@@ -219,6 +195,9 @@
                                 </div>
                             </form>
                         </div>
+
+
+                        {{!-- view category details --}}
                         <div id="viewCategoryForm" class="col-md-3" style="display: none">
                             <button  onclick="closeCategoryForm()" class="mb-4" style="border: none; border-radius: 10px "> close</button>
                             <div class="card">
@@ -226,10 +205,6 @@
                                     <h3>Category Information</h3>
                                 </div>
                                 <div class="card-body">
-                                    <div class="mb-4">
-                                        <label for="viewCategoryId" class="form-label" style="color: black;">ID</label>
-                                        <p id="viewCategoryId"></p>
-                                    </div>
                                     <div class="mb-4">
                                         <label for="viewCategoryName" class="form-label" style="color: black;">Name</label>
                                         <p id="viewCategoryName"></p>
@@ -267,6 +242,7 @@
                         </div>
 
 
+                        {{!-- update category details form --}}
                         <div id="updateCategoryForm" class="col-md-3" style="display: none">
                             <button  onclick="closeCategoryForm()" class="mb-4" style="border: none; border-radius: 10px "> close</button>
                             <div class="card">
@@ -276,24 +252,23 @@
                                 <div class="card-body">
                                     <form  id="updateCategory" action="/admin/updateCategorySubmit" method="post" enctype="multipart/form-data">
                                     <div class="mb-4">
-                                        <label for="updateCategoryId" class="form-label">ID</label>
-                                        <p id="updateCategoryId"></p>
                                         <input type="text" name="updatecategoryid" id="updatecategoryid" value="" hidden />
                                     </div>
                                     <div class="mb-4">
                                         <label for="updatecategoryname" class="form-label">Name</label>
                                         <input type="text" placeholder="Type here" class="form-control" name="updatecategoryname" id="updatecategoryname" />
+                                        <p style="color: red;">{{updateFormError}}</p>
+                                        <div id="updateCategoryNameError" class="text-danger"></div> 
                                     </div>
                                     <div id="updatecheckboxForm" class="mb-4"> 
                                         <label class="form-label">Parent</label><br>
                                         <div class="mb-4">
                                             {{#each pCategoryList}}
-                                            <input type="radio" name="optionupdate" value={{this.name}} id="update-{{this._id}}"> 
+                                            <input type="radio" name="optionupdate" value={{this.name}} id="update-{{this._id}}">
                                             <label class="form-label">{{this.name}}</label><br>
-                                            <label class="form-label">{{this._id}}</label><br>
                                             {{/each}}
-                                        </div>   
-                                    </div>
+                                        </div>
+                                    </div> 
                                     <input type="hidden" name="updateSelectedCategoryId" id="updateSelectedCategoryId" value="">
                                     <div class="mb-4">
                                         <label for="updateCategoryTier" class="form-label">Tier</label>
@@ -307,6 +282,7 @@
                                             <div class="input-upload">
                                                 <img id="updateCategoryImagePreview" src="" alt="">
                                                 <input class="form-control" type="file" name="updatecategoryimage" id="updateCategoryImage" onchange="previewUpdateCategoryImage()">
+                                                <div id="updateCategoryImageError" class="text-danger"></div> 
                                             </div>
                                         </div>
                                     </div> 
@@ -318,28 +294,32 @@
                             </div>
                         </div>
 
-
                         <div id="categoryTable" class="col-md-12">
+                            <header class="card-header">
+                                <div class="row gx-3">
+                                    <div class="search-container col-lg-4 col-md-6 me-auto ">
+                                        <input type="text" placeholder="Search..."  onkeyup="sendData(this)" class="form-control" id="search-box">
+                                        <section id="searchResults"></section>
+                                    </div>
+                                </div>
+                            </header> <!-- card-header end// -->
                             <div class="table-responsive">
                                 <table class="table table-hover">
+                                    {{#if categoryList}} 
                                     <thead>
                                         <tr>
-                                            <th width="10%">index</th>
-                                            <th width="40%">ID</th>
-                                            <th width="20%">Name</th>
+                                            <th width="50%">Name</th>
                                             <th width="20%">total products</th>
-                                            <th width="10%">Action</th>
+                                            <th width="15%">Action</th>
+                                            <th width="5%">Tier</th>
                                         </tr>
                                     </thead>
                                     <tbody>
-                                        {{#if categoryList}} 
                                         {{#each categoryList}}
                                         <tr>
-                                            <td>{{@index}}</td>
-                                            <td>{{_id}}</td>
-                                            <td><b>{{name}}</b></td>
-                                            {{#if products}}
-                                            <td>{{products}}</td>
+                                            <td id="{{_id}}"><b>{{name}}</b></td>
+                                            {{#if productCount}}
+                                            <td>{{productCount}}</td>
                                             {{else}}
                                             <td>-------------------</td>
                                             {{/if}}
@@ -349,14 +329,42 @@
                                                     <div class="dropdown-menu">
                                                         <a class="dropdown-item" onclick="viewCategory('{{_id}}', '{{name}}', '{{products}}', '{{parentCategory}}', '{{subCategories}}', '{{createdAt}}', '{{updatedAt}}', '{{image}}', '{{tier}}')">View detail</a>
                                                         <a class="dropdown-item" onclick="updateCategory('{{_id}}', '{{name}}', '{{parentCategory}}','{{image}}', '{{tier}}') ">Edit info</a>
-                                                        <a class="dropdown-item text-danger" href="#">Delete</a>
+                                                        {{#if (eq tier 2)}}
+                                                            <a class="dropdown-item" href="/admin/offers/category/addOffer/?categoryId={{_id}}">Create Offer</a>
+                                                        {{/if}}
+                                                        <a class="dropdown-item text-danger" href="../admin/category/delete?categoryId={{_id}}">Delete</a>
                                                     </div>
                                                 </div> 
+                                            </td>
+                                            <td>
+                                                {{#if tier}}
+                                                    {{#if (eq tier 1)}}
+                                                        P
+                                                    {{else}}
+                                                        C
+                                                    {{/if}}
+                                                {{/if}}
+                                            </td>
                                         </tr>
                                         {{/each}}
-                                        {{else}} <p style="color: red;">there are no categories yet</p>
-                                        {{/if}}
+                                        <!-- Your Handlebars template -->
+                                        <div class="pagination">
+                                            {{#if hasPreviousPage}}
+                                                <a href="?page={{previousPage}}" class="pagination-link">Previous</a>
+                                            {{/if}}
+
+                                            {{#each pageNumbers}}
+                                                <a href="?page={{this}}" class="pagination-link {{#if (eq this ../currentPage)}}active{{/if}}">{{this}}</a>
+                                            {{/each}}
+
+                                            {{#if hasNextPage}}
+                                                <a href="?page={{nextPage}}" class="pagination-link">Next</a>
+                                            {{/if}}
+                                        </div>
+                                        <br>
                                     </tbody>
+                                    {{else}} <p style="color: red;">there are no categories yet</p>
+                                    {{/if}}
                                 </table>
                             </div>
                             {{!-- <div class="pagination" id="pagination">
@@ -368,6 +376,7 @@
                     </div> 
                 </div> 
             </div> 
+
         </section> 
 
         {{!-- footer right --}}
@@ -389,33 +398,55 @@
 
     <script>
 
+    function sendData(e) {
+        const tableBody = document.querySelector('tbody');
+        fetch('/admin/categories/search', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ payload: e.value })
+        })
+        .then(res => res.json())
+        .then(data => {
+            let payload = data.payload
+            console.log(payload);
 
-        function prepareAndSubmitForm() {
-            const checkboxes = document.getElementsByName("option");
-            let selectedCategoryId = "noId"
-            checkboxes.forEach(checkbox => {
-                if (checkbox.checked) {
-                    selectedCategoryId = checkbox.id;
-                }
+            tableBody.innerHTML = '';
+            if (payload == null || payload.length === 0) {
+                // Handle empty or no search results
+                tableBody.innerHTML = '<tr><td colspan="5">Sorry. Nothing Found.</td></tr>';
+                return;
+            }
+            payload.forEach((category, index) => {
+                const productCount = category.productCount ? category.productCount : '-------------------';
+                const tierType = category.tier ? (category.tier === 1 ? 'P' : 'C') : '';
+                const template = `
+                    <tr>
+                        <td id="${category._id}"><b>${category.name}</b></td>
+                        <td>${productCount}</td>
+                        <td>
+                            <div class="dropdown">
+                                <a href="#" data-bs-toggle="dropdown" class="btn btn-light rounded btn-sm font-sm"> <i class="material-icons md-more_horiz"></i> </a>
+                                <div class="dropdown-menu">
+                                    <a class="dropdown-item" onclick="viewCategory('${category._id}', '${category.name}', '${category.products}', '${category.parentCategory}', '${category.subCategories}', '${category.createdAt}', '${category.updatedAt}', '${category.image}', '${category.tier}')">View detail</a>
+                                    <a class="dropdown-item" onclick="updateCategory('${category._id}', '${category.name}', '${category.parentCategory}', '${category.image}', '${category.tier}')">Edit info</a>
+                                    ${category.tier === 2 ? `<a class="dropdown-item" href="/admin/offers/category/addOffer/?categoryId=${category._id}">Create Offer</a>` : ''}
+                                    <a class="dropdown-item text-danger" href="../admin/category/delete?categoryId=${category._id}">Delete</a>
+                                </div>
+                            </div> 
+                        </td>
+                        <td>${tierType}</td>
+                    </tr>
+                `;
+                tableBody.insertAdjacentHTML('beforeend', template);
             });
-            console.log(selectedCategoryId)
-            document.getElementById("selectedCategoryId").value = selectedCategoryId;
-            document.getElementById('addCategory').submit();
-        }
+        });
+    }
 
-        function prepareAndSubmitFormUpdate() {
-            const checkboxes = document.getElementsByName("optionupdate");
-            let selectedCategoryId = "noId"
-            checkboxes.forEach(checkbox => {
-                if (checkbox.checked) {
-                    selectedCategoryId = checkbox.id;
-                }
-            });
-            console.log(selectedCategoryId)
-            document.getElementById("updateSelectedCategoryId").value = selectedCategoryId;
-            document.getElementById('updateCategory').submit();
-        }
+    if ("{{error}}") {
+        openAddCategoryForm()
+    }
 
+// add category form
         function openAddCategoryForm() {
             if(document.getElementById("categoryTable").classList.contains("col-md-12")) {
                 document.getElementById("categoryTable").classList.remove("col-md-12")
@@ -441,6 +472,133 @@
             } else {
                 categoryImagePreview.src = 'assets/imgs/theme/upload.svg';
             }
+        }
+
+        function prepareAndSubmitForm() {
+            const categoryName = document.getElementById('categoryname').value.trim();
+            const checkboxes = document.getElementsByName("option");
+            const categoryImage = document.getElementById('categoryImageInput').value.trim();
+            // const categoryImage = document.getElementById('categoryImageInput').files;
+
+            // Remove previous error messages
+            document.getElementById('categoryNameError').textContent = '';
+            document.getElementById('categoryImageError').textContent = '';
+
+            // Category name validation
+            if (categoryName === '') {
+                //alert('Please enter a category name.');
+                document.getElementById('categoryNameError').textContent = 'Please enter a category name.';
+                return false;
+            }
+
+            // Category image upload validation
+            if (categoryImage === '') {
+                //alert('Please upload a category image.');
+                document.getElementById('categoryImageError').textContent = 'Please add a category image.';
+                return false;
+            }
+
+            let selectedCategoryId = "noId"
+            checkboxes.forEach(checkbox => {
+                if (checkbox.checked) {
+                    selectedCategoryId = checkbox.id;
+                }
+            });
+            console.log(selectedCategoryId)
+            document.getElementById("selectedCategoryId").value = selectedCategoryId;
+            document.getElementById('addCategory').submit();
+        }
+
+
+//view category details
+        function viewCategory(_id, name, products, parentCategory, subCategories, createdAt, updatedAt, image, tier) {
+            // Clear the existing subcategories
+            console.log(_id, name, products, parentCategory, subCategories, createdAt, updatedAt, image, tier)
+            const viewCategorySubCategories = document.getElementById("viewCategorySubCategories");
+            viewCategorySubCategories.innerHTML = '';
+                    
+            document.getElementById("viewCategoryName").innerHTML = name;
+            if(image) {
+            document.getElementById("viewCategoryImage").src = "../multer/categories/" + image;
+            } else {
+            document.getElementById("viewCategoryImage").src = "assets/imgs/theme/upload.svg";
+            }
+            document.getElementById("viewCategoryTier").innerHTML = tier; 
+
+            document.getElementById("viewCategoryCreatedAt").innerHTML = createdAt.slice(0,10)
+            document.getElementById("viewCategoryUpdatedAt").innerHTML = updatedAt.slice(0,10)
+
+            // Fetch parent and subcategories based on the category ID
+            fetch('/admin/getPSCategory', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({ categoryId: _id }), // Sending the category ID
+            })
+            .then(response => response.json())
+            .then(data => {
+                console.log(data);
+
+                if(data.NewparentCategory.name !== undefined && data.NewparentCategory !== null) {
+                    document.getElementById("viewCategoryParentCategory").innerHTML = data.NewparentCategory.name;
+                } else {
+                document.getElementById("viewCategoryParentCategory").innerHTML = "nill";
+                }
+
+                if(data.NewsubCategories && data.NewsubCategories.length >= 1) {
+                    data.NewsubCategories.forEach(element => {
+                        const pElement = document.createElement("p")
+                        pElement.textContent = element.subName
+                        viewCategorySubCategories.appendChild(pElement)
+                    })
+                } else {
+                document.getElementById("viewCategorySubCategories").innerHTML = "nill";
+                }
+            })
+            .catch(error => console.error('Error:', error));
+
+            openViewCategoryForm()
+        }
+
+        function openViewCategoryForm() {
+            if(document.getElementById("categoryTable").classList.contains("col-md-12")) {
+                document.getElementById("categoryTable").classList.remove("col-md-12")
+                document.getElementById("categoryTable").classList.add("col-md-9")
+            }
+            document.getElementById("viewCategoryForm").style.display = "block";
+            document.getElementById("addCategoryForm").style.display = "none";
+            document.getElementById("updateCategoryForm").style.display = "none";
+        }
+
+// update category form
+        function updateCategory(_id, name, parentCategory, image, tier) {
+            document.getElementById("updatecategoryid").value = _id
+            document.getElementById("updatecategoryname").value = name
+            if(image) {
+            document.getElementById("updateCategoryImagePreview").src = "../multer/categories/" + image;
+            } else {
+            document.getElementById("updateCategoryImagePreview").src = "assets/imgs/theme/upload.svg";
+            }
+
+            if(tier == 2) {
+                const checkboxes = document.getElementsByName("optionupdate");
+                checkboxes.forEach(checkbox => {
+                    const parts = checkbox.id.split('-');
+                    console.log("parts[1]:", parts[1]);
+                    console.log("parentCategory:", parentCategory);
+                    if (parts.length === 2 && parts[1] === parentCategory) {
+                        console.log("Match found.");
+                        checkbox.checked = true;
+                    }
+                });
+            document.getElementById("updatecheckboxForm").style.display = "block";
+            } else {
+            document.getElementById("updatecheckboxForm").style.display = "none";
+            }
+
+            document.getElementById("updateCategoryTier").innerHTML = tier
+            openUpdateCategoryForm()
         }
 
         function openUpdateCategoryForm() {
@@ -471,17 +629,35 @@
             }
         }
 
+        function prepareAndSubmitFormUpdate() {
+            const categoryName = document.getElementById('updatecategoryname').value.trim();
+            const checkboxes = document.getElementsByName("optionupdate");
 
-        function openViewCategoryForm() {
-            if(document.getElementById("categoryTable").classList.contains("col-md-12")) {
-                document.getElementById("categoryTable").classList.remove("col-md-12")
-                document.getElementById("categoryTable").classList.add("col-md-9")
+            // Remove previous error messages
+            document.getElementById('updateCategoryNameError').textContent = '';
+            document.getElementById('updateCategoryImageError').textContent = '';
+
+            // Category name validation
+            if (categoryName === '') {
+                //alert('Please enter a category name.');
+                document.getElementById('updateCategoryNameError').textContent = 'Please enter a category name.';
+                return false;
             }
-            document.getElementById("viewCategoryForm").style.display = "block";
-            document.getElementById("addCategoryForm").style.display = "none";
-            document.getElementById("updateCategoryForm").style.display = "none";
+
+            let selectedCategoryId = "noId"
+            checkboxes.forEach(checkbox => {
+                if (checkbox.checked) {
+                    selectedCategoryId = checkbox.id;
+                }
+            });
+            console.log(selectedCategoryId)
+
+            document.getElementById("updateSelectedCategoryId").value = selectedCategoryId;
+            document.getElementById('updateCategory').submit();
         }
 
+
+        // close forms
         function closeCategoryForm() {
             if(document.getElementById("categoryTable").classList.contains("col-md-9")) {
                 document.getElementById("categoryTable").classList.remove("col-md-9")
@@ -492,76 +668,10 @@
             document.getElementById("updateCategoryForm").style.display = "none";
         }
 
-        function viewCategory(_id, name, products, parentCategory, subCategories, createdAt, updatedAt, image, tier) {
-            // Clear the existing subcategories
-            const viewCategorySubCategories = document.getElementById("viewCategorySubCategories");
-            viewCategorySubCategories.innerHTML = '';
-                    
-            document.getElementById("viewCategoryId").innerHTML = _id;
-            document.getElementById("viewCategoryName").innerHTML = name;
-            if(image) {
-            document.getElementById("viewCategoryImage").src = "../multer/categories/" + image;
-            } else {
-            document.getElementById("viewCategoryImage").src = "assets/imgs/theme/upload.svg";
-            }
-            document.getElementById("viewCategoryTier").innerHTML = tier;
-            if(parentCategory) {
-            document.getElementById("viewCategoryParentCategory").innerHTML = parentCategory;
-            } else {
-            document.getElementById("viewCategoryParentCategory").innerHTML = "nill";
-            }
-            if(subCategories) {
-                console.log(typeof subCategories)
-                const subCategoriesArray = subCategories.split(',');
-                console.log(subCategoriesArray)
-                subCategoriesArray.forEach(element => {
-                    const pElement = document.createElement("p")
-                    pElement.textContent = element
-                    viewCategorySubCategories.appendChild(pElement)
-                })
-            } else {
-            document.getElementById("viewCategorySubCategories").innerHTML = "nill";
-            }
-            if(products) {
-            document.getElementById("viewCategoryProducts").innerHTML = products;
-            } else {
-            document.getElementById("viewCategoryProducts").innerHTML = "nill";
-            } 
-
-            document.getElementById("viewCategoryCreatedAt").innerHTML = createdAt.slice(0,10)
-            document.getElementById("viewCategoryUpdatedAt").innerHTML = updatedAt.slice(0,10)
-
-            openViewCategoryForm()
-        }
-
-        function updateCategory(_id, name, parentCategory, image, tier) {
-            document.getElementById("updateCategoryId").innerHTML = _id
-            document.getElementById("updatecategoryid").value = _id
-            document.getElementById("updatecategoryname").value = name
-            if(image) {
-            document.getElementById("updateCategoryImagePreview").src = "../multer/categories/" + image;
-            } else {
-            document.getElementById("updateCategoryImagePreview").src = "assets/imgs/theme/upload.svg";
-            }
-            const checkboxes = document.getElementsByName("optionupdate");
-            checkboxes.forEach(checkbox => {
-                const parts = checkbox.id.split('-');
-                console.log("parts[1]:", parts[1]);
-                console.log("parentCategory:", parentCategory);
-                if (parts.length === 2 && parts[1] === parentCategory) {
-                    console.log("Match found.");
-                    checkbox.checked = true;
-                }
-            });
-            document.getElementById("updateCategoryTier").innerHTML = tier
-            openUpdateCategoryForm()
-        }
-
 
         const dynamicDataElement = document.getElementById('dynamicData');
         const categoryList = dynamicDataElement.getAttribute('data-collection');
-        console.log(categoryList)
-        
+        console.log(categoryList) 
 
     </script>
 
@@ -572,6 +682,23 @@
     <script src="assets/js/vendors/jquery.fullscreen.min.js"></script>
     <!-- Main Script -->
     <script src="assets/js/main.js" type="text/javascript"></script>
+        <!-- SweetAlert CDN -->
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+<script>
+  document.addEventListener("DOMContentLoaded", function () {
+    // Check if the bannerMessage exists and is not empty
+    const bannerMessage = "{{ Message }}";
+    if (bannerMessage) {
+      // Trigger SweetAlert to display the bannerMessage
+      Swal.fire({
+        title: 'Notification',
+        text: bannerMessage,
+        icon: 'info',
+        // You can add more configurations as needed
+      });
+    }
+  });
+</script>
 </body>
 
 

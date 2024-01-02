@@ -32,18 +32,20 @@
             <div class="card mx-auto card-login">
                 <div class="card-body">
                     <h4 class="card-title mb-4">Admin Sign in</h4>
-                    <form action="/admin/loginSubmit" method="POST">
+                    <form id="loginForm" action="/admin/loginSubmit" method="POST">
                         <div class="mb-3">
                             <label class="form-label">Email</label>
-                            <input class="form-control" name="adminemail" placeholder="Email" type="text">
+                            <input class="form-control" name="adminemail" id="adminemail" placeholder="Email" type="text">
+                            <div id="emailError" class="text-danger"></div> <!-- Error message container for email -->
                         </div> <!-- form-group// -->
                         <div class="mb-3">
                             <label class="form-label">Password</label>
-                            <input class="form-control" name="adminpassword" placeholder="Password" type="password">
+                            <input class="form-control" name="adminpassword" id="adminpassword" placeholder="Password" type="password">
+                            <div id="passwordError" class="text-danger"></div> <!-- Error message container for password -->
                         </div> <!-- form-group// -->
                         <div><p id="error">{{error}}</p></div>
                         <div class="mb-4">
-                            <button type="submit" class="btn btn-primary w-100"> Login </button>
+                            <button type="submit" class="btn btn-primary w-100" onclick="validateLoginForm(event)"> Login </button>
                         </div> <!-- form-group// -->
                     </form>
                 </div>
@@ -62,8 +64,44 @@
     <script src="assets/js/vendors/jquery.fullscreen.min.js"></script>
     <!-- Main Script -->
     <script src="assets/js/main.js" type="text/javascript"></script>
+
+    <script>
+        function validateLoginForm(event) {
+            event.preventDefault(); // Prevent form submission to manually handle validation
+
+            const email = document.getElementById('adminemail').value.trim();
+            const password = document.getElementById('adminpassword').value.trim();
+
+            // Remove previous error messages
+            document.getElementById('emailError').textContent = '';
+            document.getElementById('passwordError').textContent = '';
+
+            // Email validation
+            if (email === '') {
+                document.getElementById('emailError').textContent = 'Please enter your email.';
+                return false;
+            } else if (!isValidEmail(email)) {
+                document.getElementById('emailError').textContent = 'Please enter a valid email address.';
+                return false;
+            }
+
+            // Password validation
+            if (password === '') {
+                document.getElementById('passwordError').textContent = 'Please enter your password.';
+                return false;
+            }
+
+            // If all validations pass, submit the form
+            document.getElementById('loginForm').submit();
+        }
+
+        // Function to validate email format
+        function isValidEmail(email) {
+            const emailRegex = /\S+@\S+\.\S+/;
+            return emailRegex.test(email);
+        }
+    </script>
 </body>
 
 
-<!-- Mirrored from wp.alithemes.com/html/evara/evara-backend/page-account-login.html by HTTrack Website Copier/3.x [XR&CO'2014], Sun, 01 Aug 2021 15:33:33 GMT -->
 </html>

@@ -139,87 +139,58 @@
                     </a>
                 </li>
                 <li class="menu-item">
-                    <a class="menu-link" href="../admin/transactions"> <i class="icon material-icons md-monetization_on"></i>
-                        <span class="text">Transactions</span>
+                    <a class="menu-link" href="/admin/offers/category-offers"> <i class="icon material-icons md-monetization_on"></i>
+                        <span class="text">Offers</span>
                     </a>
                 </li>
                 <li class="menu-item">
-                    <a class="menu-link" href="../admin/reviews"> <i class="icon material-icons md-comment"></i>
-                        <span class="text">Reviews</span>
+                    <a class="menu-link" disabled href="../admin/banners"> <i class="icon material-icons md-pie_chart"></i>
+                        <span class="text">Banners</span>
                     </a>
                 </li>
                 <li class="menu-item">
-                    <a class="menu-link" href="../admin/brands"> <i class="icon material-icons md-stars"></i>
-                        <span class="text">Brands</span> </a>
+                    <a class="menu-link" href="../admin/coupens"> <i class="icon material-icons md-local_offer"></i>
+                        <span class="text"> Coupens </span>
+                    </a>
                 </li>
+                <hr>
                 <li class="menu-item">
-                    <a class="menu-link" disabled href="../admin/statistics"> <i class="icon material-icons md-pie_chart"></i>
-                        <span class="text">Statistics</span>
+                    <a class="menu-link" style="color:red" href="../admin/logout"><i class="material-icons md-exit_to_app"></i>
+                        <span class="text"> Logout </span>
                     </a>
                 </li>
             </ul>
             <hr>
-            <ul class="menu-aside">
-                <li class="menu-item">
-                    <a class="menu-link" href="../admin/settings"> <i class="icon material-icons md-settings"></i>
-                        <span class="text">Settings</span>
-                    </a>
-                </li>
-                <li class="menu-item">
-                    <a class="menu-link" href="#"> <i class="icon material-icons md-local_offer"></i>
-                        <span class="text"> Starter page </span>
-                    </a>
-                </li>
-            </ul>
-            <br>
-            <br>
         </nav>
     </aside>
     {{!-- Header right --}}
     <main class="main-wrap">
+
+        {{!-- navbar header --}}
         <header class="main-header navbar">
-            <div class="col-search">
-                <form class="searchform">
-                    <div class="input-group">
-                        <input list="search_terms" type="text" class="form-control" placeholder="Search term">
-                        <button class="btn btn-light bg" type="button"> <i class="material-icons md-search"></i></button>
-                    </div>
-                    <datalist id="search_terms">
-                        <option value="Products">
-                        <option value="New orders">
-                        <option value="Apple iphone">
-                        <option value="Ahmed Hassan">
-                    </datalist>
-                </form>
-            </div>
-            <div class="col-nav">
-                <button class="btn btn-icon btn-mobile me-auto" data-trigger="#offcanvas_aside"> <i class="material-icons md-apps"></i> </button>
+            <div class="col-nav ms-auto"> <!-- Utilizing ms-auto (margin-left: auto) to align content to the right -->
+                <button class="btn btn-icon btn-mobile me-auto" data-trigger="#offcanvas_aside">
+                    <i class="material-icons md-apps"></i>
+                </button>
                 <ul class="nav">
-                    <li class="nav-item">
-                        <a class="nav-link btn-icon" href="#">
-                            <i class="material-icons md-notifications animation-shake"></i>
-                            <span class="badge rounded-pill">3</span>
-                        </a>
-                    </li>
                     <li class="dropdown nav-item">
-                        <a class="dropdown-toggle" data-bs-toggle="dropdown" href="#" id="dropdownAccount" aria-expanded="false"> <img class="img-xs rounded-circle" src="../assets/imgs/people/avatar2.jpg" alt="User"></a>
+                        <a class="dropdown-toggle" data-bs-toggle="dropdown" href="#" id="dropdownAccount" aria-expanded="false">
+                            <img class="img-xs rounded-circle" src="assets/imgs/people/avatar2.jpg" alt="User">
+                        </a>
                         <div class="dropdown-menu dropdown-menu-end" aria-labelledby="dropdownAccount">
-                            <a class="dropdown-item" href="#"><i class="material-icons md-perm_identity"></i>Edit Profile</a>
-                            <a class="dropdown-item" href="#"><i class="material-icons md-settings"></i>Account Settings</a>
-                            <a class="dropdown-item" href="#"><i class="material-icons md-account_balance_wallet"></i>Wallet</a>
-                            <a class="dropdown-item" href="#"><i class="material-icons md-receipt"></i>Billing</a>
-                            <a class="dropdown-item" href="#"><i class="material-icons md-help_outline"></i>Help center</a>
                             <div class="dropdown-divider"></div>
-                            <a class="dropdown-item text-danger" href="#"><i class="material-icons md-exit_to_app"></i>Logout</a>
+                            <a class="dropdown-item text-danger" href="/admin/logout">
+                                <i class="material-icons md-exit_to_app"></i>Logout
+                            </a>
                         </div>
                     </li>
                 </ul>
             </div>
         </header>
-
+        
         {{!-- body right --}}
         <section class="content-main">
-            <form  id="productForm" action="../admin/addProductSubmit" method="post" enctype="multipart/form-data">
+            <form  id="productForm" action="/admin/product/edit/submit?productId={{product._id}}" method="post">
                 <div class="col-9">
                     <div class="content-header">
                         <h2 class="content-title">Edit Product</h2>
@@ -239,10 +210,12 @@
                                 <div class="mb-4">
                                     <label for="product_name" class="form-label">Product title</label>
                                     <input type="text" placeholder="Type here" class="form-control" id="product_name" name="product_name" value="{{product.productname}}">
+                                    <div id="productNameError" class="text-danger"></div> 
                                 </div>
                                 <div class="mb-4">
                                     <label class="form-label">Full description</label>
                                     <textarea placeholder="Type here" class="form-control" rows="4" name="product_description">{{product.productdescription}}</textarea>
+                                    <div id="productDescriptionError" class="text-danger"></div> 
                                 </div>
                                 <br>
                                 <div class="row">
@@ -251,62 +224,18 @@
                                             <label class="form-label">Regular price</label>
                                             <div class="row gx-2">
                                                 <input placeholder="$" type="text" class="form-control" name="regular_price" value="{{product.regularprice}}">
+                                                <div id="productRegularPriceError" class="text-danger"></div> 
                                             </div>
                                         </div>
                                     </div>
                                     <div class="col-lg-6">
                                         <div class="mb-6">
-                                            <label class="form-label">Promotional price</label>
-                                            <input placeholder="$" type="text" class="form-control" name="promotional_price" value="{{product.promotionalprice}}">
+                                            <label class="form-label">Stock</label>
+                                            <input type="text" placeholder="000" class="form-control" id="stock" name="product_stock" value="{{product.stock}}">
+                                            <div id="productStockError" class="text-danger"></div> 
                                         </div>
                                     </div>
-                                </div> <br> <br>
-                                <div class="row">
-                                    <div class="col-sm-6 mb-3">
-                                        <label class="form-label" for="returnPeriod">Return Policy Period:</label>
-                                        <br>
-                                        <span style="font-size: smaller;">Chosen:</span>
-                                        <p style="display: inline; margin: 0;">{{product.returnperiod.selected_period}} {{product.returnperiod.selected_unit}}</p>
-                                        <input class="form-control" type="number" id="returnPeriod" name="returnPeriod" min="0">
-                                        <select class="form-select" id="returnPeriodUnit" name="returnPeriodUnit">
-                                            <option value="days">Days</option>
-                                            <option value="weeks">Weeks</option>
-                                            <option value="months">Months</option>
-                                        </select>
-                                        <input type="hidden" id="returnPeriodValue" name="returnPeriodValue">
-                                    </div>
-                                        <br>
-                                    <div class="col-sm-6 mb-3">
-                                        <label class="form-label" for="warrantyPeriod">Warranty Period:</label>
-                                        <br>
-                                        <span style="font-size: smaller;">Chosen:</span>
-                                        <p style="display: inline; margin: 0;">{{product.warrentyperiod.selected_period}} {{product.warrentyperiod.selected_unit}}</p>
-                                        <input class="form-control" type="number" id="warrantyPeriod" name="warrantyPeriod" min="0">
-                                        <select class="form-select" id="warrantyPeriodUnit" name="warrantyPeriodUnit">
-                                            <option value="days">Days</option>
-                                            <option value="weeks">Weeks</option>
-                                            <option value="months">Months</option>
-                                            <option value="years">Years</option>
-                                        </select>
-                                        <input type="hidden" id="warrantyPeriodValue" name="warrantyPeriodValue">
-                                    </div>
-                                    <br>
-                                </div>
-                                <div class="col-sm-6 mb-3">
-                                    <label class="form-label" for="paymentMethods">Payment methods</label>
-                                    <div id="paymentMethodsSelection">
-                                        <div class="paymentMethods-checkbox">
-                                            <input type="checkbox" id="cashOnDelivery" name="paymentMethods" value="cashOnDelivery" onchange="updateSelectedPaymentMethods()">
-                                            <label class="form-label" for="cashOnDelivery">Case On Delivery</label>
-                                        </div>
-                                        <div class="paymentMethods-checkbox">
-                                            <input type="checkbox" id="razorPay" name="paymentMethods" value="razorPay" onchange="updateSelectedPaymentMethods()">
-                                            <label class="form-label" for="razorPay">Razor Pay</label>
-                                        </div>
-                                        <input type="hidden" name="selected_paymentMethods" id="selected_paymentMethods" value="">
-                                    </div>
-                                    <br>
-                                </div>
+                                </div> <br> 
                             </div>
                         </div> 
                     </div>  <!-- card end// -->
@@ -314,61 +243,33 @@
                     <div  class="col-lg-4">
                         <div class="card mb-4">
                             <div class="card-header">
-                                <h4>Media</h4>
+                                <h4>Media and Organization</h4>
                             </div>
                             <div class="card-body">
                                 <div class="input-upload">
                                     <div id="image-previews" class="image-previews">
                                         {{#each product.productimages}}
-                                            <img src="/multer/products/{{this}}" alt="Product Image">
+                                            <img src="/multer/products/cropped-{{this}}" alt="Product Image">
                                         {{/each}}
                                     </div>
                                 </div>
                             </div>
                             <hr>
                             <div class="card-body">
-                                <div class="input-upload">
-                                        <div id="image-previews" class="image-previews">
-                                            <img src="../assets/imgs/theme/upload.svg" alt="">
-                                        </div>
-                                    <input class="form-control" type="file" id="file-input" name="productimage" id="productimage" multiple>
+                                <label class="form-label">Category</label><br>
+                                <p style="display: inline; margin: 0;">{{parentCategory.name}} - </p>
+                                <p style="display: inline; margin: 0;">{{parentCategory._id}}</p>
+                                <br>
+                                <p style="display: inline; margin: 0;">{{subCategory.name}} - </p>
+                                <p style="display: inline; margin: 0;">{{subCategory._id}}</p>
+                                <br><br>
+                                <div class="mb-4">
+                                    <label for="product_tags" class="form-label">Tags</label>
+                                    <input type="text" class="form-control" name="tags" value="{{product.tags}}">
+                                    <div id="productTagsError" class="text-danger"></div> 
                                 </div>
                             </div>
                         </div>
-
-                        <div class="card mb-4 ">
-                            <div class="card-header">
-                                <h4>Organization</h4>
-                            </div>
-                            <div class="card-body">
-                                <div class="col-sm-6 mb-3 col-lg-6">
-                                    <label class="form-label">Category</label>
-                                    <select class="form-select" id="categorySelect" onchange="updateCategoryArray()">
-                                        <option> Nill </option>
-                                        <option> Automobiles </option>
-                                    </select>
-                                </div>
-                                <div class="col-sm-6 mb-3 col-lg-6">
-                                    <label class="form-label">Sub-category</label>
-                                    <select class="form-select" id="subCategorySelect" onchange="updateCategoryArray()">
-                                        <option> Nill </option>
-                                        <option> Nissan </option>
-                                    </select>
-                                </div>
-                                <div class="col-sm-6 mb-3 col-lg-6">
-                                    <label class="form-label">Sub-Sub-category</label>
-                                    <select class="form-select" id="subSubCategorySelect" onchange="updateCategoryArray()">
-                                        <option> Nill </option>
-                                        <option> Nissan </option>
-                                    </select>
-                                </div>
-                                <input type="hidden" id="selectedCategories" name="selectedCategories" value="">
-                                <div class="mb-4">
-                                    <label for="product_name" class="form-label">Tags</label>
-                                    <input type="text" class="form-control" name="tags">
-                                </div>
-                            </div>
-                        </div> 
                     </div>
                 </div> 
 
@@ -478,14 +379,6 @@
 
 
     <script>
-        
-    function updateSelectedCurrency() {
-        const currencySelect = document.getElementById("currencySelect");
-        const hiddenCurrency = document.getElementById("hiddenCurrency");
-
-        // Update the hidden input field's value with the selected option
-        hiddenCurrency.value = currencySelect.value;
-    }
 
     const colorSelection = document.getElementById('colorSelection');
     colorSelection.addEventListener('click', (event) => {
@@ -501,37 +394,6 @@
             .map(circle => circle.getAttribute('data-color'));
         document.getElementById('selected_colors').value = selectedColors.join(',');
     }
-
-
-    // Get references to the input and image preview elements
-    const fileInput = document.getElementById("file-input");
-    const imagePreviews = document.getElementById("image-previews");
-
-    // Add an event listener to the file input
-    fileInput.addEventListener("change", function () {
-        // Clear existing image previews
-        imagePreviews.innerHTML = '';
-
-        // Check if files were selected
-        if (fileInput.files && fileInput.files.length > 0) {
-            for (let i = 0; i < fileInput.files.length; i++) {
-                const reader = new FileReader();
-                const imagePreview = document.createElement("img");
-                // Set up a function to run when the file is loaded
-                reader.onload = function (e) {
-                    // Set the source of the image preview
-                    imagePreview.src = e.target.result;
-
-                    // Append the image preview to the container
-                    imagePreviews.appendChild(imagePreview);
-                };
-
-                // Read the selected file as a data URL
-                reader.readAsDataURL(fileInput.files[i]);
-            }
-        }
-    });
-
     
     const checkboxes = document.querySelectorAll('input[name="size"]');
     checkboxes.forEach(checkbox => {
@@ -544,80 +406,90 @@
 
         document.getElementById('selected_sizes').value = selectedSizes.join(',');
     }
+ 
+    document.getElementById('productForm').addEventListener('submit', function(event) {
+        if (!validateForm()) {
+            event.preventDefault(); // Prevent form submission if validation fails
+        } else {
+        // Log form data just before submission
+        console.log("Form Data:", {
+            product_name: document.getElementById('product_name').value.trim(),
+            product_description: document.getElementsByName('product_description')[0].value.trim(),
+            regular_price: document.getElementsByName('regular_price')[0].value.trim(),
+            product_stock: document.getElementById('stock').value.trim(),
+            selected_colors: document.getElementById('selected_colors').value.trim(),
+            selected_sizes: document.getElementById('selected_sizes').value.trim(),
+            tags: document.getElementsByName('tags')[0].value.trim()
+        });
 
+        // Proceed with form submission
+    }
 
-    const returnPeriodInput = document.getElementById('returnPeriod');
-    const returnPeriodUnitSelect = document.getElementById('returnPeriodUnit');
-    const returnPeriodValueInput = document.getElementById('returnPeriodValue');
-
-    const warrantyPeriodInput = document.getElementById('warrantyPeriod');
-    const warrantyPeriodUnitSelect = document.getElementById('warrantyPeriodUnit');
-    const warrantyPeriodValueInput = document.getElementById('warrantyPeriodValue');
-
-    returnPeriodUnitSelect.addEventListener('change', function() {
-        setMaxValue(returnPeriodInput, returnPeriodUnitSelect.value);
     });
 
-    warrantyPeriodUnitSelect.addEventListener('change', function() {
-        setMaxValue(warrantyPeriodInput, warrantyPeriodUnitSelect.value);
-    });
+    function removeError(errorElementId) {
+        document.getElementById(errorElementId).textContent = '';
+    }
 
-    function setMaxValue(input, selectedUnit) {
-        if (selectedUnit === 'days') {
-            input.max = 100;
-        } else if (selectedUnit === 'weeks') {
-            input.max = 20;
-        } else if (selectedUnit === 'months') {
-            input.max = 20;
-        } else if (selectedUnit === 'years') {
-            input.max = 10;
+    // validating form 
+    function validateForm() {
+        var productName = document.getElementById('product_name').value.trim();
+        var productDescription = document.getElementsByName('product_description')[0].value.trim();
+        var regularPrice = document.getElementsByName('regular_price')[0].value.trim();
+        var stock = document.getElementById('stock').value.trim();
+        var tags = document.getElementsByName('tags')[0].value.trim();
+
+        removeError('productNameError');
+        removeError('productDescriptionError');
+        removeError('productRegularPriceError');
+        removeError('productStockError');
+        removeError('productTagsError');
+
+
+        // Product Title
+        if (productName === '') {
+            // alert('Please enter a product title.');
+            document.getElementById('productNameError').textContent = 'Please enter a product title.';
+            return false;
         }
-    }
 
-    returnPeriodInput.addEventListener('change', function() {
-        updateHiddenPeriodInput(returnPeriodInput, returnPeriodUnitSelect, returnPeriodValueInput);
-    });
+        // Product Description
+        if (productDescription === '') {
+            //alert('Please enter a product description.');
+            document.getElementById('productDescriptionError').textContent = 'Please enter a product description.';
+            return false;
+        }
 
-    warrantyPeriodInput.addEventListener('change', function() {
-        updateHiddenPeriodInput(warrantyPeriodInput, warrantyPeriodUnitSelect, warrantyPeriodValueInput);
-    });
+        // Regular Price
+        if (regularPrice === '') {
+            //alert('Please enter a regular price.');
+            document.getElementById('productRegularPriceError').textContent = 'Please enter a regular price.';
+            return false;
+        } else if (isNaN(parseFloat(regularPrice))) {
+            //alert('Regular price should be a number.');
+            document.getElementById('productRegularPriceError').textContent = 'Regular price should be a number.';
+            return false;
+        }
 
-    function updateHiddenPeriodInput(input, selectedUnit, hiddenInput) {
-        const selectedUnitValue = selectedUnit.value;
-        const selectedPeriodValue = input.value;
+        // Stock
+        if (stock === '') {
+            //alert('Please enter the stock quantity.');
+            document.getElementById('productStockError').textContent = 'Please enter the stock quantity.';
+            return false;
+        } else if (isNaN(parseInt(stock))) {
+            //alert('Stock should be a number.');
+            document.getElementById('productStockError').textContent = 'Stock should be a number.';
+            return false;
+        }
 
-        // Create an object with the selected_unit and selected_period keys
-        const valueObject = {
-            selected_unit: selectedUnitValue,
-            selected_period: selectedPeriodValue
-        };
+        // Tags
+        if (tags === '') {
+            //alert('Please enter tags for the product.');
+            document.getElementById('productTagsError').textContent = 'Please enter tags for the product.';
+            return false;
+        }
 
-        // Update the hidden input field's value with the JSON representation of the object
-        hiddenInput.value = JSON.stringify(valueObject);
-    }
-
-    function updateSelectedPaymentMethods() {
-        const checkboxes = document.querySelectorAll('input[name="paymentMethods"]:checked');
-        const selectedMethods = Array.from(checkboxes).map(checkbox => checkbox.value);
-        const selectedPaymentMethodsInput = document.getElementById('selected_paymentMethods');
-        selectedPaymentMethodsInput.value = JSON.stringify(selectedMethods);
-    }
-
-    function updateCategoryArray() {
-        const categorySelect = document.getElementById("categorySelect");
-        const subCategorySelect = document.getElementById("subCategorySelect");
-        const subSubCategorySelect = document.getElementById("subSubCategorySelect");
-        const selectedCategoriesInput = document.getElementById("selectedCategories");
-
-        // Create an array of the selected categories
-        const selectedCategories = [
-            categorySelect.value,
-            subCategorySelect.value,
-            subSubCategorySelect.value
-        ];
-
-        // Update the hidden input field's value with the JSON representation of the array
-        selectedCategoriesInput.value = JSON.stringify(selectedCategories);
+        return true; // Form is valid
     }
         
     </script>

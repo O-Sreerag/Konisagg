@@ -15,7 +15,7 @@
     <meta property="og:image" content="">
     <!-- Favicon -->
     <link rel="shortcut icon" type="image/x-icon" href="../admin/assets/imgs/theme/favicon.svg">
-    <!-- Template CSS -->
+    <!-- late CSS -->
     <link href="../admin/assets/css/main.css" rel="stylesheet" type="text/css" />
 </head>
 
@@ -55,11 +55,6 @@
                 <li class="menu-item">
                     <a class="menu-link" href="/wishlist/view"> <i class="icon material-icons md-shopping_bag"></i>
                         <span class="text">Wishlist</span>
-                    </a>
-                </li>
-                <li class="menu-item">
-                    <a class="menu-link" href="../accountSettings/editSettings"> <i class="icon material-icons md-settings"></i>
-                        <span class="text">Settings</span>
                     </a>
                 </li>
             </ul>
@@ -115,40 +110,6 @@
             </div>
         </header>
         <section class="content-main">
-            <div class="col-lg-6 mb-sm-15">
-                <div class="toggle_info" style="font-size: 14px;">
-                    <span>
-                        <i class="fi-rs-user mr-10" style="margin-right: 10px;"></i>
-                        <span class="text-muted">Already have an account?</span>
-                        <a href="#loginform" data-bs-toggle="collapse" class="collapsed" aria-expanded="false" style="text-decoration: none; margin-left: 5px; font-weight: bold; color: #088178;">Click here to login</a>
-                    </span>
-                </div>
-                <div class="panel-collapse collapse login_form" id="loginform" style="padding: 20px;">
-                    <div class="panel-body">
-                        <p class="mb-30 font-sm" style="font-size: 12px;">If you have shopped with us before, please enter your details below. If you are a new customer, please proceed to the Billing &amp; Shipping section.</p>
-                        <form method="post">
-                            <div class="form-group">
-                                <input type="text" name="email" placeholder="Username Or Email" style="width: 100%; padding: 10px; margin: 5px 0; border: 1px solid #ccc; border-radius: 5px;">
-                            </div>
-                            <div class="form-group">
-                                <input type="password" name="password" placeholder="Password" style="width: 100%; padding: 10px; margin: 5px 0; border: 1px solid #ccc; border-radius: 5px;">
-                            </div>
-                            <div class="login_footer form-group" style="font-size: 12px; display: flex; justify-content: space-between; align-items: center;">
-                                <div class="chek-form">
-                                    <div class="custome-checkbox" style="display: flex; align-items: center;">
-                                        <input class="form-check-input" type="checkbox" name="checkbox" id="remember" value="" style="margin: 0; cursor: pointer;">
-                                        <label class="form-check-label" for="remember" style="font-size: 14px; cursor: pointer;"><span>Remember me</span></label>
-                                    </div>
-                                </div>
-                                <a href="#" style="text-decoration: none; color: #088178;">Forgot password?</a>
-                            </div>
-                            <div class="form-group">
-                                <button class="btn btn-md" name="login" style="background-color: #088178; color: #fff; border: none; padding: 10px 20px; border-radius: 5px; font-weight: bold; cursor: pointer;">Log in</button>
-                            </div>
-                        </form>
-                    </div>
-                </div>
-            </div>
             <br><br>
             <div class="content-header">
                 <h2 class="content-title">Orders Mangement</h2>
@@ -156,20 +117,12 @@
             <div class="card">
                 <div class="card-body">
                     <div class="row">
-                    <aside class="col-lg-3 border-end">
-                        <nav class="nav nav-pills flex-lg-column mb-4">
-                            <br><br>
-                            <a class="nav-link active" aria-current="page">Order History</a>
-                            <a class="nav-link" href="/orders/track">Track Orders</a>
-                            <a class="nav-link" href="/orders/address">Billing Address</a> 
-                        </nav>
-                    </aside>
-                    <div class="col-lg-9">
+                    <div class="col-lg-12">
                         <section class="content-body p-xl-4">
                             <div class="content-header">
                                 <div>
                                     <h2 class="content-title card-title">Order detail</h2>
-                                    <p>Details for Order ID: {{order._id}}</p>
+                                    <p>Details for Order ID: {{order.orderId}}</p>
                                 </div>
                             </div>
                             <div class="card">
@@ -177,9 +130,14 @@
                                     <div class="row align-items-center">
                                         <div class="col-lg-6 col-md-6 mb-lg-0 mb-15">
                                             <span>
-                                                <i class="material-icons md-calendar_today"></i> <b>{{order.updatedAt}}</b>
+                                                <i class="material-icons md-calendar_today"></i>
+                                                <script>
+                                                    var updatedAt = "{{order.updatedAt}}"; // Assuming updatedAt is a string
+                                                    var slicedValue = updatedAt.slice(0, 10);
+                                                    document.write(slicedValue); // Output the sliced value
+                                                </script>
                                             </span> <br>
-                                            <small class="text-muted">Order ID: {{order._id}}</small>
+                                            <small class="text-muted">{{order.orderId}}</small>
                                         </div>
                                         <div class="col-lg-6 col-md-6 ms-auto text-md-end">
                                             {{#if statusPending}}
@@ -214,7 +172,8 @@
                                                             <th width="40%">Product</th>
                                                             <th width="20%">Unit Price</th>
                                                             <th width="20%">Quantity</th>
-                                                            <th width="20%" class="text-end">Total</th>
+                                                            <th width="10%">Total</th>
+                                                            <th width="10%" class="text-end">Action</th>
                                                         </tr>
                                                     </thead>
                                                     <tbody>
@@ -223,23 +182,59 @@
                                                             <td>
                                                                 <a class="itemside" href="#">
                                                                     <div class="left">
-                                                                        <img src="/multer/products/{{product.productimages.[0]}}" width="40" height="40" class="img-xs" alt="Item">
+                                                                        <img src="/multer/products/cropped-{{product.productimages.[0]}}" width="40" height="40" class="img-xs" alt="Item">
                                                                     </div>
                                                                     <div class="info"> {{product.productname}} </div>
                                                                 </a>
                                                             </td>
-                                                            <td> ${{product.promotionalprice}} </td>
+                                                            {{#if product.promotionalprice}} 
+                                                            <td> ₹{{product.promotionalprice}} </td>
+                                                            {{else}}
+                                                            <td> ₹{{product.regularprice}} </td>
+                                                            {{/if}}
                                                             <td> {{quantity}} </td>
-                                                            <td class="text-end"> ${{price}} </td>
+                                                            <td> ₹{{price}} </td>
+                                                            <td class="text-end">
+                                                                {{#if (eq status "cancel")}}
+                                                                    <a onclick="cancelSingleProduct('{{product._id}}')">cancel</a>
+                                                                {{else if (eq status "cancelled")}}
+                                                                    <p style="color: red;">cancelled</p>
+                                                                {{else if (eq status "return")}}
+                                                                    <a onclick="returnSingleProduct('{{product._id}}')">return</a>
+                                                                {{else if (eq status "returned")}}
+                                                                    <p style="color: red;">returned</p>
+                                                                {{else}}
+                                                                    <a href=""></a>
+                                                                {{/if}}
+                                                            </td>
                                                         </tr>
                                                         {{/each}}
                                                         <tr>
                                                             <td colspan="4">
                                                                 <article class="float-end">
                                                                     <dl class="dlist">
-                                                                        <dt>Grand total:</dt>
-                                                                        <dd> <b class="h5">${{order.total}}</b> </dd>
+                                                                        <dt>Sub total:</dt>
+                                                                        <dd> <b class="h6">₹{{order.total}}</b> </dd>
                                                                     </dl>
+                                                                    {{#if order.totalWithDiscount}}
+                                                                    <dl class="dlist">
+                                                                        <dt>Discount:</dt>
+                                                                        <dd> <b class="h6">₹{{order.discount}}</b> </dd>
+                                                                    </dl>
+                                                                    <dl class="dlist">
+                                                                        <dt>Grand total:</dt>
+                                                                        <dd> <b class="h5">₹{{order.totalWithDiscount}}</b> </dd>
+                                                                    </dl>
+                                                                    {{else}}
+                                                                    <dl class="dlist">
+                                                                        <dt>Discount:</dt>
+                                                                        <dd> <b class="h6">₹{{order.discount}}</b> </dd>
+                                                                    </dl>
+                                                                    <dl class="dlist">
+                                                                        <dt>Grand total:</dt>
+                                                                        <dd> <b class="h5">₹{{order.total}}</b> </dd>
+                                                                    </dl>
+                                                                    {{/if}}
                                                                     <dl class="dlist">
                                                                         <dt class="text-muted">Status:</dt>
                                                                         <dd>
@@ -254,19 +249,23 @@
                                             </div> 
                                         </div> 
                                     </div>
-                                         <div class="col-md-12">
-                                            <article class="icontext align-items-start">
-                                                <span class="icon icon-sm rounded-circle bg-primary-light">
-                                                    <i class="text-primary material-icons md-place"></i>
-                                                </span>
-                                                <div class="text">
-                                                    <h6 class="mb-1">Deliver to</h6>
-                                                    <p class="mb-1">
-                                                        State: {{order.userAddress.state}}, District: {{order.userAddress.district}}, City: {{order.userAddress.city}}, {{order.userAddress.house}}, Po Box: {{order.userAddress.pin}}
-                                                    </p>
-                                                </div>
-                                            </article>
-                                        </div> <!-- col// -->
+                                        <div class="col-md-12">
+                                        <article class="icontext align-items-start">
+                                            <span class="icon icon-sm rounded-circle bg-primary-light">
+                                                <i class="text-primary material-icons md-place"></i>
+                                            </span>
+                                            <div class="text">
+                                                <h6 class="mb-1">Deliver to</h6>
+                                                <p class="mb-1">
+                                                    {{#if orders.userAddress.state}}
+                                                    State: {{order.userAddress.state}}, District: {{order.userAddress.district}}, City: {{order.userAddress.city}}, {{order.userAddress.house}}, Po Box: {{order.userAddress.pin}}
+                                                    {{else}}
+                                                    State: {{order.userAddress.selectedState}}, District: {{order.userAddress.selectedDistrict}}, City: {{order.userAddress.selectedCity}}, {{order.userAddress.selectedHouse}}, Po Box: {{order.userAddress.selectedPin}}
+                                                    {{/if}}
+                                                </p>
+                                            </div>
+                                        </article>
+                                    </div> <!-- col// -->
                                 </div> 
                             </div> 
                         </section>
@@ -297,9 +296,83 @@
     <script src="../admin/assets/js/vendors/jquery.fullscreen.min.js"></script>
     <!-- Main Script -->
     <script src="../admin/assets/js/main.js" type="text/javascript"></script>
+            <!-- SweetAlert CDN -->
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 
     
 <script>
+    function cancelSingleProduct(productId) {
+        console.log("cancel single product")
+        const orderId = {{{orderId}}};
+        console.log(orderId, productId);
+    
+        const url = `/order/cancel/singleProduct?orderId=${orderId}&productId=${productId}`;
+
+        fetch(url, {
+            method: 'POST', // or 'GET', 'PUT', 'DELETE', etc., based on your server's requirements
+            // You can include headers, body, or other configurations as needed
+        })
+        .then(response => {
+            // Handle the response from the server
+            // For example, check response.ok and handle accordingly
+            if (response.ok) {
+                // Process successful response
+                console.log('Cancellation request sent successfully');
+            } else {
+                // Handle errors
+                console.error('Cancellation request failed');
+            }
+        })
+        .catch(error => {
+            // Handle fetch errors
+            console.error('Error:', error);
+        });
+        
+    }
+
+function returnSingleProduct(productId) {
+        console.log("return single product")
+        const orderId = {{{orderId}}};
+        console.log(orderId, productId);
+    
+        const url = `/order/return/singleProduct?orderId=${orderId}&productId=${productId}`;
+
+        fetch(url, {
+            method: 'POST', // or 'GET', 'PUT', 'DELETE', etc., based on your server's requirements
+            // You can include headers, body, or other configurations as needed
+        })
+        .then(response => {
+            // Handle the response from the server
+            // For example, check response.ok and handle accordingly
+            if (response.ok) {
+                // Process successful response
+                console.log('return request sent successfully');
+            } else {
+                // Handle errors
+                console.error('return request failed');
+            }
+        })
+        .catch(error => {
+            // Handle fetch errors
+            console.error('Error:', error);
+        });
+        
+    }
+
+
+      document.addEventListener("DOMContentLoaded", function () {
+    // Check if the bannerMessage exists and is not empty
+    const bannerMessage = "{{ Message }}";
+    if (bannerMessage) {
+      // Trigger SweetAlert to display the bannerMessage
+      Swal.fire({
+        title: 'Notification',
+        text: bannerMessage,
+        icon: 'info',
+        // You can add more configurations as needed
+      });
+    }
+  });
 
 </script>
 

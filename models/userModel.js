@@ -16,9 +16,31 @@ const userSchema = new mongoose.Schema({
     userphone: {
         type: Number,
     },
-    useraddress: {
-        type: Object
-    },
+    // useraddress: {
+    //     type: Object
+    // },
+    useraddresses: [{
+        state: {
+            type: String,
+            required: true
+        },
+        district: {
+            type: String,
+            required: true
+        },
+        city: {
+            type: String,
+            required: true
+        },
+        pin: {
+            type: String,
+            required: true
+        },
+        house: {
+            type: String,
+            required: true
+        }
+    }],
     userimage: {
         type: String
     },
@@ -41,6 +63,9 @@ const userSchema = new mongoose.Schema({
     createdAt: {
         type: Date,
         default: Date.now
+    },
+    referalLink : {
+        type: String,
     },
     // carts: [{
     //     productId: {
@@ -65,6 +90,15 @@ const userSchema = new mongoose.Schema({
     //     }
     // }],
 })
+
+userSchema.pre('save', function(next) {
+    if (!this.referalLink) {
+        const defaultLink = `/signup?onKonisagg_with~${this.username}=${this._id.toString()}`;
+        // https://www.konisagg.com//signup?on_Konisaggwith${this.username}=${this._id.toString()}_With~${this.username}
+        this.referalLink = defaultLink;
+    }
+    next();
+});
 
 const userModel = mongoose.model("userInfo", userSchema)
 

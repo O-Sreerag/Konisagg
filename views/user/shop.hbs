@@ -3,6 +3,7 @@
 
 
 <!-- Mirrored from wp.alithemes.com/html/evara/evara-frontend/shop-grid-left.html by HTTrack Website Copier/3.x [XR&CO'2014], Sun, 01 Aug 2021 15:26:43 GMT -->
+
 <head>
     <meta charset="utf-8">
     <title>Evara - eCommerce HTML Template</title>
@@ -22,10 +23,12 @@
             list-style: none;
             padding: 0;
         }
+
         .menu-itemMIL {
             position: relative;
             margin-bottom: 10px;
         }
+
         .submenuMIL {
             display: none;
             position: absolute;
@@ -34,14 +37,65 @@
             padding: 10px;
             background-color: #f5f5f5;
         }
+
+        .search-container {
+            display: inline-block; /* Ensures div takes up only as much width as its content */
+            position: relative; /* Positions child elements relative to this container */
+            width: 700px;
+        }
+
+        #searchResults {
+            display: none; /* Initially hide search results */
+            position: absolute;
+            top: 100%; /* Position it below the input */
+            width: 80%; /* Same width as input */
+            background-color: white; /* Optional: Background color for contrast */
+            border: 1px solid #ccc; /* Optional: Border for visual distinction */
+            z-index: 1; /* Ensure it appears above other elements */
+        }
+
+        
     </style>
+
+ <style>
+/* Pagination styles */
+.paginationCustom {
+    margin-top: 20px !important;
+    text-align: center !important;
+}
+
+.paginationCustom-link,
+.paginationCustom-link-prev,
+.paginationCustom-link-next {
+    display: inline-block !important;
+    padding: 5px 10px !important;
+    margin: 0 2px !important;
+    border: 1px solid #ccc !important;
+    text-decoration: none !important;
+    color: #333 !important;
+    border-radius: 3px !important;
+}
+
+.paginationCustom-link:hover {
+    background-color: #f4f4f4 !important;
+}
+
+.paginationCustom-current-page {
+    background-color: #007bff !important;
+    color: #fff !important;
+    border-color: #007bff !important;
+    padding: 6px 12px !important; /* Adjust for better alignment with other links */
+    border-radius: 3px !important;
+}
+</style>
+
 </head>
 
 <body>
 
-<!-- Header -->
+    <!-- Header -->
     <header class="header-area header-style-1 header-height-2">
-<!-- Nav-top -->
+        <!-- Nav-top -->
         <div class="header-middle header-middle-ptb-1 d-none d-lg-block">
             <div class="container">
                 <div class="header-wrap">
@@ -50,48 +104,54 @@
                     </div>
                     <div class="header-right">
                         <div class="search-style-2">
-                            <form action="#">
-                                <select class="select-active">
-                                    <option>All Categories</option>
-                                    <option>Women's</option>
-                                    <option>Men's</option>
-                                    <option>Cellphones</option>
-                                    <option>Computer</option>
-                                    <option>Electronics</option>
-                                    <option> Accessories</option>
-                                    <option>Home & Garden</option>
-                                    <option>Luggage</option>
-                                    <option>Shoes</option>
-                                    <option>Mother & Kids</option>
+                            <form action="">         
+                                <select class="select-active" onchange="fetchProducts(this.value)">
+                                    <option  value="allCategories">All Categories</option>
+                                    {{#each allCategories}}
+                                    <option value="{{_id}}">{{name}}</option>
+                                    {{/each}}
                                 </select>
-                                <input type="text" placeholder="Search for items...">
+                                <div class="search-container">
+                                    <input type="text" id="search-box" onkeyup="sendData(this)" placeholder="Search for items...">
+                                    <section id="searchResults"></section>
+                                </div>
                             </form>
                         </div>
                         <div class="header-action-right">
                             <div class="header-action-2">
                                 <div class="header-action-icon-2">
                                     <a href="/wishlist/view">
-                                        <img class="svgInject" alt="Evara" src="user/assets/imgs/theme/icons/icon-heart.svg">
-                                        <span class="pro-count blue">4</span>
+                                        <img class="svgInject" alt="Evara"
+                                            src="user/assets/imgs/theme/icons/icon-heart.svg">
+                                        {{#if wishlistItemCount}}
+                                        <span class="pro-count blue">{{wishlistItemCount}}</span>
+                                        {{/if}}
                                     </a>
                                 </div>
                                 <div class="header-action-icon-2">
                                     <a class="mini-cart-icon" href="/cart/view">
                                         <img alt="Evara" src="user/assets/imgs/theme/icons/icon-cart.svg">
-                                        <span class="pro-count blue">2</span>
+                                        {{#if cartItemCount}}
+                                        <span class="pro-count blue">{{cartItemCount}}</span>
+                                        {{/if}}
                                     </a>
                                 </div>
                                 {{#if loginStatus}}
                                 <div class="header-action-icon-2 dropdown nav-item">
-                                    <a href="user-profile.html" data-bs-toggle="dropdown" id="dropdownAccount" aria-expanded="false">
+                                    <a href="user-profile.html" data-bs-toggle="dropdown" id="dropdownAccount"
+                                        aria-expanded="false">
+                                        {{#if userimage}}
+                                        <img class="svgInject" alt="Evara" src="multer/users/{{userimage}}" style="border-radius:50px; height:27px; width:27px">
+                                        {{else}}
                                         <img class="svgInject" alt="Evara" src="../images/user-icon-2.png">
+                                        {{/if}}
                                         {{!-- <span class="pro-count blue">4</span> --}}
                                     </a>
                                     <div class="dropdown-menu dropdown-menu-end" aria-labelledby="dropdownAccount">
                                         <a class="dropdown-item" href="/account/view~profile"><i class="material-icons md-settings"></i>Account Settings</a>
-                                        <a class="dropdown-item" href="#"><i class="material-icons md-account_balance_wallet"></i>Wallet</a>
-                                        <a class="dropdown-item" href="#"><i class="material-icons md-receipt"></i>Billing</a>
-                                        <a class="dropdown-item" href="#"><i class="material-icons md-help_outline"></i>Help center</a>
+                                        <a class="dropdown-item" href="/orders/view"><i class="material-icons md-account_balance_wallet"></i>Orders</a>
+                                        <a class="dropdown-item" href="/account/view~profile"><i class="material-icons md-receipt"></i>Cart</a>
+                                        <a class="dropdown-item" href="/cart/view"><i class="material-icons md-help_outline"></i>Add address</a>
                                         <div class="dropdown-divider"></div>
                                         <a class="dropdown-item text-danger" href="/logout"><i class="material-icons md-exit_to_app"></i>Logout</a>
                                     </div>
@@ -103,9 +163,9 @@
                 </div>
             </div>
         </div>
-<!-- end of Nav-middle -->
+        <!-- end of Nav-middle -->
 
-<!-- Nav-bottom -->
+        <!-- Nav-bottom -->
         <div class="header-bottom header-bottom-bg-color sticky-bar">
             <div class="container">
                 <div class="header-wrap header-space-between position-relative">
@@ -113,18 +173,20 @@
                         <div class="main-menu main-menu-padding-1 main-menu-lh-2 d-none d-lg-block">
                             <nav>
                                 <ul>
-                                    <li class="position-static"><a href="#">Mega menu <i class="fi-rs-angle-down"></i></a>
+                                    <li class="position-static"><a href="#">Mega menu <i
+                                                class="fi-rs-angle-down"></i></a>
                                         <ul class="mega-menu">
-                                        {{#each categories}}
-                                        <li class="sub-mega-menu sub-mega-menu-width-22">
-                                            <a class="menu-title" href="#">{{name}}</a>
-                                            <ul>
-                                                {{#each subCategoriesData}}
-                                                <li><a href="shop-product-right.html">{{name}}</a></li>
-                                                {{/each}}
-                                            </ul>
-                                        </li>
-                                        {{/each}}
+                                            {{#each parentCategories}}
+                                            <li class="sub-mega-menu sub-mega-menu-width-22">
+                                                <a class="menu-title" href=""
+                                                    onclick="fetchProducts('{{_id}}')">{{name}}</a>
+                                                <ul>
+                                                    {{#each subCategoriesData}}
+                                                    <li><a href="" onclick="fetchProducts('{{_id}}')">{{name}}</a></li>
+                                                    {{/each}}
+                                                </ul>
+                                            </li>
+                                            {{/each}}
                                         </ul>
                                     </li>
                                     <li><a href="/">Home</a>
@@ -137,17 +199,17 @@
                     </div>
                     <div class="hotline d-none d-lg-block">
                         {{#if loginStatus}}
-                            <a href="/account/view~profile"><i class="fi-rs-user"></i>{{username}}</a>
-                            {{else}}
-                            <a href="../login"><i class="fi-rs-user"></i> Log In / Sign Up</a>
+                        <a href="/account/view~profile"><i class="fi-rs-user"></i>{{username}}</a>
+                        {{else}}
+                        <a href="../login"><i class="fi-rs-user"></i> Log In / Sign Up</a>
                         {{/if}}
                     </div>
                 </div>
             </div>
         </div>
     </header>
-<!-- end of Nav-bottom -->
-<!-- end of Header -->
+    <!-- end of Nav-bottom -->
+    <!-- end of Header -->
 
     {{!-- body --}}
     <main class="main">
@@ -162,118 +224,28 @@
 
         <section class="mt-50 mb-50">
             <div class="container">
-                <div class="row">
-                    <div class="col-lg-12">
-                                <a class="shop-filter-toogle" href="#">
-                            <span class="fi-rs-filter mr-5"></span>
-                            Filters
-                            <i class="fi-rs-angle-small-down angle-down"></i>
-                            <i class="fi-rs-angle-small-up angle-up"></i>
-                        </a>
-                        <div class="shop-product-fillter-header">
-                            <div class="row">
-                                <div class="col-lg-2 col-md-4 mb-lg-0 mb-md-5 mb-sm-5">
-                                    <h5 class="mb-20">Categories</h5>
-                                    <ul class="categor-list">
-                                        <li class="cat-item text-muted"><a href="shop-grid-right.html">Jacket</a>(125)</li>
-                                        <li class="cat-item text-muted"><a href="shop-grid-right.html">Jeans</a>(68)</li>
-                                        <li class="cat-item text-muted"><a href="shop-grid-right.html">Sweatshirts</a>(284)</li>
-                                        <li class="cat-item text-muted"><a href="shop-grid-right.html">Trousers</a>(274)</li>
-                                        <li class="cat-item text-muted"><a href="shop-grid-right.html">Kitwears</a>(152)</li>
-                                        <li class="cat-item text-muted"><a href="shop-grid-right.html">Sportswear</a>(302)</li>
-                                        <li class="cat-item text-muted"><a href="shop-grid-right.html">Accessories</a>(168)</li>
-                                    </ul>
-                                </div>
-                                <div class="col-lg-2 col-md-4 mb-lg-0 mb-md-5 mb-sm-5">
-                                    <h5 class="mb-20">Manufacturers</h5>
-                                    <ul class="categor-list">
-                                        <li class="cat-item text-muted"><a href="shop-grid-right.html">Adidas</a>(125)</li>
-                                        <li class="cat-item text-muted"><a href="shop-grid-right.html">Armani</a>(68)</li>
-                                        <li class="cat-item text-muted"><a href="shop-grid-right.html">Burberry</a>(274)</li>
-                                        <li class="cat-item text-muted"><a href="shop-grid-right.html">Chanel</a>(152)</li>
-                                        <li class="cat-item text-muted"><a href="shop-grid-right.html">Prada</a>(302)</li>
-                                        <li class="cat-item text-muted"><a href="shop-grid-right.html">Bootstrap</a>(32)</li>
-                                        <li class="cat-item text-muted"><a href="shop-grid-right.html">Helixx</a>(312)</li>
-                                    </ul>
-                                </div>
-                                <div class="col-lg-2 col-md-4 mb-lg-0 mb-md-5 mb-sm-5">
-                                    <h5 class="mb-20">Price range</h5>
-                                    <ul class="categor-list">
-                                        <li class="cat-item text-muted"><a href="shop-grid-right.html">All</a></li>
-                                        <li class="cat-item text-muted"><a href="shop-grid-right.html">$0.00 - $20.00 </a></li>
-                                        <li class="cat-item text-muted"><a href="shop-grid-right.html">$20.00 - $40.00 </a></li>
-                                        <li class="cat-item text-muted"><a href="shop-grid-right.html">$40.00 - $60.00 </a></li>
-                                        <li class="cat-item text-muted"><a href="shop-grid-right.html">$60.00 - $80.00 </a></li>
-                                        <li class="cat-item text-muted"><a href="shop-grid-right.html">$80.00 - $100.00 </a></li>
-                                        <li class="cat-item text-muted"><a href="shop-grid-right.html">$100.00 - $200.00 </a></li>
-                                    </ul>
-                                </div>
-                                <div class="col-lg-2 col-md-4 mb-lg-0 mb-md-5 mb-sm-5">
-                                    <h5 class="mb-20">By Review</h5>
-                                    <div class="product-rate-cover">
-                                        <div class="product-rate d-inline-block">
-                                            <div class="product-rating" style="width:100%">
-                                            </div>
-                                        </div>
-                                        <span class="font-small ml-5 text-muted"> (25)</span>
-                                    </div>
-                                    <div class="product-rate-cover">
-                                        <div class="product-rate d-inline-block">
-                                            <div class="product-rating" style="width:80%">
-                                            </div>
-                                        </div>
-                                        <span class="font-small ml-5 text-muted"> (25)</span>
-                                    </div>
-                                    <div class="product-rate-cover">
-                                        <div class="product-rate d-inline-block">
-                                            <div class="product-rating" style="width:60%">
-                                            </div>
-                                        </div>
-                                        <span class="font-small ml-5 text-muted"> (25)</span>
-                                    </div>
-                                    <div class="product-rate-cover">
-                                        <div class="product-rate d-inline-block">
-                                            <div class="product-rating" style="width:40%">
-                                            </div>
-                                        </div>
-                                        <span class="font-small ml-5 text-muted"> (25)</span>
-                                    </div>
-                                    <div class="product-rate-cover">
-                                        <div class="product-rate d-inline-block">
-                                            <div class="product-rating" style="width:20%">
-                                            </div>
-                                        </div>
-                                        <span class="font-small ml-5 text-muted"> (25)</span>
-                                    </div>
-                                </div>
-                            </div>
+                <div class="row flex-row-reverse">
+                    <div class="col-lg-3 primary-sidebar sticky-sidebar">
+                        <div class="widget-category mb-30">
+                            <h5 class="section-title style-1 mb-30 wow fadeIn animated">Category</h5>
+                            <ul class="categories">
+                                {{#each allCategories}}
+                                <li><a href="/shop?categoryId={{_id}}" >{{this.name}}</a></li>
+                                {{/each}}
+                                {{!-- onclick="fetchProducts('{{_id}}')" --}}
+                            </ul>
                         </div>
+                        <input type="text" id="ForCategoryIdentification" value="AllCategories" hidden>
                     </div>
-                    <div class="col-lg-12">
+                    <div class="col-lg-9">
                         <div class="shop-product-fillter">
-                            <div class="totall-product">
-                                <p> We found <strong class="text-brand">688</strong> items for you!</p>
+                            <div class="total-product">
+                                <p> We found <strong class="text-brand">{{productsLength}}</strong> items for you!</p>
                             </div>
+                            <!-- Hidden input field for storing the category value -->
+                            <input type="hidden" id="hiddenCategory" value="All Categories">
+                                    
                             <div class="sort-by-product-area">
-                                <div class="sort-by-cover mr-10">
-                                    <div class="sort-by-product-wrap">
-                                        <div class="sort-by">
-                                            <span><i class="fi-rs-apps"></i>Show:</span>
-                                        </div>
-                                        <div class="sort-by-dropdown-wrap">
-                                            <span> 50 <i class="fi-rs-angle-small-down"></i></span>
-                                        </div>
-                                    </div>
-                                    <div class="sort-by-dropdown">
-                                        <ul>
-                                            <li><a class="active" href="#">50</a></li>
-                                            <li><a href="#">100</a></li>
-                                            <li><a href="#">150</a></li>
-                                            <li><a href="#">200</a></li>
-                                            <li><a href="#">All</a></li>
-                                        </ul>
-                                    </div>
-                                </div>
                                 <div class="sort-by-cover">
                                     <div class="sort-by-product-wrap">
                                         <div class="sort-by">
@@ -285,11 +257,9 @@
                                     </div>
                                     <div class="sort-by-dropdown">
                                         <ul>
-                                            <li><a class="active" href="#">Featured</a></li>
-                                            <li><a href="#">Price: Low to High</a></li>
-                                            <li><a href="#">Price: High to Low</a></li>
-                                            <li><a href="#">Release Date</a></li>
-                                            <li><a href="#">Avg. Rating</a></li>
+                                            <li><a class="active" href="" onclick="fetchDataBasedOnOption(1)">Featured</a></li>
+                                            <li><a href="" onclick="fetchDataBasedOnOption(2)">Price: Low to High</a></li>
+                                            <li><a href="" onclick="fetchDataBasedOnOption(3)">Price: High to Low</a></li>
                                         </ul>
                                     </div>
                                 </div>
@@ -302,13 +272,20 @@
                                     <div class="product-img-action-wrap">
                                         <div class="product-img product-img-zoom">
                                             <a href="/shop/product/details?productid={{_id}}">
-                                                <img class="default-img" src="/multer/products/{{productimages.[0]}}" alt="">
-                                                <img class="hover-img" src="/multer/products/{{productimages.[1]}}" alt="">
+                                                <img class="default-img"
+                                                    src="/multer/products/cropped-{{productimages.[0]}}" alt="">
+                                                <img class="hover-img"
+                                                    src="/multer/products/cropped-{{productimages.[1]}}" alt="">
                                             </a>
                                         </div>
                                         <div class="product-action-1">
-                                            <a aria-label="Add To Wishlist" class="action-btn hover-up" href="/wishlist/add/?wishlistItemId={{_id}}"><i class="fi-rs-heart"></i></a>
+                                            <a aria-label="Add To Wishlist" class="action-btn hover-up"
+                                                href="/wishlist/add/?wishlistItemId={{_id}}"><i
+                                                    class="fi-rs-heart"></i></a>
                                         </div>
+                                        {{!-- <div class="product-badges product-badges-position product-badges-mrg">
+                                            <span class="hot">Hot</span>
+                                        </div> --}}
                                     </div>
                                     <div class="product-content-wrap">
                                         <div class="product-category">
@@ -316,40 +293,70 @@
                                         </div>
                                         <h2><a href="shop-product-right.html">{{productname}}</a></h2>
                                         <div class="product-price">
-                                            <span>${{promotionalprice}}</span>
-                                            <span class="old-price">${{regularprice}}</span>
+                                            {{#if promotionalprice}}
+                                            <span>₹{{promotionalprice}}</span>
+                                            <span class="old-price">₹{{regularprice}}</span>
+                                            {{else}}
+                                            <span>₹{{regularprice}}</span>
+                                            {{/if}}
                                         </div>
-                                        <div class="product-action-1 show">
+                                        {{!-- <div class="product-action-1 show">
                                             <div class="rating-result" title="90%">
                                                 <span>
                                                     <span>95%</span>
                                                 </span>
                                             </div>
-                                        </div>
+                                        </div> --}}
                                     </div>
                                 </div>
                             </div>
                             {{/each}}
-                        </div>
-                        <!--pagination-->
-                        <div class="pagination-area mt-15 mb-sm-5 mb-lg-0">
-                            <nav aria-label="Page navigation example">
-                                <ul class="pagination justify-content-start">
-                                    <li class="page-item active"><a class="page-link" href="#">01</a></li>
-                                    <li class="page-item"><a class="page-link" href="#">02</a></li>
-                                    <li class="page-item"><a class="page-link" href="#">03</a></li>
-                                    <li class="page-item"><a class="page-link dot" href="#">...</a></li>
-                                    <li class="page-item"><a class="page-link" href="#">16</a></li>
-                                    <li class="page-item"><a class="page-link" href="#"><i class="fi-rs-angle-double-small-right"></i></a></li>
-                                </ul>
-                            </nav>
+                            <!-- Pagination -->
+
+                            {{!-- <div class="paginationCustom">
+                                {{#if hasPreviousPage}}
+                                    <a href="?page={{previousPage}}" class="paginationCustom-link-prev">Previous</a>
+                                {{/if}}
+
+                                {{#each pageNumbers}}
+                                    {{#ifCond this ../currentPage '==='}}
+                                        <span class="paginationCustom-current-page">{{this}}</span>
+                                    {{else}}
+                                        <a href="?page={{this}}" class="paginationCustom-link">{{this}}</a>
+                                    {{/ifCond}}
+                                {{/each}}
+
+                                {{#if hasNextPage}}
+                                    <a href="?page={{nextPage}}" class="paginationCustom-link-next">Next</a>
+                                {{/if}}
+                            </div> --}}
+
+                            <div class="paginationCustom">
+                                {{#if hasPreviousPage}}
+                                    <a href="?page={{previousPage}}{{#if categoryId}}&categoryId={{categoryId}}{{/if}}" class="paginationCustom-link-prev">Previous</a>
+                                {{/if}}
+
+                                {{#each pageNumbers}}
+                                    {{#ifCond this ../currentPage '==='}}
+                                        <span class="paginationCustom-current-page">{{this}}</span>
+                                    {{else}}
+                                        {{!-- <a href="?page={{this}}{{#if categoryId}}&categoryId={{categoryId}}{{/if}}" class="paginationCustom-link">{{this}}</a> --}}
+                                        <a href="javascript:void(0)" onclick="navigateToPage('{{this}}')" class="paginationCustom-link">{{this}}</a>
+                                    {{/ifCond}}
+                                {{/each}}
+
+                                {{#if hasNextPage}}
+                                    <a href="?page={{nextPage}}{{#if categoryId}}&categoryId={{categoryId}}{{/if}}" class="paginationCustom-link-next">Next</a>
+                                {{/if}}
+                            </div>
+
+                            <br>
+                            </div>
                         </div>
                     </div>
+                </div>
+        </section>
 
-</div></div></div></section>
-
-
-        
     </main>
 
     {{!-- footer --}}
@@ -411,13 +418,16 @@
                             <div class="col-md-8 col-lg-12">
                                 <p class="wow fadeIn animated">From App Store or Google Play</p>
                                 <div class="download-app wow fadeIn animated">
-                                    <a href="#" class="hover-up mb-sm-4 mb-lg-0"><img class="active" src="/user/assets/imgs/theme/app-store.jpg" alt=""></a>
-                                    <a href="#" class="hover-up"><img src="/user/assets/imgs/theme/google-play.jpg" alt=""></a>
+                                    <a href="#" class="hover-up mb-sm-4 mb-lg-0"><img class="active"
+                                            src="/user/assets/imgs/theme/app-store.jpg" alt=""></a>
+                                    <a href="#" class="hover-up"><img src="/user/assets/imgs/theme/google-play.jpg"
+                                            alt=""></a>
                                 </div>
                             </div>
                             <div class="col-md-4 col-lg-12 mt-md-3 mt-lg-0">
                                 <p class="mb-20 wow fadeIn animated">Secured Payment Gateways</p>
-                                <img class="wow fadeIn animated" src="/user/assets/imgs/theme/payment-method.png" alt="">
+                                <img class="wow fadeIn animated" src="/user/assets/imgs/theme/payment-method.png"
+                                    alt="">
                             </div>
                         </div>
                     </div>
@@ -430,11 +440,13 @@
                     <div class="footer-bottom"></div>
                 </div>
                 <div class="col-lg-6">
-                    <p class="float-md-left font-sm text-muted mb-0">&copy; 2021, <strong class="text-brand">Evara</strong> - HTML Ecommerce Template </p>
+                    <p class="float-md-left font-sm text-muted mb-0">&copy; 2021, <strong
+                            class="text-brand"> Konisagg </strong> -an app by O Sreerag</p>
                 </div>
                 <div class="col-lg-6">
                     <p class="text-lg-end text-start font-sm text-muted mb-0">
-                        Designed by <a href="http://alithemes.com/" target="_blank">Alithemes.com</a>. All rights reserved
+                        Designed by <a href="http://alithemes.com/" target="_blank">Alithemes.com</a>. All rights
+                        reserved
                     </p>
                 </div>
             </div>
@@ -481,115 +493,204 @@
     <!-- Template  JS -->
     <script src="/user/assets/js/main.js"></script>
     <script src="/user/assets/js/shop.js"></script>
+    {{!-- sweet alert --}}
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 
+
+<script>
+    function navigateToPage(pageNumber) {
+        const categoryId = "{{categoryId}}"
+        let url = `?page=${pageNumber}`;
+        if (categoryId !== undefined) {
+            url += `&categoryId=${categoryId}`;
+        }
+        window.location.href = url;
+    }
+</script>
+<script>
+
+    function sendData(e) {
+        const searchResults = document.getElementById('searchResults')
+        fetch('/shop/search', {
+            method: 'POST',
+            headers: {'Content-Type': 'application/json'},
+            body: JSON.stringify({ payload: e.value })
+        })
+        .then(res => res.json())
+        .then(data => {
+            let payload = data.payload
+            console.log(payload)
+            searchResults.innerHTML = ''
+            if (payload == "payloadEmpty"){
+                searchResults.style.display = 'none';
+            }else if (payload.length < 1) {
+                searchResults.innerHTML = '<p>Sorry. Nothing Found.</p>';
+                searchResults.style.display = 'block';
+                return
+            } else {
+                searchResults.style.display = 'block';
+            }
+            payload.forEach((item, index) => {
+                if(index > 0) searchResults.innerHTML += `<hr>`
+                //searchResults.innerHTML += `<p>${item.productname}</p>`
+                searchResults.innerHTML+=`<div onclick="window.location.href='/shop/product/details?productid=${item._id}'" class="d-flex"  style="align-items: center; justify-content: space-around;"><img src="/multer/products/cropped-${item.productimages[0]}" style="width: 50px; border-radius: 50%;" alt="Product Image"><p>${item.productname}<p></div>`
+            })
+            return
+        })
+    }
+
+    function fetchProducts(categoryId) {
+        event.preventDefault()
+        console.log("fetchProducts function")
+        console.log(categoryId)
+        fetch(`/shop/sortByCategory?categoryId=${categoryId}`, {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+                // Add any additional headers if needed
+            },
+            // Add any necessary body for POST/PUT requests
+        })
+        .then(response => {
+            if (response.ok) {
+                return response.json();
+            }
+            throw new Error('Network response was not ok.');
+        })
+        .then(data => {
+            // Process the retrieved data (products) here
+            console.log('Products:', data.products);
+            console.log('Products length:', data.productsLength)
+            console.log('category Name:', data.categoryName)
+            updateProductGrid(data.products);
+            updateProductGridLengthAndCategory(data.productsLength, data.categoryName);
+        })
+        .catch(error => {
+            // Handle error case
+            console.error('Error fetching products:', error);
+            // Handle error in UI or perform other actions as needed
+        });
+    }
+        
+    function updateProductGrid(products) {
+        const productGridContainer = document.querySelector('.row.product-grid-3'); // Update this selector as per your HTML structure
+        let productHTML = '';
+
+        products.forEach(product => {
+            productHTML += `
+                <div class="col-lg-4 col-md-4 col-12 col-sm-6">
+                    <div class="product-cart-wrap mb-30">
+                        <div class="product-img-action-wrap">
+                            <div class="product-img product-img-zoom">
+                                <a href="/shop/product/details?productid=${product._id}">
+                                    <img class="default-img" src="/multer/products/cropped-${product.productimages[0]}" alt="">
+                                    <img class="hover-img" src="/multer/products/cropped-${product.productimages[1]}" alt="">
+                                </a>
+                            </div>
+                            <div class="product-action-1">
+                                <a aria-label="Add To Wishlist" class="action-btn hover-up" href="/wishlist/add/?wishlistItemId=${product._id}"><i class="fi-rs-heart"></i></a>
+                            </div>
+                        </div>
+                        <div class="product-content-wrap">
+                            <div class="product-category">
+                                <a href="shop-grid-right.html">${product.categories[0]}</a>
+                            </div>
+                            <h2><a href="shop-product-right.html">${product.productname}</a></h2>
+                            <div class="product-price">
+                                ${product.promotionalprice ? `<span>$${product.promotionalprice}</span><span class="old-price">$${product.regularprice}</span>` : `<span>$${product.regularprice}</span>`}
+                            </div>
+                            <div class="product-action-1 show">
+                                <div class="rating-result" title="90%">
+                                    <span><span>95%</span></span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            `;
+        });
+
+        // Update the inner HTML content of the product grid container
+        productGridContainer.innerHTML = productHTML;
+        return
+    }
+
+    function updateProductGridLengthAndCategory(length, category) {
+
+        // Display the count of products
+        const totalProductElement = document.querySelector('.total-product strong.text-brand');
+        if (totalProductElement) {
+            totalProductElement.textContent = length;
+        }
+
+
+        // Update the value of the hidden input field for category
+        const hiddenCategoryInput = document.getElementById('hiddenCategory');
+        if (hiddenCategoryInput) {
+            hiddenCategoryInput.value = category;
+        }
+    }
+
+    // Function to handle fetching data based on selected option
+    function fetchDataBasedOnOption(selectedOption) {
+        event.preventDefault()
+        console.log("sort", selectedOption)
+
+        const hiddenCategoryInput = document.getElementById('hiddenCategory')
+        const category = hiddenCategoryInput.value
+        console.log("category ",category)
+
+        fetch(`/shop/sortByPrice`, {
+            method: 'POST', // Use POST method for sending data in the body
+            headers: {
+                'Content-Type': 'application/json' // Specify JSON as the content type
+            },
+            body: JSON.stringify({ selectedOption, category }) // Convert data to JSON and send in the body
+        })
+        .then(response => {
+            if (response.ok) {
+                return response.json();
+            }
+            throw new Error('Network response was not ok.');
+        })
+        .then(data => {
+            // Process the retrieved data (products) here
+            console.log('Products:', data.products);
+            console.log('Products length:', data.productsLength)
+            console.log('category Name:', data.categoryName)
+            updateProductGrid(data.products);
+            updateProductGridLengthAndCategory(data.productsLength, data.categoryName);
+
+        })
+        .catch(error => {
+            console.error(`Error fetching data for ${selectedOption}:`, error);
+            // Handle error in UI or perform other actions as needed
+        });
+    }
+
+
+   
+</script>
 
     <script>
-
-let categories
-
-// Fetch data from the backend
-fetch('/getOnlyCategories')
-  .then(response => response.json())
-  .then(data => {
-    // Handle the fetched data
-    console.log(data); 
-    categories = date
-  })
-  .catch(error => {
-    console.log('Error:', error);
+  document.addEventListener("DOMContentLoaded", function () {
+    // Check if the bannerMessage exists and is not empty
+    const bannerMessage = "{{ Message }}";
+    if (bannerMessage) {
+      // Trigger SweetAlert to display the bannerMessage
+      Swal.fire({
+        title: 'Notification',
+        text: bannerMessage,
+        icon: 'info',
+        // You can add more configurations as needed
+      });
+    }
   });
+</script>
 
-// Sample array of documents (you should replace this with your actual data)
-    const documents = [
-        {
-            name: "Category 1",
-            tier: 1,
-            subcategories: [
-                { name: "Subcategory 1", items: ["Item 1", "Item 2"] },
-                { name: "Subcategory 2", items: ["Item 3", "Item 4"] },
-            ],
-        },
-        {
-            name: "Category 2",
-            tier: 2, // Not tier 1
-            subcategories: [
-                { name: "Subcategory 3", items: ["Item 5", "Item 6"] },
-            ],
-        },
-    ];
-
-    const categoryTier01 = document.getElementById("category-tier-01");
-
-    // Loop through the documents
-    documents.forEach((document) => {
-        if (document.tier === 1) {
-            const liTier01 = document.createElement("li");
-            liTier01.className = "has-children";
-
-            const aTier01 = document.createElement("a");
-            aTier01.href = "shop-grid-right.html";
-            aTier01.innerHTML = `<i class="evara-font-dress"></i>${document.name}`;
-
-            const divTier01 = document.createElement("div");
-            divTier01.className = "dropdown-menu";
-
-            const ulTier02 = document.createElement("ul");
-            ulTier02.className = "mega-menu d-lg-flex";
-
-            // Loop through subcategories
-            document.subcategories.forEach((subcategory) => {
-                const liTier02 = document.createElement("li");
-                liTier02.className = "mega-menu-col col-lg-7";
-
-                const ulTier03 = document.createElement("ul");
-                ulTier03.id = "category-tier-03";
-
-                const liTier03Title = document.createElement("li");
-                liTier03Title.innerHTML = '<span class="submenu-title">Hot & Trending</span>';
-
-                // Loop through items
-                subcategory.items.forEach((item) => {
-                    const liTier03Item = document.createElement("li");
-                    const aTier03Item = document.createElement("a");
-                    aTier03Item.className = "dropdown-item nav-link nav_item";
-                    aTier03Item.href = "#";
-                    aTier03Item.textContent = item;
-                    liTier03Item.appendChild(aTier03Item);
-                    ulTier03.appendChild(liTier03Item);
-                });
-
-                liTier03.appendChild(liTier03Title);
-                liTier03.appendChild(ulTier03);
-                liTier02.appendChild(liTier03);
-                ulTier02.appendChild(liTier02);
-            });
-
-            divTier01.appendChild(ulTier02);
-            liTier01.appendChild(aTier01);
-            liTier01.appendChild(divTier01);
-            categoryTier01.appendChild(liTier01);
-        }
-    });  
-
-
-
-
-
-// Get all elements with the class "category-link"
-const categoryLinks = document.querySelectorAll(".category-link");
-
-// Add a click event listener to each "category-link" element
-categoryLinks.forEach(link => {
-    link.addEventListener("click", (event) => {
-        event.preventDefault();
-        const categoryName = link.id;
-        console.log(`Clicked category: ${categoryName}`);
-    });
-});
-
-    </script>
 </body>
 
 
 <!-- Mirrored from wp.alithemes.com/html/evara/evara-frontend/shop-grid-left.html by HTTrack Website Copier/3.x [XR&CO'2014], Sun, 01 Aug 2021 15:26:43 GMT -->
+
 </html>

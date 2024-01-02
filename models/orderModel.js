@@ -17,7 +17,7 @@ function generateCustomID() {
 // console.log(customID);
 
 const orderSchema = new mongoose.Schema({
-    _id: {
+    orderId: {
         type: String,
         default: generateCustomID 
     },
@@ -32,6 +32,16 @@ const orderSchema = new mongoose.Schema({
     total: {
         type: Number,
         required: true
+    },
+    discount: {
+        type: Number,
+        default: 0.00
+    },
+    totalWithDiscount: {
+        type: Number,
+    },
+    appliedCoupenCode: {
+        type: String
     },
     paymentMethod: {
         type: String,
@@ -60,6 +70,10 @@ const orderSchema = new mongoose.Schema({
     Status: {
         type: String,
         default: 'Pending'
+    },
+    createdAt: {
+        type: Date,
+        default: Date.now
     },
     updatedAt: {
         type: Date,

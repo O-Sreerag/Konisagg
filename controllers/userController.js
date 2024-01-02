@@ -489,7 +489,7 @@ const userLogout = (req, res, next) => {
   try {
     console.log("user logout rout")
 
-    req.session.destroy()
+    req.session.verifiedUser = null
     res.clearCookie('connect.sid')
     res.redirect('/')
   } catch (error) {

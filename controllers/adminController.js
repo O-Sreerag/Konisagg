@@ -490,7 +490,7 @@ const searchUser = async (req, res) => {
 
 const adminLogout = (req, res, next) => {
     try {
-        req.session.destroy()
+        req.session.verifiedAdmin = null
         res.clearCookie('connect.sid')
         
         res.redirect('/admin')

@@ -10,7 +10,7 @@ var mongoose = require('mongoose')
 
 var database = async() => {
     try {
-        const res = await mongoose.connect("mongodb://127.0.0.1:27017/ecom01")
+        const res = await mongoose.connect(process.env.MONGODB_CONNECTION_STRING)
         console.log('db connected successfully');
     } catch (error) {
         console.log(error);

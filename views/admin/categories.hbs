@@ -295,6 +295,7 @@
                         </div>
 
                         <div id="categoryTable" class="col-md-12">
+                            {{#if categoryList}} 
                             <header class="card-header">
                                 <div class="row gx-3">
                                     <div class="search-container col-lg-4 col-md-6 me-auto ">
@@ -305,7 +306,6 @@
                             </header> <!-- card-header end// -->
                             <div class="table-responsive">
                                 <table class="table table-hover">
-                                    {{#if categoryList}} 
                                     <thead>
                                         <tr>
                                             <th width="50%">Name</th>
@@ -363,10 +363,10 @@
                                         </div>
                                         <br>
                                     </tbody>
-                                    {{else}} <p style="color: red;">there are no categories yet</p>
-                                    {{/if}}
                                 </table>
                             </div>
+                            {{else}} <p style="color: red;">there are no categories yet</p>
+                            {{/if}}
                             {{!-- <div class="pagination" id="pagination">
                             <button class="pagination-button active">1</button>
                             </div>

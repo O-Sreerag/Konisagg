@@ -32,7 +32,7 @@ let categoryError
 //     }
 // }
 
-const ITEMS_PER_PAGE = 3; // Number of categories per page
+const ITEMS_PER_PAGE = 5; // Number of categories per page
 
 const categories = async (req, res, next) => {
   try {
@@ -87,7 +87,6 @@ const categories = async (req, res, next) => {
     res.status(500).send('Internal Server Error');
   }
 };
-
 
 const searchCategory = async (req, res) => {
     try {
@@ -395,6 +394,8 @@ const deleteCategorySubmit = async (req, res, next) => {
         } else {
             // Subcategory
             const parentCategory = await categoryModel.findById(category.parentCategory);
+            console.log("parentCategory of the category to be deleted")
+            console.log(parentCategory)
 
             if (!parentCategory) {
                 req.session.Message = 'Parent category not found'
@@ -402,9 +403,10 @@ const deleteCategorySubmit = async (req, res, next) => {
             }
 
             // Save products before deletion
-            const productsToDelete = categoryModel.products;
+            const productsToDelete = category.products;
+            console.log("products to delete")
+            console.log(productsToDelete)
 
-            
             // Update parent category removing current category from subcategories
             await categoryModel.findByIdAndUpdate(parentCategory._id, {
                 $pull: { subCategories: categoryId },
@@ -412,7 +414,11 @@ const deleteCategorySubmit = async (req, res, next) => {
             });
 
             // Delete products associated with this subcategory
-            await productModel.deleteMany({ _id: { $in: productsToDelete } });
+            // await productModel.deleteMany({ _id: { $in: productsToDelete } });
+
+            productsToDelete.forEach(async (item) => {
+                await productModel.deleteMany({_id: item})
+            })
 
             // Delete subcategory
             await categoryModel.findByIdAndDelete(categoryId);

@@ -190,7 +190,8 @@ const adminAddProductsSubmit = async (req, res, next) => {
         // Convert selected_paymentMethods and selectedCategories to arrays
         const paymentMethods = JSON.parse(selected_paymentMethods);
 
-        const parent = await categoryModel.findOne({})
+        // const parent = await categoryModel.findOne({})
+        const parent = await categoryModel.findOne({ subCategories: { $exists: true, $not: { $size: 0 } } });
         const parentId = parent._id
         const child = await categoryModel.findOne({_id:parent.subCategories[0]})
         const childId = child._id

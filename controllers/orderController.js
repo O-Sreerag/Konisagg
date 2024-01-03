@@ -424,7 +424,7 @@ const returnSingleProduct = async (req, res) => {
 //     } 
 // }
 
-const ITEMS_PER_PAGE = 2; // Number of orders per page
+const ITEMS_PER_PAGE = 5; // Number of orders per page
 
 const adminViewOrders = async (req, res) => {
     try {

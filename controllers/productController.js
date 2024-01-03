@@ -18,7 +18,7 @@ const categoryOfferModel = require('../models/categoryOfferModel')
 //     }
 // }
 
-const ITEMS_PER_PAGE = 2; // Number of products per page
+const ITEMS_PER_PAGE = 5; // Number of products per page
 
 const adminProducts = async (req, res, next) => {
   try {

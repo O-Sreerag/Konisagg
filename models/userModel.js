@@ -93,8 +93,8 @@ const userSchema = new mongoose.Schema({
 
 userSchema.pre('save', function(next) {
     if (!this.referalLink) {
-        const defaultLink = `https://www.konisagg.com/signup?onKonisagg_with~${this.username}=${this._id.toString()}`;
-        // https://www.konisagg.com//signup?on_Konisaggwith${this.username}=${this._id.toString()}_With~${this.username}
+        const defaultLink = `https://www.konisagg.online/signup?onKonisagg_with~${this.username}=${this._id.toString()}`;
+        // https://www.konisagg.online//signup?on_Konisaggwith${this.username}=${this._id.toString()}_With~${this.username}
         this.referalLink = defaultLink;
     }
     next();

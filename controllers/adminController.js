@@ -433,7 +433,7 @@ const adminGenerateReport = async (req, res) => {
 //     }
 // }
 
-const ITEMS_PER_PAGE = 2; // Number of users per page
+const ITEMS_PER_PAGE = 5; // Number of users per page
 
 const adminUsers = async (req, res, next) => {
   try {

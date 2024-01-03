@@ -178,11 +178,11 @@
                                         <ul class="mega-menu">
                                             {{#each parentCategories}}
                                             <li class="sub-mega-menu sub-mega-menu-width-22">
-                                                <a class="menu-title" href=""
-                                                    onclick="fetchProducts('{{_id}}')">{{name}}</a>
+                                                <a class="menu-title" href="/shop?categoryId={{_id}}">{{name}}</a>
+                                                    {{!-- onclick="fetchProducts('{{_id}}')" --}}
                                                 <ul>
                                                     {{#each subCategoriesData}}
-                                                    <li><a href="" onclick="fetchProducts('{{_id}}')">{{name}}</a></li>
+                                                    <li><a href="/shop?categoryId={{_id}}">{{name}}</a></li>
                                                     {{/each}}
                                                 </ul>
                                             </li>

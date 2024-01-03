@@ -19,7 +19,7 @@ const userHome = async (req, res, next) => {
   console.log("req.session.verifiedUser :")
   const user = req.session.verifiedUser
   console.log(user)
-  const products = await productModel.find()
+  const products = await productModel.find().limit(8)
   console.log("products :")
   console.log(products)
 

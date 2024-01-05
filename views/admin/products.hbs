@@ -92,7 +92,7 @@
                     </a>
                 </li>
                 <li class="menu-item active">
-                    <a class="menu-link" href="../admin/products"> <i class="icon material-icons md-shopping_bag"></i>
+                    <a class="menu-link" href="../admin/products"><i class="icon material-icons md-shopping_bag"></i>
                         <span class="text">Products</span>
                     </a>
                 </li>
@@ -221,7 +221,11 @@
                                         {{/if}}
                                     </td>
                                     <td>
+                                        {{#if (eq status true)}}
                                         <span class="badge rounded-pill alert-success">Active</span>
+                                        {{else}}
+                                        <span class="badge rounded-pill alert-danger">Disabled</span>
+                                        {{/if}}
                                     </td>
                                     <td>
                                         <div class="dropdown">
@@ -230,7 +234,11 @@
                                                 <a class="dropdown-item" href="/admin/product/edit?productId={{_id}}">Edit Info</a>
                                                 <a class="dropdown-item" href="/admin/product/editImage?productId={{_id}}">Edit Images</a>
                                                 <a class="dropdown-item" href="/admin/offers/product/addOffer?productId={{_id}}">Create Offer</a>
-                                                <a class="dropdown-item text-danger" href="/admin/product/delete?productId={{_id}}">Delete</a>
+                                                {{#if (eq status true)}}
+                                                <a class="dropdown-item text-danger" href="/admin/product/delete?productId={{_id}}">Disable</a>
+                                                {{else}}
+                                                <a class="dropdown-item text-success" href="/admin/product/delete?productId={{_id}}">Able</a>
+                                                {{/if}}
                                             </div>
                                         </div> 
                                     </td>

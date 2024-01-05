@@ -16,7 +16,7 @@ const orderHistory = async(req, res) => {
         console.log(userId);
         console.log(userId);
 
-        const orders = await orderModel.find({userId: userId})
+        const orders = await orderModel.find({userId: userId}).sort({_id: -1})
         console.log(orders)
 
         res.render('user/settings-orders-orderHistory', {orders:orders})
@@ -477,7 +477,7 @@ const adminViewOrders = async (req, res) => {
             {
                 $limit: ITEMS_PER_PAGE
             }
-        ]);
+        ])
 
         res.render('admin/orders', { 
             orders: orders,

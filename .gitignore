@@ -7,3 +7,9 @@ node_modules/
 # IDE files
 .vscode/
 .idea/
+
+# RAZORPAY_KEY_ID=rzp_test_KDaOanuC48JEej
+# RAZORPAY_SECRET_KEY=GsPLyFBQ1v9YzNln1m32Umnf
+# NODEMAILER_PASS=ytyc wsta opgs oebn
+# MONGODB_CONNECTION_STRING=mongodb://localhost:27017/ecom01
+# MONGODB_CONNECTION_STRING=mongodb+srv://sreeragok:ery1U1gUzl2QapZi@cluster-konisagg.klgjp.mongodb.net/?retryWrites=true&w=majority

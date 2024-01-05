@@ -73,43 +73,17 @@
     </aside>
     <main class="main-wrap">
         <header class="main-header navbar">
-            <div class="col-search">
-                <form class="searchform">
-                    <div class="input-group">
-                        <input list="search_terms" type="text" class="form-control" placeholder="Search term">
-                        <button class="btn btn-light bg" type="button"> <i class="material-icons md-search"></i></button>
-                    </div>
-                    <datalist id="search_terms">
-                        <option value="Products">
-                        <option value="New orders">
-                        <option value="Apple iphone">
-                        <option value="Ahmed Hassan">
-                    </datalist>
-                </form>
-            </div>
-            <div class="col-nav">
+            <div class="col-nav ms-auto">
                 <ul class="nav">
-                    <li class="nav-item">
-                        <a class="nav-link btn-icon" href="#">
-                            <i class="material-icons md-notifications animation-shake"></i>
-                            <span class="badge rounded-pill">3</span>
-                        </a>
-                    </li>
                     <li class="dropdown nav-item">
                         <a class="dropdown-toggle" data-bs-toggle="dropdown" href="#" id="dropdownAccount" aria-expanded="false"> <img class="img-xs rounded-circle" src="../admin/assets/imgs/people/avatar2.jpg" alt="User"></a>
                         <div class="dropdown-menu dropdown-menu-end" aria-labelledby="dropdownAccount">
-                            <a class="dropdown-item" href="/account/view~profile"><i class="material-icons md-settings"></i>Account Settings</a>
-                            <a class="dropdown-item" href="#"><i class="material-icons md-account_balance_wallet"></i>Wallet</a>
-                            <a class="dropdown-item" href="#"><i class="material-icons md-receipt"></i>Billing</a>
-                            <a class="dropdown-item" href="#"><i class="material-icons md-help_outline"></i>Help center</a>
-                            <div class="dropdown-divider"></div>
                             <a class="dropdown-item text-danger" href="../logout"><i class="material-icons md-exit_to_app"></i>Logout</a>
                         </div>
                     </li>
                 </ul>
             </div>
         </header>
-
 
         <section class="content-main">
             <div class="container">
@@ -125,14 +99,14 @@
                         <table class="table shopping-summery text-center clean">
                             <thead>
                                 <tr class="main-heading">
-                                    <th scope="col">Index</th>
-                                    <th scope="col">Image</th>
-                                    <th scope="col">Name</th>
-                                    <th scope="col">Spec</th>
-                                    <th scope="col">Price</th>
-                                    <th scope="col">Quantity</th>
-                                    <th scope="col">Subtotal</th>
-                                    <th scope="col">Remove</th>
+                                    <th scope="col" width="12%">Index</th>
+                                    <th scope="col" width="12%">Image</th>
+                                    <th scope="col" width="12%">Name</th>
+                                    <th scope="col" width="12%">Spec</th>
+                                    <th scope="col" width="12%">Price</th>
+                                    <th scope="col" width="12%">Quantity</th>
+                                    <th scope="col" width="12%">Subtotal</th>
+                                    <th scope="col" width="12%">Remove</th>
                                 </tr>
                             </thead>
                             <tbody>
@@ -148,31 +122,44 @@
                                     {{#if product.promotionalprice}}
                                     <td class="price" data-title="Price"><span>₹{{product.promotionalprice}}</span></td>
                                     <td class="text-center" data-title="Stock">
-                                        <div class="detail-qty border radius  m-auto">
-                                            <div onclick="handleQuantity(1, '{{ItemId}}', '{{product.promotionalprice}}', '{{product.stock}}')" id="increment-quantity" class="qty-up" style="cursor: pointer;">
-                                                <i class="fi-rs-angle-small-up"></i>
+                                        {{#if (eq product.status true)}}
+                                            <div class="detail-qty border radius  m-auto">
+                                                <div onclick="handleQuantity(1, '{{ItemId}}', '{{product.promotionalprice}}', '{{product.stock}}')" id="increment-quantity" class="qty-up" style="cursor: pointer;">
+                                                    <i class="fi-rs-angle-small-up"></i>
+                                                </div>
+                                                <span class="qty-val" id="quantityElement{{ItemId}}">{{quantity}}</span>
+                                                <div onclick="handleQuantity(-1, '{{ItemId}}' , '{{product.promotionalprice}}', '{{product.stock}}')" id="decrement-quantity" class="qty-down" style="cursor: pointer;">
+                                                    <i class="fi-rs-angle-small-down"></i>
+                                                </div>
                                             </div>
-                                            <span class="qty-val" id="quantityElement{{ItemId}}">{{quantity}}</span>
-                                            <div onclick="handleQuantity(-1, '{{ItemId}}' , '{{product.promotionalprice}}', '{{product.stock}}')" id="decrement-quantity" class="qty-down" style="cursor: pointer;">
-                                                <i class="fi-rs-angle-small-down"></i>
-                                            </div>
-                                        </div>
+                                        {{else}}
+                                            <p class="text-danger">This item is no longer available</p>
+                                        {{/if}}
                                     </td>
                                     {{else}}
                                     <td class="price" data-title="Price"><span>{{product.selected_Currency}}{{product.regularprice}}</span></td>
                                     <td class="text-center" data-title="Stock">
-                                        <div class="detail-qty border radius  m-auto">
-                                            <div onclick="handleQuantity(1, '{{ItemId}}', '{{product.regularprice}}')" id="increment-quantity" class="qty-up" style="cursor: pointer;">
-                                                <i class="fi-rs-angle-small-up"></i>
+                                        {{#if (eq product.status true)}}
+                                            <div class="detail-qty border radius  m-auto">
+                                                <div onclick="handleQuantity(1, '{{ItemId}}', '{{product.regularprice}}' , '{{product.stock}}')" id="increment-quantity" class="qty-up" style="cursor: pointer;">
+                                                    <i class="fi-rs-angle-small-up"></i>
+                                                </div>
+                                                <span class="qty-val" id="quantityElement{{ItemId}}">{{quantity}}</span>
+                                                <div onclick="handleQuantity(-1, '{{ItemId}}' , '{{product.regularprice}}' , '{{product.stock}}')" id="decrement-quantity" class="qty-down" style="cursor: pointer;">
+                                                    <i class="fi-rs-angle-small-down"></i>
+                                                </div>
                                             </div>
-                                            <span class="qty-val" id="quantityElement{{ItemId}}">{{quantity}}</span>
-                                            <div onclick="handleQuantity(-1, '{{ItemId}}' , '{{product.regularprice}}')" id="decrement-quantity" class="qty-down" style="cursor: pointer;">
-                                                <i class="fi-rs-angle-small-down"></i>
-                                            </div>
-                                        </div>
+                                        {{else}}
+                                            <p class="text-danger">This item is no longer available</p>
+                                        {{/if}}
                                     </td>
                                     {{/if}}
                                     <td class="text-right" data-title="Cart">
+                                        {{#if (eq present false)}}
+                                            <p class="text-danger outOfStock" id="outOfStock{{ItemId}}" style="display: block;">Out of stock</p>
+                                        {{else}}
+                                            <p class="text-danger outOfStock" id="outOfStock{{ItemId}}" style="display: none;">Out of stock</p>
+                                        {{/if}}
                                         <span><div  id="subtotal{{ItemId}}">{{price}}</div></span>
                                     </td>
                                     <td class="action" data-title="Remove"><a href="/cart/delete?itemId={{product._id}}&color={{color}}&size={{size}}" class="text-muted"><i class="fi-rs-trash"></i></a></td>
@@ -209,18 +196,31 @@
                                     </tbody>
                                 </table>
                             </div>
-                            {{#if isPhoneEmpty}}
-                                <div class="d-flex justify-content-between">
-                                    <p style="color: red;">Phone number should be added.</p>
-                                    <a href="/account/edit~profile"><button class="btn" type="submit">Add</button></a>
-                                </div>
-                            {{else if isAddressEmpty}}
-                                <div class="d-flex justify-content-between">
-                                    <p style="color: red;">No addresses have been added.</p>
+                            {{#if (eq isActive true)}}
+                            <div id="proceedToCheckout1">                                
+                                {{#if isPhoneEmpty}}
+                                    <div class="d-flex justify-content-between">
+                                        <p style="color: red;">Phone number should be added.</p>
+                                        <a href="/account/edit~profile"><button class="btn" type="submit">Add</button></a>
+                                    </div>
+                                {{else if isAddressEmpty}}
+                                    <div class="d-flex justify-content-between">
+                                        <p style="color: red;">No addresses have been added.</p>
+                                        <a href="/checkout"><button class="btn" type="submit"><i class="fi-rs-box-alt mr-10"></i>Proceed To CheckOut</button></a>      
+                                    </div>
+                                {{else}}
                                     <a href="/checkout"><button class="btn" type="submit"><i class="fi-rs-box-alt mr-10"></i>Proceed To CheckOut</button></a>      
+                                {{/if}}
+                            </div>
+                            <div id="proceedToCheckout2" style="display: none;">
+                                <div class="d-flex justify-content-between">
+                                    <p style="color: red;">Enter valid stocks.</p>  
                                 </div>
+                            </div>
                             {{else}}
-                                <a href="/checkout"><button class="btn" type="submit"><i class="fi-rs-box-alt mr-10"></i>Proceed To CheckOut</button></a>      
+                                <div class="d-flex justify-content-between">
+                                    <p style="color: red;">Remove the unavailable products.</p>
+                                </div>
                             {{/if}}
                         </div>
                     </div>
@@ -257,6 +257,34 @@
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     <script>
 
+  document.addEventListener("DOMContentLoaded", function () {
+    console.log("proceed to checkout validation")
+    const outOfStockElements = document.querySelectorAll('.outOfStock')
+    console.log(outOfStockElements)
+
+    let flag = true
+
+    outOfStockElements.forEach(element => {
+        if (element.style.display === 'block') {
+            // Perform your action here when an element is displayed
+            console.log(`Element ${element.id} is displayed as Out of stock`)
+            flag = false
+
+            const proceedToCheckout1 = document.getElementById('proceedToCheckout1');
+            const proceedToCheckout2 = document.getElementById('proceedToCheckout2');
+            proceedToCheckout1.style.display = 'none';
+            proceedToCheckout2.style.display = 'block';
+        }
+    });
+
+    if(flag == true) {
+        const proceedToCheckout2 = document.getElementById('proceedToCheckout2');
+        const proceedToCheckout1 = document.getElementById('proceedToCheckout1');
+        proceedToCheckout1.style.display = 'block'
+        proceedToCheckout2.style.display = 'none';
+    } 
+  });
+
     function handleQuantity(increment, ItemId, price, stock) {
         console.log(increment, ItemId, price, stock)
 
@@ -265,15 +293,23 @@
         const currentQuantity = parseInt(quantityElement.textContent, 10);
         const newQuantity = currentQuantity + increment;
 
+        const outOfStockElementId = `outOfStock${ItemId}`;
+        const outOfStock = document.getElementById(outOfStockElementId)
+
         // Check if newQuantity is within the stock limits
         if (newQuantity < 1) {
             // Quantity cannot be less than 1
+            console.log(newQuantity)
             console.log('Cannot set quantity less than 1');
             return;
         } else if (newQuantity > stock) {
             // Quantity exceeds available stock
+            console.log(newQuantity)
             console.log('Out of stock');
-            return;
+            outOfStock.textContent = "Out of stock"
+            document.getElementById(outOfStockElementId).style.display = 'block'
+        } else {
+            document.getElementById(outOfStockElementId).style.display = 'none'
         }
 
         quantityElement.textContent = newQuantity;
@@ -288,6 +324,32 @@
         const totalPrice = parseFloat(totalElement.textContent);
         const newTotalPrice = totalPrice - currentSubtotal + newSubtotal;
         totalElement.textContent = newTotalPrice.toFixed(2);
+
+        console.log("proceed to checkout validation")
+        const outOfStockElements = document.querySelectorAll('.outOfStock')
+        console.log(outOfStockElements)
+
+        let flag = true
+
+        outOfStockElements.forEach(element => {
+            if (element.style.display === 'block') {
+                // Perform your action here when an element is displayed
+                console.log(`Element ${element.id} is displayed as Out of stock`)
+                flag = false
+
+                const proceedToCheckout1 = document.getElementById('proceedToCheckout1');
+                const proceedToCheckout2 = document.getElementById('proceedToCheckout2');
+                proceedToCheckout1.style.display = 'none';
+                proceedToCheckout2.style.display = 'block';
+            }
+        });
+
+        if(flag == true) {
+            const proceedToCheckout2 = document.getElementById('proceedToCheckout2');
+            const proceedToCheckout1 = document.getElementById('proceedToCheckout1');
+            proceedToCheckout1.style.display = 'block'
+            proceedToCheckout2.style.display = 'none';
+        } 
 
         fetch(`/cart/update-quantity?increment=${increment}&ItemId=${ItemId}`, {
             method: 'POST',

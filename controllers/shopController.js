@@ -102,7 +102,7 @@ const userShop = async (req, res, next) => {
 
     try {
         const page = +req.query.page || 1; // Get page number from query parameter or default to 1
-        const limit = 1; // Number of products per page
+        const limit = 6; // Number of products per page
 
         // const products = await productModel.find();
         // const totalProducts = products.length;
@@ -114,12 +114,12 @@ const userShop = async (req, res, next) => {
         if (req.query.categoryId) {
             console.log(req.query.categoryId)
             const categoryId = req.query.categoryId;
-            const categoryProducts = await productModel.find({ categories: categoryId }); // Replace 'categoryId' with the field in your product model representing the category
+            const categoryProducts = await productModel.find({ categories: categoryId, status: true }); // Replace 'categoryId' with the field in your product model representing the category
 
             totalProducts = categoryProducts.length;
             products = categoryProducts.slice((page - 1) * limit, page * limit);
         } else {
-            products = await productModel.find();
+            products = await productModel.find({status: true});
             totalProducts = products.length;
 
             products = products.slice((page - 1) * limit, page * limit);

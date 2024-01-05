@@ -73,42 +73,18 @@
     </aside>
     <main class="main-wrap">
         <header class="main-header navbar">
-            <div class="col-search">
-                <form class="searchform">
-                    <div class="input-group">
-                        <input list="search_terms" type="text" class="form-control" placeholder="Search term">
-                        <button class="btn btn-light bg" type="button"> <i class="material-icons md-search"></i></button>
-                    </div>
-                    <datalist id="search_terms">
-                        <option value="Products">
-                        <option value="New orders">
-                        <option value="Apple iphone">
-                        <option value="Ahmed Hassan">
-                    </datalist>
-                </form>
-            </div>
-            <div class="col-nav">
+            <div class="col-nav ms-auto">
                 <ul class="nav">
-                    <li class="nav-item">
-                        <a class="nav-link btn-icon" href="#">
-                            <i class="material-icons md-notifications animation-shake"></i>
-                            <span class="badge rounded-pill">3</span>
-                        </a>
-                    </li>
                     <li class="dropdown nav-item">
                         <a class="dropdown-toggle" data-bs-toggle="dropdown" href="#" id="dropdownAccount" aria-expanded="false"> <img class="img-xs rounded-circle" src="../admin/assets/imgs/people/avatar2.jpg" alt="User"></a>
                         <div class="dropdown-menu dropdown-menu-end" aria-labelledby="dropdownAccount">
-                            <a class="dropdown-item" href="/account/view~profile"><i class="material-icons md-settings"></i>Account Settings</a>
-                            <a class="dropdown-item" href="#"><i class="material-icons md-account_balance_wallet"></i>Wallet</a>
-                            <a class="dropdown-item" href="#"><i class="material-icons md-receipt"></i>Billing</a>
-                            <a class="dropdown-item" href="#"><i class="material-icons md-help_outline"></i>Help center</a>
-                            <div class="dropdown-divider"></div>
                             <a class="dropdown-item text-danger" href="../logout"><i class="material-icons md-exit_to_app"></i>Logout</a>
                         </div>
                     </li>
                 </ul>
             </div>
         </header>
+
         <section class="content-main">
                     <br><br>
             <div class="content-header">
@@ -128,10 +104,10 @@
                                                     <thead>
                                                         <tr class="main-heading">
                                                             <th scope="col" width="40%" colspan="2">Product</th>
-                                                            <th scope="col">Price</th>
-                                                            <th scope="col">Stock Status</th>
-                                                            <th scope="col">Action</th>
-                                                            <th scope="col">Remove</th>
+                                                            <th scope="col" width="15">Price</th>
+                                                            <th scope="col" width="15">Stock Status</th>
+                                                            <th scope="col" width="15">Action</th>
+                                                            <th scope="col" width="15">Remove</th>
                                                         </tr>
                                                     </thead>
                                                     <tbody>
@@ -152,11 +128,15 @@
                                                                 <span class="color3 font-weight-bold">in stock</span>
                                                             </td>
                                                             <td class="text-right" data-title="Cart">
+                                                                {{#if (eq status true)}}
                                                                 <a href="/shop/product/details?productid={{_id}}">
                                                                     <button class="btn btn-sm">
                                                                         Details
                                                                     </button>
                                                                 </a>
+                                                                {{else}} 
+                                                                <p class="text-danger">this item is unavailable</p>
+                                                                {{/if}}
                                                             </td>
                                                             <td class="action" data-title="Remove"><a href="/wishlist/delete/{{_id}}"><i class="fi-rs-trash"></i></a></td>
                                                         </tr>

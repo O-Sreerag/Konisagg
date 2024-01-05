@@ -12,6 +12,7 @@ const bcrypt = require("bcrypt");
 const Razorpay = require("razorpay");
 const { v4: uuidv4 } = require('uuid');
 // const { default: items } = require('razorpay/dist/types/items');
+// const { default: items } = require('razorpay/dist/types/items');
 require("dotenv").config();
 
 const instance = new Razorpay({
@@ -182,6 +183,14 @@ const viewItems = async (req, res) => {
         })
         total = total.toFixed(2)
 
+        products.forEach(item => {
+            if(item.product.stock == 0 || item.product.stock < item.quantity) {
+                item.present = false
+            } else {
+                item.present = true
+            }
+        })
+
         console.log("products")
         console.log(products)
 
@@ -201,7 +210,31 @@ const viewItems = async (req, res) => {
             isPhoneEmpty = 1;
         }
 
-        res.render('user/cart', { cartItems: products, total: total, isAddressEmpty: isAddressEmpty, isPhoneEmpty: isPhoneEmpty, Message: req.session?.Message});
+        const cart = await cartModel.find({userId: new ObjectId(userId)})
+        console.log(cart)
+        let isActive
+        if(cart && cart.length>0) {
+            let flag = 0
+            cart[0].products.forEach(async (productId) => {
+                const ifProductExist = await productModel.findOne({_id: productId})
+                console.log(ifProductExist)
+                if(!ifProductExist) {
+                    flag = 1
+                }
+                if(ifProductExist && ifProductExist.isActive == false) {
+                    flag = 1
+                }
+            })
+            console.log(flag)
+            if(flag == 0) {
+                await cartModel.updateMany({userId: new ObjectId(userId)}, {isActive: true})
+            }
+            isActive = cart[0].isActive
+            console.log("isActive")
+            console.log(isActive)
+        }
+
+        res.render('user/cart', { cartItems: products, isActive: isActive, total: total, isAddressEmpty: isAddressEmpty, isPhoneEmpty: isPhoneEmpty, Message: req.session?.Message});
         if(req.session.Message) {
             req.session.Message = null
         }
@@ -250,7 +283,7 @@ const deleteItem = async (req, res) => {
             if (!req.session.Message) {
                 req.session.Message = {};
             }
-            req.session.Message = "User\'s cart not found"
+            req.session.Message = "User's cart not found"
             res.redirect('/cart/view')
         }
     } catch (error) {

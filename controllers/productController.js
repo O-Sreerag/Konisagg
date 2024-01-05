@@ -2,7 +2,8 @@ const mongoose = require('mongoose');
 const productModel = require('../models/productModel')
 const categoryModel = require('../models/categoryModel')
 const productOfferModel = require('../models/productOfferModel')
-const categoryOfferModel = require('../models/categoryOfferModel')
+const categoryOfferModel = require('../models/categoryOfferModel');
+const cartModel = require('../models/cartModel');
 
 // // admin products list 
 // const adminProducts = async (req, res, next) => {
@@ -517,26 +518,53 @@ const adminDeleteProduct = async (req, res) => {
 
         const product = await productModel.findOne({ _id: productId })
         console.log(product)
+        
+        // const [parentCategoryId, subCategoryId] = product.categories;
+        // console.log(parentCategoryId, subCategoryId)
+        
+        // // Update parent and sub category by removing the current product id from its products array
+        // await categoryModel.findByIdAndUpdate(parentCategoryId, {
+        //     $pull: { products: productId },
+        // });
+        // await categoryModel.findByIdAndUpdate(subCategoryId, {
+        //     $pull: { products: productId },
+        // });
+        
+        // // Delete the product
+        // await productModel.findByIdAndDelete(productId);
+        
+        if(product.status == true) {
+            await productModel.findByIdAndUpdate(productId, {
+                status: false
+            }) 
 
-        const [parentCategoryId, subCategoryId] = product.categories;
-        console.log(parentCategoryId, subCategoryId)
+            req.session.Message = "Product disabled successfully"
+        } else {
+            await productModel.findByIdAndUpdate(productId, {
+                status: true
+            }) 
+            req.session.Message = "Product abled successfully"
+        }
 
-        // Update parent and sub category by removing the current product id from its products array
-        await categoryModel.findByIdAndUpdate(parentCategoryId, {
-            $pull: { products: productId },
-        });
-        await categoryModel.findByIdAndUpdate(subCategoryId, {
-            $pull: { products: productId },
-        });
-
-        // Delete the product
-        await productModel.findByIdAndDelete(productId);
+        const userId = req.session.verifiedUser.userid;
+        console.log(userId);
+        const cart = await cartModel.find({userId: userId})
+        console.log("cart")
+        console.log(cart)
+        const isProduct = await productModel.find({ _id: { $in: cart.products } });
+        console.log(isProduct)
+        if(isProduct) {
+            if(product.status == true) {
+                await cartModel.updateMany({userId:userId}, {isActive: false})
+            } else {
+                await cartModel.updateMany({userId:userId}, {isActive: true})
+            }
+        }
 
         // Send a success response or perform additional operations if needed
-        req.session.Message = "Product deleted successfully"
         res.redirect('/admin/products')
         return
-
+        
     } catch (error) {
         console.log(error)
     }

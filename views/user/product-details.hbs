@@ -227,8 +227,12 @@
                                         <div class="bt-1 border-color-1 mt-30 mb-30"></div>
                                         <div class="detail-extralink">
                                             <div class="product-extra-link2">
+                                                {{#if (eq productDetails.stock 0)}}
+                                                <span class="text-danger">Out of stock</span>
+                                                {{else}}
                                                 <button type="submit" class="button button-add-to-cart">Add to cart</button>
-                                                <a aria-label="Add To Wishlist" class="action-btn hover-up" href=""><i class="fi-rs-heart"></i></a>
+                                                {{/if}}
+                                                <a aria-label="Add To Wishlist" class="action-btn hover-up" href="/wishlist/add/?wishlistItemId={{productDetails._id}}"><i class="fi-rs-heart"></i></a>
                                             </div>
                                         </div>
                                         </form>
@@ -236,7 +240,11 @@
 
                                         <ul class="product-meta font-xs color-grey mt-50">
                                             <li class="mb-5">Tags:{{#each productDetails.tags}} <a href="#" rel="tag">{{this}}</a>{{/each}}
-                                            <li>Availability:<span class="in-stock text-success ml-5">{{productDetails.stock}} Items In Stock</span></li>
+                                            {{#if (eq productDetails.status true)}}
+                                                <li>Availability:<span class="in-stock text-success ml-5">{{productDetails.stock}} Items In Stock</span></li>
+                                            {{else}}
+                                                <li>Availability:<span class="in-stock text-danger ml-5">Out of stock</span></li>
+                                            {{/if}}
                                         </ul>
                                     </div>
                                     <!-- Detail Info -->

@@ -55,6 +55,11 @@ const productSchema = new mongoose.Schema({
         type: Date,
         default: Date.now
     },
+    status: {
+        type: Boolean,
+        default: true,
+        required: true
+    }
 });
 
 const productModel = mongoose.model("productInfo", productSchema);

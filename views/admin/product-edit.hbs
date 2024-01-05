@@ -109,32 +109,32 @@
         <nav>
             <ul class="menu-aside">
                 <li class="menu-item">
-                    <a class="menu-link" href="../admin/home"> <i class="icon material-icons md-home"></i>
+                    <a class="menu-link" href="/admin/home"> <i class="icon material-icons md-home"></i>
                         <span class="text">Dashboard</span>
                     </a>
                 </li>
                 <li class="menu-item">
-                    <a class="menu-link" href="../admin/users"> <i class="icon material-icons md-person"></i>
+                    <a class="menu-link" href="/admin/users"> <i class="icon material-icons md-person"></i>
                         <span class="text">users</span>
                     </a>
                 </li>
                 <li class="menu-item">
-                    <a class="menu-link" href="../admin/categories"> <i class="icon material-icons md-store"></i>
+                    <a class="menu-link" href="/admin/categories"> <i class="icon material-icons md-store"></i>
                         <span class="text">Categories</span>
                     </a>
                 </li>
                 <li class="menu-item active">
-                    <a class="menu-link" href="../admin/products"> <i class="icon material-icons md-shopping_bag"></i>
+                    <a class="menu-link" href="/admin/products"> <i class="icon material-icons md-shopping_bag"></i>
                         <span class="text">Products</span>
                     </a>
                 </li>
                 <li class="menu-item">
-                    <a class="menu-link" href="../admin/addProduct"> <i class="icon material-icons md-add_box"></i>
+                    <a class="menu-link" href="/admin/addProduct"> <i class="icon material-icons md-add_box"></i>
                         <span class="text">Add product</span>
                     </a>
                 </li>
                 <li class="menu-item">
-                    <a class="menu-link" href="../admin/orders"> <i class="icon material-icons md-shopping_cart"></i>
+                    <a class="menu-link" href="/admin/orders"> <i class="icon material-icons md-shopping_cart"></i>
                         <span class="text">Orders</span>
                     </a>
                 </li>
@@ -144,18 +144,18 @@
                     </a>
                 </li>
                 <li class="menu-item">
-                    <a class="menu-link" disabled href="../admin/banners"> <i class="icon material-icons md-pie_chart"></i>
+                    <a class="menu-link" disabled href="/admin/banners"> <i class="icon material-icons md-pie_chart"></i>
                         <span class="text">Banners</span>
                     </a>
                 </li>
                 <li class="menu-item">
-                    <a class="menu-link" href="../admin/coupens"> <i class="icon material-icons md-local_offer"></i>
+                    <a class="menu-link" href="/admin/coupens"> <i class="icon material-icons md-local_offer"></i>
                         <span class="text"> Coupens </span>
                     </a>
                 </li>
                 <hr>
                 <li class="menu-item">
-                    <a class="menu-link" style="color:red" href="../admin/logout"><i class="material-icons md-exit_to_app"></i>
+                    <a class="menu-link" style="color:red" href="/admin/logout"><i class="material-icons md-exit_to_app"></i>
                         <span class="text"> Logout </span>
                     </a>
                 </li>
@@ -479,6 +479,9 @@
         } else if (isNaN(parseInt(stock))) {
             //alert('Stock should be a number.');
             document.getElementById('productStockError').textContent = 'Stock should be a number.';
+            return false;
+        } else if (parseInt(stock) < 0) {
+            document.getElementById('productStockError').textContent = 'Stock should not be less than 0.';
             return false;
         }
 

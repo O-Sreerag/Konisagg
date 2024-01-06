@@ -84,7 +84,12 @@ const userHome = async (req, res, next) => {
     wishlistItemCount: wishlistItemCount,
     cartItemCount: cartItemCount,
     banners: banners,
+    Message: req.session?.Message,
   })
+
+  if(req.session.Message) {
+    req.session.Message = null
+  }
 }
 
 
@@ -93,9 +98,9 @@ const userHome = async (req, res, next) => {
 const login = (req, res, next) => {
   console.log("login")
 
-  res.render('user/user-login', { error: req.session?.user?.loginError })
-  if (req.session && req.session.user) {
-    req.session.user.loginError = null;
+  res.render('user/user-login', { error: req.session?.passwordResetUser?.loginError })
+  if (req.session && req.session.passwordResetUser) {
+    req.session.passwordResetUser.loginError = null;
   }
 }
 
@@ -105,7 +110,7 @@ const loginSubmit = async (req, res, next) => {
 
     const { useremail, userpassword } = req.body;
     console.log({ useremail, userpassword });
-    req.session.user = {
+    req.session.passwordResetUser = {
       email: req.body.useremail
     };
 
@@ -122,7 +127,7 @@ const loginSubmit = async (req, res, next) => {
         let verifiedImage = user?.userimage;
 
         // Destroy the session and clear the cookie
-        console.log(req.session.user)
+        console.log(req.session.passwordResetUser)
         req.session.passwordResetUser = null
         res.clearCookie('connect.sid');
 
@@ -140,11 +145,11 @@ const loginSubmit = async (req, res, next) => {
 
         res.redirect('/');
       } else {
-        req.session.user.loginError = "incorrect password";
+        req.session.passwordResetUser.loginError = "incorrect password";
         res.redirect('/login');
       }
     } else {
-      req.session.user.loginError = "incorrect email";
+      req.session.passwordResetUser.loginError = "incorrect email";
       res.redirect('/login');
     }
   } catch (error) {
@@ -155,9 +160,9 @@ const loginSubmit = async (req, res, next) => {
 const otpLogin = (req, res, next) => {
   console.log("otplogin")
 
-  res.render('user/user-otp-login', { error: req.session?.user?.otpLoginEmailError })
-  if (req.session && req.session.user) {
-    req.session.user.otploginEmailError = null;
+  res.render('user/user-otp-login', { error: req.session?.passwordResetUser?.otpLoginEmailError })
+  if (req.session && req.session.passwordResetUser) {
+    req.session.passwordResetUser.otploginEmailError = null;
   }
 }
 
@@ -170,22 +175,22 @@ const otpLoginSubmit = async (req, res, next) => {
 
     const user = await userModel.findOne({ useremail });
     if (user) {
-      req.session.user = {
+      req.session.passwordResetUser = {
         email: useremail
       }
 
       let generatedotp = Math.floor(100000 + Math.random() * 900000)
-      req.session.user.otp = generatedotp;
-      console.log(req.session.user)
+      req.session.passwordResetUser.otp = generatedotp;
+      console.log(req.session.passwordResetUser)
 
-      sendOtp(req.session.user.email, req.session.user.otp)
+      sendOtp(req.session.passwordResetUser.email, req.session.passwordResetUser.otp)
       res.redirect('/otplogin~otp')
 
     } else {
-      if(!req.session.user) {
-        req.session.user = {}
+      if(!req.session.passwordResetUser) {
+        req.session.passwordResetUser = {}
       }
-      req.session.user.otpLoginEmailError = "invalid email"
+      req.session.passwordResetUser.otpLoginEmailError = "invalid email"
       res.redirect('/otplogin')
     }
 
@@ -197,30 +202,30 @@ const otpLoginSubmit = async (req, res, next) => {
 const otpLoginOtp = async (req, res, next) => {
   console.log("otplogin~otp")
 
-  res.render('user/user-otp-login-submit', { error: req.session?.user?.otpLoginOtpError })
-  if (req.session && req.session.user) {
-    req.session.user.otploginOtpError = null;
+  res.render('user/user-otp-login-submit', { error: req.session?.passwordResetUser?.otpLoginOtpError })
+  if (req.session && req.session.passwordResetUser) {
+    req.session.passwordResetUser.otploginOtpError = null;
   }
 }
 
 const otpLoginOtpSubmit = async (req, res, next) => {
   console.log("otplogin~otp/submit")
 
-  let generatedotp = req.session.user.otp;
+  let generatedotp = req.session.passwordResetUser.otp;
   console.log(generatedotp);
   console.log(req.body.otp);
 
   if (parseInt(req.body.otp) === generatedotp) {
 
-    let verifiedEmail = req.session.user.email;
+    let verifiedEmail = req.session.passwordResetUser.email;
     const user = await userModel.findOne({ useremail: verifiedEmail })
     console.log(user)
 
     let verifiedImage = user?.userimage
 
     // Destroy the session and clear the cookie
-    console.log(req.session.user)
-    req.session.user.otpLoginOtpError = null
+    console.log(req.session.passwordResetUser)
+    req.session.passwordResetUser.otpLoginOtpError = null
     res.clearCookie('connect.sid');
 
     // Reinitialize req.session.passwordResetUser
@@ -236,7 +241,7 @@ const otpLoginOtpSubmit = async (req, res, next) => {
 
     res.redirect('/');
   } else {
-    req.session.user.otpLoginOtpError = "invalid otp";
+    req.session.passwordResetUser.otpLoginOtpError = "invalid otp";
     res.redirect('/otplogin~otp');
   }
 }
@@ -403,7 +408,7 @@ const userSignupSubmit = (req, res, next) => {
 const userSignupOtp = (req, res, next) => {
   console.log("signup/otp")
 
-  res.render('user/user-signup-otp', { error: req.session?.user?.signupOtpError })
+  res.render('user/user-signup-otp', { error: req.session?.passwordResetUser?.signupOtpError })
   if (req.session && req.session.passwordResetUser) {
     req.session.passwordResetUser.signupOtpError = null;
   }
@@ -540,9 +545,9 @@ const accountEditProfileImage = async(req, res, next) => {
     const userDetails = await userModel.find({useremail: req.session.verifiedUser.useremail})
     console.log(userDetails)
 
-    res.render('user/settings-account-editProfileImage', {user: userDetails[0], message: req.session?.userEditProfile?.message})
-    if (req.session && req.session.userEditProfile) {
-      req.session.userEditProfile.message = null;
+    res.render('user/settings-account-editProfileImage', {user: userDetails[0], message: req.session?.passwordResetUserEditProfile?.message})
+    if (req.session && req.session.passwordResetUserEditProfile) {
+      req.session.passwordResetUserEditProfile.message = null;
   }
   } catch(error) {
     console.log(error)

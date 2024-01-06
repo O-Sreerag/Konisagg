@@ -80,18 +80,11 @@
     let errorMessage
 
     // Validate username length
-    if (username.length < 5) {
+    if (username.trim().length < 5) {
         errorMessage ="Username should be at least 5 characters long."
         document.getElementById("error").innerHTML = errorMessage
         return false;
     }
-
- //   // Validate phone number length
- //   if (phone.length !== 10) {
- //       errorMessage ="Phone number should be exactly 10 digits."
- //       document.getElementById("error").innerHTML = errorMessage
- //       return false;
- //   }
 
     // Validate password requirements
     const passwordRegex = /^(?=.*[0-9])(?=.*[A-Za-z])(?=.*[@#$%^&+=]).{8,}$/;

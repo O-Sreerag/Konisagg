@@ -20,7 +20,7 @@ router.get('/testing', (req, res) => {
 // URLs
 
 // home page
-router.get('/',userController.userHome);
+router.get('/', userMiddlewares.userBlockStatus,userController.userHome);
 
 // user login management
 router.get('/login', userMiddlewares.userLoginStatusTrue,userController.login);
@@ -49,8 +49,8 @@ router.post('/resendOtp', userController.resendOtp)
 router.get('/logout', userController.userLogout)
 
 // shop page management
-router.get('/shop', shopController.userShop);
-router.get('/shop/product/details', shopController.productDetails)
+router.get('/shop', userMiddlewares.userBlockStatus, shopController.userShop);
+router.get('/shop/product/details', userMiddlewares.userBlockStatus, shopController.productDetails)
 router.get('/getOnlyCategories', shopController.getOnlyCategories)
 router.post('/shop/sortByCategory', shopController.sortByCategory)
 router.post('/shop/sortByPrice', shopController.sortByPrice)
@@ -59,40 +59,40 @@ router.post('/shop/search', shopController.searchProduct)
 
 // user Settings
 // account Management
-router.get('/account/view~profile', userMiddlewares.userLoginStatusFalse, userController.accountViewProfile);
-router.get('/account/edit~profile', userMiddlewares.userLoginStatusFalse, userController.accountEditProfile);
+router.get('/account/view~profile', userMiddlewares.userLoginStatusFalse, userMiddlewares.userBlockStatus, userController.accountViewProfile);
+router.get('/account/edit~profile', userMiddlewares.userLoginStatusFalse, userMiddlewares.userBlockStatus, userController.accountEditProfile);
 router.post('/account/edit~profile/submit', userMiddlewares.userLoginStatusFalse, multer.userImagesFolder.single('userimage'), userController.accountEditProfileSubmit);
-router.get('/account/edit~profile/image', userMiddlewares.userLoginStatusFalse, userController.accountEditProfileImage);
+router.get('/account/edit~profile/image', userMiddlewares.userLoginStatusFalse, userMiddlewares.userBlockStatus, userController.accountEditProfileImage);
 router.post('/account/edit~profile/image/submit', userMiddlewares.userLoginStatusFalse, multer.userImagesFolder.single('userimage'), userController.accountEditProfileImageSubmit);
-router.get('/account/edit~profile/deleteImage/submit', userController.accountEditProfileDeleteImageSubmit);
-router.get('/account/editprofile/editEmail', userController.accountEditEmail);
-router.get('/account/add~address', userMiddlewares.userLoginStatusFalse, userController.accountAddAddress);
+router.get('/account/edit~profile/deleteImage/submit', userMiddlewares.userLoginStatusFalse, userMiddlewares.userBlockStatus, userController.accountEditProfileDeleteImageSubmit);
+router.get('/account/editprofile/editEmail', userMiddlewares.userLoginStatusFalse, userMiddlewares.userBlockStatus, userController.accountEditEmail);
+router.get('/account/add~address', userMiddlewares.userLoginStatusFalse, userMiddlewares.userBlockStatus, userController.accountAddAddress);
 router.post('/account/add~address/submit', userMiddlewares.userLoginStatusFalse, userController.accountAddAddressSubmit);
-router.get('/account/delete~address/submit', userMiddlewares.userLoginStatusFalse, userController.accountDeleteAddress);
-router.get('/account/security', userMiddlewares.userLoginStatusFalse, userController.accountSecurity);
+router.get('/account/delete~address/submit', userMiddlewares.userLoginStatusFalse, userMiddlewares.userBlockStatus, userController.accountDeleteAddress);
+router.get('/account/security', userMiddlewares.userLoginStatusFalse, userMiddlewares.userBlockStatus, userController.accountSecurity);
 
 // wishlist management
-router.get('/wishlist/view', userMiddlewares.userLoginStatusFalse, wishlistController.viewItems)
-router.get('/wishlist/add', userMiddlewares.userLoginStatusFalse, wishlistController.addToWishlist)
-router.get('/wishlist/delete/:itemId', userMiddlewares.userLoginStatusFalse, wishlistController.deleteItem)
+router.get('/wishlist/view', userMiddlewares.userLoginStatusFalse, userMiddlewares.userBlockStatus, wishlistController.viewItems)
+router.get('/wishlist/add', userMiddlewares.userLoginStatusFalse, userMiddlewares.userBlockStatus, wishlistController.addToWishlist)
+router.get('/wishlist/delete/:itemId', userMiddlewares.userLoginStatusFalse, userMiddlewares.userBlockStatus, wishlistController.deleteItem)
 
 // cart management
-router.get('/cart/view', userMiddlewares.userLoginStatusFalse, cartController.viewItems)
+router.get('/cart/view', userMiddlewares.userLoginStatusFalse, userMiddlewares.userBlockStatus, cartController.viewItems)
 router.post('/cart/add', userMiddlewares.userLoginStatusFalse, cartController.addToCart)
-router.get('/cart/delete', userMiddlewares.userLoginStatusFalse, cartController.deleteItem)
-router.get('/cart/delete/all', userMiddlewares.userLoginStatusFalse, cartController.deleteAllItems)
+router.get('/cart/delete', userMiddlewares.userLoginStatusFalse, userMiddlewares.userBlockStatus, cartController.deleteItem)
+router.get('/cart/delete/all', userMiddlewares.userLoginStatusFalse, userMiddlewares.userBlockStatus, cartController.deleteAllItems)
 router.post('/cart/update-quantity', userMiddlewares.userLoginStatusFalse, cartController.updateQuantity)
 
 // Checkout page
-router.get('/checkout', userMiddlewares.userLoginStatusFalse, cartController.checkout)
+router.get('/checkout', userMiddlewares.userLoginStatusFalse, userMiddlewares.userBlockStatus, cartController.checkout)
 router.post('/checkout/applyCoupen', userMiddlewares.userLoginStatusFalse, cartController.applyCoupen)
 router.post('/placeorder', userMiddlewares.userLoginStatusFalse, cartController.placeOrder)
 router.post('/verify-payment', userMiddlewares.userLoginStatusFalse, cartController.verifyPayment)
-router.get('/order-success', userMiddlewares.userLoginStatusFalse, cartController.orderSuccess)
+router.get('/order-success', userMiddlewares.userLoginStatusFalse, userMiddlewares.userBlockStatus, cartController.orderSuccess)
 
 // Order management
-router.get('/orders/history', userMiddlewares.userLoginStatusFalse, orderController.orderHistory)
-router.get('/order/details', userMiddlewares.userLoginStatusFalse, orderController.orderDetails)
+router.get('/orders/history', userMiddlewares.userLoginStatusFalse, userMiddlewares.userBlockStatus, orderController.orderHistory)
+router.get('/order/details', userMiddlewares.userLoginStatusFalse, userMiddlewares.userBlockStatus, orderController.orderDetails)
 router.get('/order/cancel/', userMiddlewares.userLoginStatusFalse, orderController.orderCancel)
 router.get('/order/return/', userMiddlewares.userLoginStatusFalse, orderController.orderReturn)
 router.post('/order/cancel/singleProduct', userMiddlewares.userLoginStatusFalse, orderController.cancelSingleProduct)

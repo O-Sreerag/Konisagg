@@ -28,6 +28,10 @@ const adminUserBlock = async (req, res, next) => {
     try {
         console.log(req.query.userid) 
         const user= await userModel.updateOne({_id: req.query.userid}, {status:false})
+        if(req.session.verifiedUser) {
+            const verifiedUser = req.session.verifiedUser
+            
+        }
         next()
     } catch (error) {
         console.log(error);

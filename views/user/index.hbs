@@ -472,6 +472,24 @@
     }
     </script>
 
+        <!-- SweetAlert CDN -->
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <script>
+    document.addEventListener("DOMContentLoaded", function () {
+        // Check if the bannerMessage exists and is not empty
+        const bannerMessage = "{{ Message }}";
+        if (bannerMessage) {
+        // Trigger SweetAlert to display the bannerMessage
+        Swal.fire({
+            title: 'Notification',
+            text: bannerMessage,
+            icon: 'info',
+            // You can add more configurations as needed
+        });
+        }
+    });
+    </script>
+
    
 </body>
 

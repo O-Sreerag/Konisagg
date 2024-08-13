@@ -207,7 +207,8 @@
                     <div class="col-lg-3 d-md-none d-lg-block">
                         {{#if categoryOffer}}
                         <div class="banner-img banner-1 wow fadeIn  animated home-3">
-                            <img class="border-radius-10"style="height:390px" src="/multer/offers/cropped-{{categoryOffer.image}}" alt="">
+                            {{!-- <img class="border-radius-10"style="height:390px" src="/multer/offers/cropped-{{categoryOffer.image}}" alt=""> --}}
+                            <img class="border-radius-10"style="height:390px" src="{{categoryOffer.image}}" alt="">
                             <div class="banner-text">
                                 <span>{{categoryOffer.name}}</span>
                                 <h4>{{categoryOffer.description}}</h4>
@@ -217,7 +218,8 @@
                         {{/if}}
                         {{#if productOffer}}
                         <div class="banner-img banner-2 wow fadeIn  animated mb-0">
-                            <img class="border-radius-10" src="/multer/offers/cropped-{{productOffer.image}}" alt="">
+                            {{!-- <img class="border-radius-10" src="/multer/offers/cropped-{{productOffer.image}}" alt=""> --}}
+                            <img class="border-radius-10" src="{{productOffer.image}}" alt="">
                             <div class="banner-text">
                                 <span>{{productOffer.name}}</span>
                                 <h4>{{productOffer.description}}</h4>
@@ -267,8 +269,10 @@
                                     <div class="product-img-action-wrap">
                                         <div class="product-img product-img-zoom">
                                             <a href="/shop/product/details?productid={{_id}}">
-                                                <img class="default-img" src="/multer/products/cropped-{{productimages.[0]}}" alt="">
-                                                <img class="hover-img" src="/multer/products/cropped-{{productimages.[1]}}" alt="">
+                                                {{!-- <img class="default-img" src="/multer/products/cropped-{{productimages.[0]}}" alt="">
+                                                <img class="hover-img" src="/multer/products/cropped-{{productimages.[1]}}" alt=""> --}}
+                                                <img class="default-img" src="{{productimages.[0]}}" alt="">
+                                                <img class="hover-img" src="{{productimages.[1]}}" alt="">
                                             </a>
                                         </div>
                                         <div class="product-action-1">
@@ -465,7 +469,8 @@
             payload.forEach((item, index) => {
                 if(index > 0) searchResults.innerHTML += `<hr>`
                 //searchResults.innerHTML += `<p>${item.productname}</p>`
-                searchResults.innerHTML+=`<div onclick="window.location.href='/shop/product/details?productid=${item._id}'" class="d-flex"  style="align-items: center; justify-content: space-around;"><img src="/multer/products/cropped-${item.productimages[0]}" style="width: 50px; border-radius: 50%;" alt="Product Image"><p>${item.productname}<p></div>`
+                //searchResults.innerHTML+=`<div onclick="window.location.href='/shop/product/details?productid=${item._id}'" class="d-flex"  style="align-items: center; justify-content: space-around;"><img src="/multer/products/cropped-${item.productimages[0]}" style="width: 50px; border-radius: 50%;" alt="Product Image"><p>${item.productname}<p></div>`
+                searchResults.innerHTML+=`<div onclick="window.location.href='/shop/product/details?productid=${item._id}'" class="d-flex"  style="align-items: center; justify-content: space-around;"><img src="${item.productimages[0]}" style="width: 50px; border-radius: 50%;" alt="Product Image"><p>${item.productname}<p></div>`
             })
             return
         })

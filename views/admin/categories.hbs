@@ -519,7 +519,8 @@
                     
             document.getElementById("viewCategoryName").innerHTML = name;
             if(image) {
-            document.getElementById("viewCategoryImage").src = "../multer/categories/" + image;
+            //document.getElementById("viewCategoryImage").src = "../multer/categories/" + image;
+            document.getElementById("viewCategoryImage").src = image;
             } else {
             document.getElementById("viewCategoryImage").src = "assets/imgs/theme/upload.svg";
             }
@@ -576,7 +577,8 @@
             document.getElementById("updatecategoryid").value = _id
             document.getElementById("updatecategoryname").value = name
             if(image) {
-            document.getElementById("updateCategoryImagePreview").src = "../multer/categories/" + image;
+            //document.getElementById("updateCategoryImagePreview").src = "../multer/categories/" + image;
+            document.getElementById("updateCategoryImagePreview").src = image;
             } else {
             document.getElementById("updateCategoryImagePreview").src = "assets/imgs/theme/upload.svg";
             }

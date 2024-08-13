@@ -234,7 +234,8 @@
                                             <figure class="text-lg-center">
                                                 {{#if user.userimage}}
                                                     <!-- Display the user's existing image -->
-                                                    <img class="img-lg mb-3 img-avatar" src="/multer/users/{{user.userimage}}" alt="User Photo">
+                                                    {{!-- <img class="img-lg mb-3 img-avatar" src="/multer/users/{{user.userimage}}" alt="User Photo"> --}}
+                                                    <img class="img-lg mb-3 img-avatar" src="{{user.userimage}}" alt="User Photo">
                                                     <a href="/account/edit~profile/image">edit/delete image</a>
                                                 {{else}}
                                                     <!-- Display the default image and "Upload" caption when there is no image -->

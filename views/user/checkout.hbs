@@ -593,7 +593,8 @@
             payload.forEach((item, index) => {
                 if(index > 0) searchResults.innerHTML += `<hr>`
                 //searchResults.innerHTML += `<p>${item.productname}</p>`
-                searchResults.innerHTML+=`<div onclick="window.location.href='/shop/product/details?productid=${item._id}'" class="d-flex"  style="align-items: center; justify-content: space-around;"><img src="/multer/products/cropped-${item.productimages[0]}" style="width: 50px; border-radius: 50%;" alt="Product Image"><p>${item.productname}<p></div>`
+                //searchResults.innerHTML+=`<div onclick="window.location.href='/shop/product/details?productid=${item._id}'" class="d-flex"  style="align-items: center; justify-content: space-around;"><img src="/multer/products/cropped-${item.productimages[0]}" style="width: 50px; border-radius: 50%;" alt="Product Image"><p>${item.productname}<p></div>`
+                searchResults.innerHTML+=`<div onclick="window.location.href='/shop/product/details?productid=${item._id}'" class="d-flex"  style="align-items: center; justify-content: space-around;"><img src="${item.productimages[0]}" style="width: 50px; border-radius: 50%;" alt="Product Image"><p>${item.productname}<p></div>`
             })
             return
         })

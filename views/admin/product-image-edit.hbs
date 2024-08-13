@@ -149,7 +149,8 @@
                                         <div class="class-body">
                                             <div class="d-flex" style="justify-content: space-around;">
                                                 <div class="image-previews-og" id="image-previews-og-{{@index}}">
-                                                    <img src="/multer/products/cropped-{{this}}" alt="Product Image">
+                                                    {{!-- <img src="/multer/products/cropped-{{this}}" alt="Product Image"> --}}
+                                                    <img src="{{this}}" alt="Product Image">
                                                 </div>
                                                 <div class="input-upload">
                                                     <div id="image-previews-{{@index}}" class="image-previews">
@@ -281,7 +282,8 @@
 
                 const imageName = data.imageName; // Replace 'imageName' with the correct property name from your server response
                 console.log('Received Image Name:', imageName);
-                const imageOgSrc = `/multer/products/cropped-${imageName}`;
+                // const imageOgSrc = `/multer/products/cropped-${imageName}`;
+                const imageOgSrc = `${imageName}`;
 
                 const imgOgElement = imagePreviewOgElement.querySelector('img');
                 if (imgOgElement) {

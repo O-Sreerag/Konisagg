@@ -321,7 +321,8 @@
                                                 {{#if user.userimage}}
                                                 <!-- Display the user's existing image -->
                                                 <img class="img-lg mb-3 img-avatar"
-                                                    src="/multer/users/{{user.userimage}}" alt="User Photo">
+                                                    {{!-- src="/multer/users/{{user.userimage}}" alt="User Photo"> --}}
+                                                    src="{{user.userimage}}" alt="User Photo">
                                                 {{else}}
                                                 <!-- Display the default image and "Upload" caption when there is no image -->
                                                 <img class="img-lg mb-3 img-avatar" src="../usericon/usericon.jpeg"

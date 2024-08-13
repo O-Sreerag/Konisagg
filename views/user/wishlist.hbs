@@ -113,7 +113,8 @@
                                                     <tbody>
                                                         {{#each wishlistItems}}
                                                         <tr>
-                                                            <td class="image product-thumbnail"><img src="../multer/products/cropped-{{productimages.[0]}}" alt="#"></td>
+                                                            {{!-- <td class="image product-thumbnail"><img src="../multer/products/cropped-{{productimages.[0]}}" alt="#"></td> --}}
+                                                            <td class="image product-thumbnail"><img src="{{productimages.[0]}}" alt="#"></td>
                                                             <td class="product-des product-name">
                                                                 <h5 class="product-name"><a href="shop-product-right.html">{{productname}}</a></h5>
                                                                 <p class="font-xs">{{productdescription}}

@@ -249,7 +249,8 @@
                                 <div class="input-upload">
                                     <div id="image-previews" class="image-previews">
                                         {{#each product.productimages}}
-                                            <img src="/multer/products/cropped-{{this}}" alt="Product Image">
+                                            {{!-- <img src="/multer/products/cropped-{{this}}" alt="Product Image"> --}}
+                                            <img src="{{this}}" alt="Product Image">
                                         {{/each}}
                                     </div>
                                 </div>

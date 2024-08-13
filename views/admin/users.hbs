@@ -169,7 +169,8 @@
                                     <td width="40%">
                                             {{#if userimage}}
                                                 <div class="left">
-                                                    <img src="../multer/users/{{userimage}}" class="img-sm img-avatar" alt="Userpic">
+                                                    {{!-- <img src="../multer/users/{{userimage}}" class="img-sm img-avatar" alt="Userpic"> --}}
+                                                    <img src="{{userimage}}" class="img-sm img-avatar" alt="Userpic">
                                                 </div>
                                             {{else}}
                                                 <div class="left">
@@ -268,11 +269,12 @@
       return;
     }
     
+    //   ${user.userimage ? `<div class="left"><img src="../multer/users/${user.userimage}" class="img-sm img-avatar" alt="Userpic"></div>` : `<div class="left"><img src="../images/user-icon-2.png" class="img-sm img-avatar" alt="Default Userpic"></div>`}
     payload.forEach(user => {
       const userHTML = `
         <tr>
           <td width="40%">
-            ${user.userimage ? `<div class="left"><img src="../multer/users/${user.userimage}" class="img-sm img-avatar" alt="Userpic"></div>` : `<div class="left"><img src="../images/user-icon-2.png" class="img-sm img-avatar" alt="Default Userpic"></div>`}
+            ${user.userimage ? `<div class="left"><img src="${user.userimage}" class="img-sm img-avatar" alt="Userpic"></div>` : `<div class="left"><img src="../images/user-icon-2.png" class="img-sm img-avatar" alt="Default Userpic"></div>`}
             <div class="info pl-3">
               <h6 class="mb-0 title">${user.username}</h6>
               <small class="text-muted">User ID: ${user._id}</small>

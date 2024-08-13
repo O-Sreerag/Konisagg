@@ -149,13 +149,15 @@
                                         <!-- MAIN SLIDES -->
                                         <div class="product-image-slider">
                                             <figure class="border-radius-10">
-                                                <img src="/multer/products/cropped-{{productDetails.productimages.[0]}}" alt="product image" width="100%" height="100%">
+                                                {{!-- <img src="/multer/products/cropped-{{productDetails.productimages.[0]}}" alt="product image" width="100%" height="100%"> --}}
+                                                <img src="{{productDetails.productimages.[0]}}" alt="product image" width="100%" height="100%">
                                             </figure>
                                         </div>
                                         <!-- THUMBNAILS -->
                                         <div class="slider-nav-thumbnails pl-15 pr-15">
                                             {{#each productDetails.productimages}}
-                                                <div><img src="/multer/products/cropped-{{this}}" alt="product image"></div>
+                                                {{!-- <div><img src="/multer/products/cropped-{{this}}" alt="product image"></div> --}}
+                                                <div><img src="{{this}}" alt="product image"></div>
                                             {{/each}}
                                         </div>
                                     </div>

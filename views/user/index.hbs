@@ -86,7 +86,8 @@
                                 <div class="header-action-icon-2 dropdown nav-item">
                                     <a href="user-profile.html" data-bs-toggle="dropdown" id="dropdownAccount" aria-expanded="false">
                                         {{#if userimage}}
-                                        <img class="svgInject" alt="Evara" src="multer/users/{{userimage}}" style="border-radius:50px; height:27px; width:27px">
+                                        {{!-- <img class="svgInject" alt="Evara" src="multer/users/{{userimage}}" style="border-radius:50px; height:27px; width:27px"> --}}
+                                        <img class="svgInject" alt="Evara" src="{{userimage}}" style="border-radius:50px; height:27px; width:27px">
                                         {{else}}
                                         <img class="svgInject" alt="Evara" src="../images/user-icon-2.png">
                                         {{/if}}
@@ -176,7 +177,8 @@
                                                 <a class="animated btn btn-brush btn-brush-3" href="../shop"> Shop Now </a>
                                             </div>
                                             <div class="slider-img">
-                                                <img src="multer/banners/cropped-{{image}}" alt="">
+                                                {{!-- <img src="multer/banners/cropped-{{image}}" alt=""> --}}
+                                                <img src="{{image}}" alt="">
                                             </div>
                                         </div>
                                     </div>

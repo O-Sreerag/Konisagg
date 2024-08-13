@@ -51,7 +51,7 @@ router.get('/addProduct', adminMiddleware.adminLoginStatusFalse, productControll
 router.get('/addProductOverride', adminMiddleware.adminLoginStatusFalse, productController.adminAddProductsForm)
 router.get('/getSubcategories', adminMiddleware.adminLoginStatusFalse, productController.getSubCategories);
 // router.post('/addProductSubmit', multer.productImagesFolder.array('productimage'), sharp.cropProductImages, productController.adminAddProductsSubmit);
-router.post('/addProductSubmit', multer2.productImagesFolder, productController.adminAddProductsSubmit);
+router.post('/addProductSubmit', multer2.productImagesFolder, cloudinary.uploadProductImages, productController.adminAddProductsSubmit);
 router.get('/product/edit', adminMiddleware.adminLoginStatusFalse, productController.adminEditProduct);
 router.post('/product/edit/submit', productController.adminEditProductSubmit);
 router.get('/product/editImage', adminMiddleware.adminLoginStatusFalse, productController.adminEditProductImage);

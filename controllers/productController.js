@@ -176,9 +176,10 @@ const adminAddProductsSubmit = async (req, res, next) => {
 
         const { product_name, product_description, regular_price, product_stock, returnPeriodValue, warrantyPeriodValue, selected_paymentMethods, selected_colors, selected_sizes, selectedCategories, tags } = req.body
         console.log({ product_name, product_description, regular_price, product_stock, returnPeriodValue, warrantyPeriodValue, selected_paymentMethods, selected_colors, selected_sizes, selectedCategories, tags })
-        const productimage = req.files
-        console.log(productimage)
-        const productimagearray = req.files.map(file => file.filename)
+        // const productimage = req.files
+        // console.log(productimage)
+        // const productimagearray = req.files.map(file => file.filename)
+        const productimagearray = req.uploadedImages
         console.log(productimagearray)
     
         // Convert returnPeriodValue and warrantyPeriodValue to JSON objects
@@ -457,7 +458,8 @@ const adminEditProductImageSubmit = async (req, res) => {
     try  {
         console.log("admin edit product image submit root")
 
-        const productimage = req.file.filename
+        // const productimage = req.file.filename
+        const productimage = req.uploadedImage
         console.log(productimage)
 
         const productId = req.query.productId

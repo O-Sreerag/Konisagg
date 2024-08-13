@@ -130,8 +130,8 @@ const cropBannerImage = async (req, res, next) => {
     // Define the crop rectangle coordinates and dimensions
     let x, y, width, height;
 
-    const targetWidth = 966; // Target width for cropping
-    const targetHeight = 542; // Target height for cropping
+    const targetWidth = 966; 
+    const targetHeight = 542; 
 
     const aspectRatioOriginal = originalWidth / originalHeight;
     const aspectRatioTarget = targetWidth / targetHeight;
@@ -195,8 +195,8 @@ const cropOfferImage = async (req, res, next) => {
       targetWidth = 600; // Target width for cropping
       targetHeight = 334; // Target height for cropping
     } else {
-      targetWidth = 600; // Target width for cropping
-      targetHeight = 712; // Target height for cropping
+      targetWidth = 600; 
+      targetHeight = 712; 
     }
 
     const aspectRatioOriginal = originalWidth / originalHeight;

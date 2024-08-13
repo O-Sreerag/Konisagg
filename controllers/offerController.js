@@ -117,7 +117,8 @@ const adminAddOfferSubmit = async (req, res) => {
                 for: offer_for[1],
                 name: offer_name,
                 description: offer_description,
-                image: offer_image.filename,
+                // image: offer_image.filename,
+                image: offer_image,
                 discountPercentage: discountPercentage,
                 startDate: new Date(startDate),
                 endDate: new Date(endDate)
@@ -151,7 +152,8 @@ const adminAddOfferSubmit = async (req, res) => {
                 offer_name,
                 name: offer_name,
                 description: offer_description,
-                image: offer_image.filename, 
+                // image: offer_image.filename, 
+                image: offer_image, 
                 discountPercentage: discountPercentage,
                 startDate: new Date(startDate),
                 endDate: new Date(endDate)

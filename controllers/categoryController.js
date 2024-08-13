@@ -227,7 +227,8 @@ const addCategorySubmit = async (req, res, next) => {
             name: categoryname,
         })
         if(categoryimage) {
-            newCategory.image = categoryimage.filename
+            // newCategory.image = categoryimage.filename
+            newCategory.image = categoryimage
         }
         if (selectedCategoryId !== "noId") {
             newCategory.parentCategory = selectedCategoryId;
@@ -294,7 +295,8 @@ const updateCategorySubmit = async (req, res, next) => {
         if(updatecategoryimage) {
             await categoryModel.updateOne(
                 { _id: updatecategoryid },
-                { $set: { image: updatecategoryimage.filename } },
+                // { $set: { image: updatecategoryimage.filename } },
+                { $set: { image: updatecategoryimage } },
                 { upsert: true })
         }
 

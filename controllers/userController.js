@@ -646,7 +646,8 @@ const accountEditProfileDeleteImageSubmit = async (req, res) => {
                 useraddresses: useraddresses,
                 username: username,
                 userphone: userphone,
-                userimage: userimage.filename,
+                // userimage: userimage.filename,
+                userimage: userimage,
             },
         };
 

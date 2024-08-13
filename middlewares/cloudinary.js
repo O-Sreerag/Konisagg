@@ -78,14 +78,21 @@ const uploadProductImages = (req, res, next) => {
     uploadImages(req, res, next, 'products', transformation);
 };
 
-const uploadProductOfferImage = (req, res, next) => {
-    const transformation = { width: 600, height: 334, crop: 'crop' };
-    uploadSingleImage(req, res, next, 'product_offer', transformation);
-};
+const uploadOfferImage = (req, res, next) => {
+    let transformation
+    let offerFor
 
-const uploadCategoryOfferImage = (req, res, next) => {
-    const transformation = { width: 600, height: 712, crop: 'crop' };
-    uploadSingleImage(req, res, next, 'category_offer', transformation);
+    const offer_for = req.body?.offer_for
+    console.log("offer_for :" , offer_for)
+
+    if (offer_for[0] === "product") {
+        transformation = { width: 600, height: 334, crop: 'crop' };
+        offerFor = 'product_offer'
+    } else {
+        const transformation = { width: 600, height: 712, crop: 'crop' };
+        offerFor = 'category_offer'
+    }
+    uploadSingleImage(req, res, next, offerFor, transformation);
 };
 
 const uploadBannerImage = (req, res, next) => {
@@ -103,8 +110,7 @@ const uploadCategoryImage = (req, res, next) => {
 
 module.exports = {
     uploadProductImages,
-    uploadProductOfferImage,
-    uploadCategoryOfferImage,
+    uploadOfferImage,
     uploadBannerImage,
     uploadUserImage,
     uploadCategoryImage,

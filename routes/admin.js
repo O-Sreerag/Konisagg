@@ -39,9 +39,9 @@ router.get('/categories', adminMiddleware.adminLoginStatusFalse, categoryControl
 router.post('/categories/search', adminMiddleware.adminLoginStatusFalse, categoryController.searchCategory);
 router.post('/getPSCategory', categoryController.getParentSubCategories);
 // router.post('/addCategorySubmit', multer.categoryImagesFolder.single('categoryimage'), categoryController.addCategorySubmit);
-router.post('/addCategorySubmit', multer2.categoryImagesFolder, categoryController.addCategorySubmit);
+router.post('/addCategorySubmit', multer2.categoryImagesFolder, cloudinary.uploadCategoryImage, categoryController.addCategorySubmit);
 // router.post('/updateCategorySubmit', multer.categoryImagesFolder.single('updatecategoryimage'), categoryController.updateCategorySubmit);
-router.post('/updateCategorySubmit', multer2.categoryImagesFolderUpdate, categoryController.updateCategorySubmit);
+router.post('/updateCategorySubmit', multer2.categoryImagesFolderUpdate, cloudinary.uploadCategoryImage, categoryController.updateCategorySubmit);
 router.get('/category/delete', adminMiddleware.adminLoginStatusFalse, categoryController.deleteCategorySubmit);
 
 /* admin  products */
@@ -56,7 +56,7 @@ router.get('/product/edit', adminMiddleware.adminLoginStatusFalse, productContro
 router.post('/product/edit/submit', productController.adminEditProductSubmit);
 router.get('/product/editImage', adminMiddleware.adminLoginStatusFalse, productController.adminEditProductImage);
 // router.post('/product/editImage/submit', multer.productImagesFolder.single('productimage'), sharp.cropProductImage, productController.adminEditProductImageSubmit);
-router.post('/product/editImage/submit', multer2.productImagesFolderSingle, productController.adminEditProductImageSubmit);
+router.post('/product/editImage/submit', multer2.productImagesFolderSingle, cloudinary.uploadSingleProductImage, productController.adminEditProductImageSubmit);
 router.delete('/product/deleteImage/submit', adminMiddleware.adminLoginStatusFalse, productController.adminDeleteProductImageSubmit);
 router.get('/product/delete', productController.adminDeleteProduct);
 
@@ -75,7 +75,7 @@ router.get('/offers/category/addOffer', adminMiddleware.adminLoginStatusFalse, o
 router.get('/offers/product/addOffer', adminMiddleware.adminLoginStatusFalse, offerController.adminAddProductOffer);
 router.get('/offers/addOffer', adminMiddleware.adminLoginStatusFalse, offerController.adminAddOffer);
 // router.post('/offers/addOffer/submit', adminMiddleware.adminLoginStatusFalse, multer.offerImagesFolder.single('offerimage'), sharp.cropOfferImage, offerController.adminAddOfferSubmit);
-router.post('/offers/addOffer/submit', adminMiddleware.adminLoginStatusFalse, multer2.offerImagesFolder, offerController.adminAddOfferSubmit);
+router.post('/offers/addOffer/submit', adminMiddleware.adminLoginStatusFalse, multer2.offerImagesFolder, cloudinary.uploadOfferImage, offerController.adminAddOfferSubmit);
 
 // coupen management
 router.get('/coupens', adminMiddleware.adminLoginStatusFalse, coupenController.adminListCoupen)
@@ -87,7 +87,7 @@ router.get('/coupens/changeStatus', adminMiddleware.adminLoginStatusFalse, coupe
 router.get('/banners', adminMiddleware.adminLoginStatusFalse, bannerController.adminListBanners)
 router.get('/banners/create', adminMiddleware.adminLoginStatusFalse, bannerController.adminCreateBanners)
 // router.post('/banners/create/submit', adminMiddleware.adminLoginStatusFalse, multer.bannerImagesFolder.single('bannerimage'), sharp.cropBannerImage, bannerController.adminCreateBannersSubmit)
-router.post('/banners/create/submit', adminMiddleware.adminLoginStatusFalse, multer2.bannerImagesFolder, bannerController.adminCreateBannersSubmit)
+router.post('/banners/create/submit', adminMiddleware.adminLoginStatusFalse, multer2.bannerImagesFolder, cloudinary.uploadBannerImage, bannerController.adminCreateBannersSubmit)
 router.get('/banners/delete', adminMiddleware.adminLoginStatusFalse, bannerController.adminDeleteBanners)
 
 

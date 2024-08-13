@@ -207,7 +207,8 @@ const getParentSubCategories = async (req, res) => {
 const addCategorySubmit = async (req, res, next) => {
     try {
         let {categoryname, selectedCategoryId} = req.body;
-        const categoryimage = req.file;
+        // const categoryimage = req.file;
+        const categoryimage = req.uploadedImage;
 
         console.log("checking category name, parent, image details on add form submit");
         console.log(categoryname);
@@ -262,7 +263,8 @@ const addCategorySubmit = async (req, res, next) => {
 const updateCategorySubmit = async (req, res, next) => {
     try {
         let {updatecategoryid ,updatecategoryname, updateSelectedCategoryId} = req.body;
-        const updatecategoryimage = req.file;
+        // const updatecategoryimage = req.file;
+        const updatecategoryimage = req.uploadedImage;
 
         console.log("checking category name, parent, image details on update form submit");
         console.log(updatecategoryid);

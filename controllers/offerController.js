@@ -106,7 +106,8 @@ const adminAddOfferSubmit = async (req, res) => {
 
         const { offer_for, offer_name, offer_description, discountPercentage, startDate, endDate } = req.body;
         console.log({ offer_for, offer_name, offer_description, discountPercentage, startDate, endDate });
-        const offer_image = req.file;
+        // const offer_image = req.file;
+        const offer_image = req.uploadedImage;
         console.log(offer_image);
 
         let highestDiscount = 0; 

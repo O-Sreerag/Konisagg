@@ -562,8 +562,9 @@ const accountEditProfileImageSubmit = async (req, res) => {
     const userDetails = await userModel.findOne({useremail: req.session.verifiedUser.useremail})
     console.log(userDetails)
 
-    console.log(req.file)
-    let userimage = req.file.filename
+    // console.log(req.file)
+    // let userimage = req.file.filename
+    let userimage = req.uploadedImage
     console.log(userimage)
 
     const updatedUser = await userModel.findOneAndUpdate(
@@ -616,7 +617,8 @@ const accountEditProfileDeleteImageSubmit = async (req, res) => {
       console.log("post edit user profile")
 
       const {username, useremail, userphone} = req.body
-      const userimage = req.file
+      // const userimage = req.file
+      const userimage = req.uploadedImage
       const {state, district, city, pin, house} = req.body
       const useraddresses = [];
       

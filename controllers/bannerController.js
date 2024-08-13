@@ -31,7 +31,8 @@ const adminCreateBannersSubmit = async (req, res) => {
     try {
         console.log("admin banner create submit")
         const { bannerTitle, description1, description2 } = req.body;
-        const uploadedFileName = req.file.filename;
+        // const uploadedFileName = req.file.filename;
+        const uploadedFileName = req.uploadedImage;
         console.log({ bannerTitle, description1, description2 }, uploadedFileName)
 
         // Create a new banner document using Mongoose model

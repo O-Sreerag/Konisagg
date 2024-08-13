@@ -64,10 +64,10 @@ router.post('/shop/search', shopController.searchProduct)
 router.get('/account/view~profile', userMiddlewares.userLoginStatusFalse, userMiddlewares.userBlockStatus, userController.accountViewProfile);
 router.get('/account/edit~profile', userMiddlewares.userLoginStatusFalse, userMiddlewares.userBlockStatus, userController.accountEditProfile);
 // router.post('/account/edit~profile/submit', userMiddlewares.userLoginStatusFalse, multer.userImagesFolder.single('userimage'), userController.accountEditProfileSubmit);
-router.post('/account/edit~profile/submit', userMiddlewares.userLoginStatusFalse, multer2.userImagesFolder, userController.accountEditProfileSubmit);
+router.post('/account/edit~profile/submit', userMiddlewares.userLoginStatusFalse, multer2.userImagesFolder, cloudinary.uploadUserImage, userController.accountEditProfileSubmit);
 router.get('/account/edit~profile/image', userMiddlewares.userLoginStatusFalse, userMiddlewares.userBlockStatus, userController.accountEditProfileImage);
 // router.post('/account/edit~profile/image/submit', userMiddlewares.userLoginStatusFalse, multer.userImagesFolder.single('userimage'), userController.accountEditProfileImageSubmit);
-router.post('/account/edit~profile/image/submit', userMiddlewares.userLoginStatusFalse, multer2.userImagesFolder, userController.accountEditProfileImageSubmit);
+router.post('/account/edit~profile/image/submit', userMiddlewares.userLoginStatusFalse, multer2.userImagesFolder, cloudinary.uploadUserImage, userController.accountEditProfileImageSubmit);
 router.get('/account/edit~profile/deleteImage/submit', userMiddlewares.userLoginStatusFalse, userMiddlewares.userBlockStatus, userController.accountEditProfileDeleteImageSubmit);
 router.get('/account/editprofile/editEmail', userMiddlewares.userLoginStatusFalse, userMiddlewares.userBlockStatus, userController.accountEditEmail);
 router.get('/account/add~address', userMiddlewares.userLoginStatusFalse, userMiddlewares.userBlockStatus, userController.accountAddAddress);
